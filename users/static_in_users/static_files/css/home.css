@@ -1,0 +1,54 @@
+html, body {
+    height: 100%;
+    font-family: Open Sans;
+}
+
+a {
+    outline: none !important;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+    .navbar-custum {
+        padding-left: 130px;
+        padding-right: 130px;
+    }
+}
+
+.home-main-text {
+    color: #337ab7;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-family: Open Sans;
+    font-size: 2.7em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-group-vertical > button {
+    margin-bottom: 30px;
+    border-radius: 15px !important;
+}
+
+.row {
+    background-color: #efefef;
+    margin-top: 20px;
+}
+
+.login-button {
+    border-radius: 15px;
+    color: white;
+    background-color: #337ab7;
+    margin-bottom: 60px;
+}
+
+.icon-bar {
+    background-color: #337ab7;
+}
+
+.navbar-custum {
+
+}
