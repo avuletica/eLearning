@@ -35,20 +35,34 @@ a {
 
 .row {
     background-color: #efefef;
-    margin-top: 20px;
+}
+
+@media (min-width: 700px) and (min-height: 500px) {
+    .row {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 600px) and (max-height: 500px) {
+    .home-main-text {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    .login-button {
+        margin-bottom: 20px !important;
+    }
+
 }
 
 .login-button {
     border-radius: 15px;
     color: white;
     background-color: #337ab7;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
+
 }
 
 .icon-bar {
     background-color: #337ab7;
-}
-
-.navbar-custum {
-
 }
