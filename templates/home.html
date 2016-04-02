@@ -4,11 +4,11 @@
 {% block content %}
 
   <div class="row">
-    <div class="home-main-text">
+    <div class="col-sm-12 home-main-text">
       Learn anything, for free, for everyone!
     </div>
 
-    <div class="col-lg-4 col-lg-offset-4">d
+    <div class="col-lg-4 col-lg-offset-4">
       <form method='POST' action=''>{% csrf_token %}
         {{ form|crispy }}
         <button class="btn login-button">Log In</button>
