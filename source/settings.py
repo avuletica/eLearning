@@ -31,12 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third party-apps
+    'crispy_forms',
+    # My apps
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -120,3 +125,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = 'users/media/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_in_project", "static_root")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static_in_project", "media_root")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "users/static_in_users", "static_files"),
+    os.path.join(BASE_DIR, "users/static_in_users", "media"),
+    #'/var/www/static_in_users/',
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
