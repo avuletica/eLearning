@@ -127,17 +127,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = 'users/media/'
 
-# Server static_in_users files in production
-STATIC_ROOT = os.path.join(BASE_DIR, "users/static_in_users", "static_root")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_in_project", "static_root")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static_in_project", "media_root")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "users/static_in_users", "static_files"),
     os.path.join(BASE_DIR, "users/static_in_users", "media"),
     #'/var/www/static_in_users/',
 ]
-
-# Serve user-uploaded media files from MEDIA_ROOT
-MEDIA_ROOT = os.path.join(BASE_DIR, "users/static_in_users", "media_root")
-
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
