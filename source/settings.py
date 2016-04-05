@@ -31,15 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Third party-apps
+    'crispy_forms',
+    'registration',
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Third party-apps
-    'crispy_forms',
     # My apps
     'users',
 ]
@@ -136,4 +138,16 @@ STATICFILES_DIRS = [
     #'/var/www/static_in_users/',
 ]
 
+# Crispy forms tags settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# --- DJANGO REGISTRATION REDUX SETTINGS START ---
+
+# One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# Automatically log the user in.
+REGISTRATION_AUTO_LOGIN = True
+
+SITE_ID = 1
+# --- DJANGO REGISTRATION REDUX SETTINGS END ---
