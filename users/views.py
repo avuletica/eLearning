@@ -5,7 +5,7 @@ from .forms import LogInForm
 
 # Create your views here.
 def home(request):
-    title = 'Welcome'
+    title = 'eLearning'
     form = LogInForm(request.POST or None)
     context = {
         "title": title,
@@ -28,5 +28,5 @@ def home(request):
             "title": "Welcome user!"
         }
 
-    return render(request, "home.html", context)
+    return render(request, "registration/login.html", context)
 
