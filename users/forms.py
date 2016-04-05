@@ -1,16 +1,9 @@
 from django import forms
-from .models import LogIn
+from .models import User
 
-
-class ContactForm(forms.Form):
-    full_name = forms.CharField()
-    email = forms.EmailField()
-    message = forms.CharField()
-
-
-class LogInForm(forms.ModelForm):
+class UserLogInForm(forms.ModelForm):
     class Meta:
-        model = LogIn
+        model = User
         fields = ['email', 'password']
 
     def clean_email(self):
@@ -21,9 +14,10 @@ class LogInForm(forms.ModelForm):
         # 	raise forms.ValidationError
         if not extension == "edu":
             raise forms.ValidationError("Please use a valid .EDU email address")
-        return email
+        #return email
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
         # write validation code.
         return password
+
