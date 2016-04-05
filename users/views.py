@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-from .forms import LogInForm
+from .forms import UserLogInForm
 
 
 # Create your views here.
 def home(request):
     title = 'Welcome'
-    form = LogInForm(request.POST or None)
+    form = UserLogInForm(request.POST or None)
     context = {
         "title": title,
         "form": form
