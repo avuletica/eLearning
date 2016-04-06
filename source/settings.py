@@ -9,6 +9,11 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.orangeteam@gmail.com'
+EMAIL_HOST_PASSWORD = 'rainbowinthedark'
+EMAIL_PORT = 587
 
 import os
 
@@ -152,3 +157,7 @@ REGISTRATION_AUTO_LOGIN = True
 
 SITE_ID = 1
 # --- DJANGO REGISTRATION REDUX SETTINGS END ---
+
+REGISTRATION_OPEN = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
