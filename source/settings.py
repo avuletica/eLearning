@@ -9,11 +9,6 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'noreply.orangeteam@gmail.com'
-EMAIL_HOST_PASSWORD = 'rainbowinthedark'
-EMAIL_PORT = 587
 
 import os
 
@@ -160,4 +155,11 @@ SITE_ID = 1
 
 REGISTRATION_OPEN = True
 
+#config for sending mail from our official e-mail adress
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.orangeteam@gmail.com'
+EMAIL_HOST_PASSWORD = 'rainbowinthedark'
+EMAIL_PORT = 587
