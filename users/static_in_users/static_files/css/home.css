@@ -1,0 +1,23 @@
+html, body {
+    height: 100%;
+    font-family: Open Sans;
+}
+
+a {
+    outline: none !important;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+    .navbar-custum {
+        padding-left: 130px;
+        padding-right: 130px;
+    }
+}
+
+.row {
+    /*background-color: #efefef;*/
+}
+
+.icon-bar {
+    background-color: #337ab7;
+}

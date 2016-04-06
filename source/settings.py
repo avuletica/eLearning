@@ -31,12 +31,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Third party-apps
+    'crispy_forms',
+    'registration',
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # My apps
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -120,3 +127,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = 'users/media/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_in_project", "static_root")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static_in_project", "media_root")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "users/static_in_users", "static_files"),
+    os.path.join(BASE_DIR, "users/static_in_users", "media"),
+    #'/var/www/static_in_users/',
+]
+
+# Crispy forms tags settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# --- DJANGO REGISTRATION REDUX SETTINGS START ---
+
+# One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# Automatically log the user in.
+REGISTRATION_AUTO_LOGIN = True
+
+SITE_ID = 1
+# --- DJANGO REGISTRATION REDUX SETTINGS END ---
