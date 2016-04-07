@@ -1,2 +1,4 @@
 .idea/
 *.pyc
+
+source/settings_sensitive.py
