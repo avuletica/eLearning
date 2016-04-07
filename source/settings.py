@@ -157,7 +157,10 @@ REGISTRATION_OPEN = True
 
 #config for sending mail from our official e-mail adress
 #check source/settings_sensitive_template.txt for more info
-from settings_sensitive import *
+
+settings_sensitive = BASE_DIR + '/source/settings_sensitive.py'
+if os.path.isfile(settings_sensitive):
+    from settings_sensitive import *
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
