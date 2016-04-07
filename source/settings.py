@@ -156,10 +156,12 @@ SITE_ID = 1
 REGISTRATION_OPEN = True
 
 #config for sending mail from our official e-mail adress
+from settings_sensitive import *
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'noreply.orangeteam@gmail.com'
-EMAIL_HOST_PASSWORD = 'rainbowinthedark'
-EMAIL_PORT = 587
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
