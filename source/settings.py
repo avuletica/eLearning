@@ -152,3 +152,12 @@ REGISTRATION_AUTO_LOGIN = True
 
 SITE_ID = 1
 # --- DJANGO REGISTRATION REDUX SETTINGS END ---
+
+REGISTRATION_OPEN = True
+
+#config for sending mail from our official e-mail adress
+#check source/settings_sensitive_template.txt for more info
+from settings_sensitive import *
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+

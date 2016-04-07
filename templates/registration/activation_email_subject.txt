@@ -1,1 +1,1 @@
-Complete Registration for {{ site.name }}
+Complete Registration for E-Learning 
