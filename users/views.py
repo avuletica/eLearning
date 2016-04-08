@@ -10,3 +10,6 @@ def home(request):
 
     return render(request, "home.html", context)
 
+
+def profile(request):
+    return render(request, "user.html")
