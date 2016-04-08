@@ -17,10 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from users import views
+from users import views as user_views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', user_views.home, name='home'),
+    #url(r'^/accounts/register/', user_views.sign_in, name='sign_in'),
+    url(r'^accounts/profile/', user_views.profile, name='login'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.default.urls')),
