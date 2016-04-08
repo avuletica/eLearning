@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -10,3 +11,6 @@ def home(request):
 
     return render(request, "home.html", context)
 
+
+def profile(request):
+    return render(request, "user.html")
