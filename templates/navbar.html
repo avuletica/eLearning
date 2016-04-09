@@ -15,7 +15,11 @@
     <!-- Menu items -->
     <div class="collapse navbar-collapse" id="mainNavBar">
       <ul class="nav navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li class="active"><a href="/accounts/profile"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        {% else %}
         <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        {% endif %}
         <li><a href="/"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
         <li><a href="/"><span class="glyphicon glyphicon-earphone"></span> Contact</a></li>
 
@@ -35,7 +39,8 @@
       <!-- Right align -->
       <ul class="nav navbar-nav navbar-right">
       {% if request.user.is_authenticated %}
-          <li><a href="/accounts/logout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       {% else %}
         <li><a href="/accounts/register"><span class="glyphicon glyphicon-plus"></span> Sign Up</a></li>
         <li><a href="/accounts/login"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
