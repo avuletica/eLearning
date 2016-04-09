@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # My apps
     'users',
+    'courses',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -149,5 +150,19 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # Automatically log the user in.
 REGISTRATION_AUTO_LOGIN = True
 
+REGISTRATION_OPEN = True
+
+LOGIN_REDIRECT_URL = '/course'
+
 SITE_ID = 1
 # --- DJANGO REGISTRATION REDUX SETTINGS END ---
+
+# Config for sending mail from our official e-mail address
+# Check source/settings_sensitive_template.txt for more info
+
+settings_sensitive = BASE_DIR + '/source/settings_sensitive.py'
+if os.path.isfile(settings_sensitive):
+    from settings_sensitive import *
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+

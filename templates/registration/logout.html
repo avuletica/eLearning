@@ -2,5 +2,8 @@
 {% load i18n %}
 
 {% block content %}
-<p class='text-align-center lead'>You have successfully logged out.</p><p class='text-align-center lead'><a href="{% url 'auth_login' %}">Login</a></p></p>
+  <div class="container" style="text-align: center">
+    <h3>You have successfully logged out.</h3>
+    <p><a href="{% url 'auth_login' %}">Login</a></p>
+  </div>
 {% endblock %}
