@@ -7,17 +7,17 @@ a {
     outline: none !important;
 }
 
-@media (min-width: 900px) and (min-height: 500px) {
+@media (min-width: 900px) and (min-height: 650px) {
     .navbar-custum {
-        padding-left: 130px;
-        padding-right: 130px;
+        padding-left: 150px;
+        padding-right: 150px;
     }
-}
-
-.row {
-    /*background-color: #efefef;*/
 }
 
 .icon-bar {
     background-color: #337ab7;
+}
+
+h1, h2 {
+    color: #337ab7 !important;
 }

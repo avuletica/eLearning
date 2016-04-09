@@ -150,13 +150,15 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # Automatically log the user in.
 REGISTRATION_AUTO_LOGIN = True
 
+REGISTRATION_OPEN = True
+
+LOGIN_REDIRECT_URL = '/course'
+
 SITE_ID = 1
 # --- DJANGO REGISTRATION REDUX SETTINGS END ---
 
-REGISTRATION_OPEN = True
-
-#config for sending mail from our official e-mail adress
-#check source/settings_sensitive_template.txt for more info
+# Config for sending mail from our official e-mail address
+# Check source/settings_sensitive_template.txt for more info
 
 settings_sensitive = BASE_DIR + '/source/settings_sensitive.py'
 if os.path.isfile(settings_sensitive):
