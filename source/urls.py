@@ -21,8 +21,8 @@ from users import views as user_views
 
 urlpatterns = [
     url(r'^$', user_views.home, name='home'),
-    #url(r'^/accounts/login/', user_views.login, name='login'),
-    url(r'^accounts/profile/', user_views.profile, name='profile'),
+    url(r'^course/', user_views.course, name='course'),
+    url(r'^profile/', user_views.profile, name='profile'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.default.urls')),
