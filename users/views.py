@@ -11,12 +11,12 @@ def home(request):
     return render(request, "home.html", context)
 
 
-def login(request):
-    if request.user.is_authenticated():
-        return render(request, "home.html")
-
-
 @login_required(login_url='/accounts/login')
-def profile(request):
+def course(request):
     if request.user.is_authenticated():
         return render(request, "user.html")
+
+
+def profile(request):
+    if request.user.is_authenticated():
+        return render(request, "user_profile.html")
