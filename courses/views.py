@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import AddCourseForm
 from .models import Course
+from source import settings
 
 
-@login_required(login_url='/accounts/login')
 def profile(request):
     title = 'Profile'
     form = AddCourseForm(request.POST or None)
@@ -20,10 +19,12 @@ def profile(request):
         instance.save()
         return HttpResponseRedirect('')
 
-    return render(request, "user_profile.html", context)
+    if request.user.is_authenticated():
+        return render(request, "user_profile.html", context)
+    else:
+        return redirect(settings.LOGIN_URL)
 
 
-@login_required(login_url='/accounts/login')
 def course(request):
     title = 'Course'
     queryset = Course.objects.all()
@@ -33,4 +34,7 @@ def course(request):
         "queryset": queryset,
     }
 
-    return render(request, "user.html", context)
+    if request.user.is_authenticated():
+        return render(request, "user.html", context)
+    else:
+        return redirect(settings.LOGIN_URL)
