@@ -1,13 +1,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from users.models import User
+from users.models import UserProxy
 
 # Create your models here.
 class Course(models.Model):
 	course_name = models.CharField(max_length=50)
 	created_date = models.DateTimeField(auto_now_add=True)
-	user_fk = models.ManyToManyField(User) # verify
+	user_fk = models.ManyToManyField(UserProxy) # verify
 	free_course = models.BooleanField(default='True') #free or not free
 
 
