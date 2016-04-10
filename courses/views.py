@@ -16,7 +16,7 @@ def profile(request):
 
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.course_link = '/' + instance.course_name
+        instance.course_link = '/course' + instance.course_name
         instance.save()
         return HttpResponseRedirect('')
 
