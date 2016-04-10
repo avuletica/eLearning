@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from courses import views as course_views
 
 urlpatterns = [
     url(r'^$', user_views.home, name='home'),
-    url(r'^course/', user_views.course, name='course'),
-    url(r'^profile/', user_views.profile, name='profile'),
+    url(r'^course/', course_views.course, name='course'),
+    url(r'^profile/', course_views.profile, name='profile'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.default.urls')),
