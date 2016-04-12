@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from source import settings
 from courses.views import course
 from courses.forms import *
+from .forms import *
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
