@@ -1,0 +1,19 @@
+{% block cbox_model %}
+
+  <div class="container content">
+    <div class="row">
+      {% if queryset %}
+        {% for instance in queryset %}
+          <div class="col-md-4 course-box-model">
+            <div class="inner-wrap">
+              <a href="{{ instance.course_link }}">
+                <h3>{{ instance.course_name }}</h3>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
