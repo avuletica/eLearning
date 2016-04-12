@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="mainNavBar">
       <ul class="nav navbar-nav">
         {% if request.user.is_authenticated %}
-        <li class="active"><a href="/course"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li class="active"><a href="{% url 'courses' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
         {% else %}
         <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
         {% endif %}
@@ -39,7 +39,7 @@
       <!-- Right align -->
       <ul class="nav navbar-nav navbar-right">
       {% if request.user.is_authenticated %}
-          <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> {{ user.get_username }}</a></li>
+          <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> {{ user.get_username }}</a></li>
         <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       {% else %}
         <li><a href="/accounts/register"><span class="glyphicon glyphicon-plus"></span> Sign Up</a></li>
