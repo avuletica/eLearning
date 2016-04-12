@@ -22,10 +22,10 @@ from courses import views as course_views
 
 urlpatterns = [
     url(r'^$', user_views.home, name='home'),
-    url(r'^course/', course_views.course, name='course'),
     url(r'^profile/', course_views.profile, name='profile'),
 
     url(r'^admin/', admin.site.urls),
+    url(r'^courses/', include('courses.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
 ]
 

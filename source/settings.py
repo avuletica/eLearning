@@ -152,7 +152,7 @@ REGISTRATION_AUTO_LOGIN = True
 
 REGISTRATION_OPEN = True
 
-LOGIN_REDIRECT_URL = '/course'
+LOGIN_REDIRECT_URL = '/courses'
 LOGIN_URL = '/accounts/login'
 
 SITE_ID = 1

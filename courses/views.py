@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from .forms import AddCourseForm
 from .models import Course
 from source import settings
@@ -8,6 +7,7 @@ from source import settings
 def profile(request):
     title = 'Profile'
     form = AddCourseForm(request.POST or None)
+
     context = {
         "title": title,
         "form": form,
@@ -15,9 +15,9 @@ def profile(request):
 
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.course_link = '/course' + instance.course_name
+        instance.course_link = '/courses/' + instance.course_name
         instance.save()
-        return HttpResponseRedirect('')
+        return course(request, course_name=instance.course_name)
 
     if request.user.is_authenticated():
         return render(request, "user_profile.html", context)
@@ -25,8 +25,8 @@ def profile(request):
         return redirect(settings.LOGIN_URL)
 
 
-def course(request):
-    title = 'Course'
+def courses(request):
+    title = 'Courses'
     queryset = Course.objects.all()
 
     context = {
@@ -36,5 +36,18 @@ def course(request):
 
     if request.user.is_authenticated():
         return render(request, "user.html", context)
+    else:
+        return redirect(settings.LOGIN_URL)
+
+
+def course(request, course_name):
+    title = course_name
+
+    context = {
+        "title": title
+    }
+
+    if request.user.is_authenticated():
+        return render(request, "courses/course.html", context)
     else:
         return redirect(settings.LOGIN_URL)
