@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserProxy(User):
-	class Meta:
-		proxy = True
+    class Meta:
+        proxy = True
 
+
+class DeleteUser(models.Model):
+    username = models.CharField(max_length=30)
