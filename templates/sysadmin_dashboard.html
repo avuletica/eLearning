@@ -1,1 +1,61 @@
-<h1>SysAdmin dashboard</h1>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <h2 class="user-main-title" style="text-align: center">
+    Sys Admin Panel
+  </h2>
+  <hr/>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if queryset %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Active</th>
+              <th>Staff</th>
+              <th>Superuser</th>
+              <th>Date joined</th>
+              <th>Last login</th>
+            </tr>
+            </thead>
+            {% for instance in queryset %}
+              <tr>
+                <td>{{ instance.username }}</td>
+                <td>{{ instance.email }}</td>
+                <td>{{ instance.is_active }}</td>
+                <td>{{ instance.is_staff }}</td>
+                <td>{{ instance.is_superuser }}</td>
+                <td>{{ instance.date_joined }}</td>
+                <td>{{ instance.last_login }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
+
+      </div>
+      <div class="col-md-3">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ form2|crispy }}
+          <input class='btn btn-primary' type='submit' value='Add User'/>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ form3|crispy }}
+          <input class='btn btn-primary' type='submit' value='Delete User'/>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
