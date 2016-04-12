@@ -9,13 +9,3 @@ class AddCourseForm(forms.ModelForm):
         fields = ['course_name']
 
 
-class AddUser(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password', 'email']
-
-
-class DeleteUser(forms.ModelForm):
-    class Meta:
-        model = DeleteUser
-        fields = ['username']
