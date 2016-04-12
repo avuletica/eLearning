@@ -29,6 +29,11 @@ def profile(request):
         return course(request, course_name=instance.course_name)
 
     if request.user.is_authenticated():
-        return render(request, "user_profile.html", context)
+        if request.user.is_staff==True and request.user.is_superuser==False:
+            return render(request, "professor_dashboard.html", context)
+        elif request.user.is_superuser==True:
+            return render(request, "sysadmin_dashboard.html", context)
+        else:
+            return render(request, "student_dashboard.html", context)
     else:
         return redirect(settings.LOGIN_URL)
