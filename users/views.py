@@ -35,7 +35,7 @@ def profile(request):
         instance = add_user_form.save(commit=False)
 
         instance.save()
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect('/profile')
 
     if delete_user_form.is_valid():
         instance = delete_user_form.save(commit=False)
@@ -46,7 +46,7 @@ def profile(request):
         except User.DoesNotExist:
             pass
 
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect('/profile')
 
     if add_course_form.is_valid():
         instance = add_course_form.save(commit=False)
