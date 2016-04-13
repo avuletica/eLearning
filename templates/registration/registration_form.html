@@ -4,24 +4,27 @@
 
 
 {% block content %}
-<div class='row'>
-<div class='col-sm-6 col-sm-offset-3'>
-<h1>Register for free!</h1>
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form|crispy }}
+  {% if request.user.is_authenticated %}
+    <meta http-equiv="REFRESH" content="0;url=http://127.0.0.1:8000/">
+  {% else %}
+  <div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+      <h1>Register for free!</h1>
+      <form method="post" action=".">
+        {% csrf_token %}
+        {{ form|crispy }}
 
-  <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Join' %}" />
-</form>
-</div>
-</div>
+        <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Join' %}"/>
+      </form>
+    </div>
+  </div>
 
-<hr/>
-<div class='row'>
-<div class='col-sm-6 col-sm-offset-3 text-align-center'>
-<p>Need to <a href="{% url 'auth_login' %}">Login</a>?</p>
-</div>
-</div>
-
+  <hr/>
+  <div class='row'>
+    <div class='col-sm-6 col-sm-offset-3 text-align-center'>
+      <p>Need to <a href="{% url 'auth_login' %}">Login</a>?</p>
+    </div>
+  </div>
+  {% endif %}
 
 {% endblock %}
