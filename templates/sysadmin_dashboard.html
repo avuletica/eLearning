@@ -26,7 +26,7 @@
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td>{{ instance.username }}</td>
+                <td><a href="/user/{{ instance.username }}">{{ instance.username }}</a></td>
                 <td>{{ instance.email }}</td>
                 <td>{{ instance.is_active }}</td>
                 <td>{{ instance.is_staff }}</td>
