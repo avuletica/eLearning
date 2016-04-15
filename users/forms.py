@@ -8,7 +8,7 @@ class AddUser(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'password', 'email', 'is_staff']
 
 
 class DeleteUser(forms.ModelForm):
