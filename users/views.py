@@ -66,3 +66,30 @@ def profile(request):
             return render(request, "student_dashboard.html", context)
     else:
         return redirect(settings.LOGIN_URL)
+
+
+def update_profile(request, username):
+    if request.user.is_superuser:
+        user = User.objects.get(username=username)
+
+        data_dict = {'username': user.username, 'email': user.email}
+        update_user_form = EditUser(initial=data_dict, instance=user)
+        title = 'Edit user'
+        context = {
+            "title": title,
+            "update_user_form": update_user_form,
+        }
+
+        if request.POST:
+            user_form = EditUser(request.POST, instance=user)
+
+            if user_form.is_valid():
+                instance = user_form.save(commit=False)
+                passwd = user_form.cleaned_data.get("password")
+                instance.password = make_password(password=passwd,
+                                                  salt='salt', )
+                instance.save()
+
+                return redirect('/profile/')
+
+        return render(request, "edit_user.html", context)
