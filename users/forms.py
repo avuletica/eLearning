@@ -5,6 +5,9 @@ from users.models import *
 class AddUser(forms.ModelForm):
     class Meta:
         model = User
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
         fields = ['username', 'password', 'email']
 
 
