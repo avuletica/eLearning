@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from source import settings
-from courses.views import course
+from courses.forms import AddCourseForm, DeleteCourseForm
 from courses.models import Course
-from courses.forms import *
+
 from .forms import *
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -21,15 +21,17 @@ def home(request):
 def profile(request):
     title = 'Profile'
     add_course_form = AddCourseForm(request.POST or None)
+    delete_course_form = DeleteCourseForm(request.POST or None)
     add_user_form = AddUser(request.POST or None)
     delete_user_form = DeleteUser(request.POST or None)
     queryset = User.objects.all()
 
     context = {
         "title": title,
-        "form": add_course_form,
-        "form2": add_user_form,
-        "form3": delete_user_form,
+        "add_course_form": add_course_form,
+        "delete_course_form": delete_course_form,
+        "add_user_form": add_user_form,
+        "delete_user_form": delete_user_form,
         "queryset": queryset,
     }
 
@@ -54,9 +56,9 @@ def profile(request):
 
     if add_course_form.is_valid():
         instance = add_course_form.save(commit=False)
-        instance.course_link = '/courses/' + instance.course_name
+        instance.user = request.user
         instance.save()
-        return course(request, course_name=instance.course_name)
+        return redirect(instance.get_absolute_url())
 
     if request.user.is_authenticated():
         if request.user.is_staff and not request.user.is_superuser:
