@@ -5,6 +5,7 @@ from courses.forms import *
 from .forms import *
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.contrib.auth.hashers import make_password
 
 
 def home(request):
@@ -33,7 +34,9 @@ def profile(request):
 
     if add_user_form.is_valid():
         instance = add_user_form.save(commit=False)
-
+        passwd = add_user_form.cleaned_data.get("password")
+        instance.password = make_password(password=passwd,
+                                          salt='salt', )
         instance.save()
         return HttpResponseRedirect('/profile')
 
