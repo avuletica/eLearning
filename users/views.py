@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from source import settings
 from courses.views import course
+from courses.models import Course
 from courses.forms import *
 from .forms import *
 from django.contrib.auth.models import User
@@ -59,6 +60,11 @@ def profile(request):
 
     if request.user.is_authenticated():
         if request.user.is_staff and not request.user.is_superuser:
+            queryset = Course.objects.all()
+            context = {
+                "queryset": queryset,
+                "form": add_course_form
+            }
             return render(request, "professor_dashboard.html", context)
         elif request.user.is_superuser:
             return render(request, "sysadmin_dashboard.html", context)

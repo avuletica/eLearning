@@ -4,7 +4,7 @@
 {% block content %}
 
   <h2 class="user-main-title" style="text-align: center">
-    Dashboard
+     Professor Dashboard
   </h2>
   <hr/>
 
@@ -19,6 +19,36 @@
       </div>
     </div>
   </div>
+  <hr/>
 
+  <h3 class="lead" style="text-align: center">
+  Added Courses
+  </h3>  
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if queryset %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Course name</th>
+              <th>Date created</th>
+            </tr>
+            </thead>
+            {% for instance in queryset %}
+              <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.course_name }}</td>
+                <td>{{ instance.created_date }}</td>
+                <td><input class='btn btn-primary' type='submit' value='Delete Course' name="{{ instance.id }}"/></td>
+              </tr>
+            {%endfor%}
+          </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
