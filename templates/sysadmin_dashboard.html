@@ -42,7 +42,7 @@
       <div class="col-md-3">
         <form method='POST' action=''>
           {% csrf_token %}
-          {{ form2|crispy }}
+          {{ add_user_form|crispy }}
           <input class='btn btn-primary' type='submit' value='Add User'/>
         </form>
       </div>
@@ -50,7 +50,7 @@
       <div class="col-md-3">
         <form method='POST' action=''>
           {% csrf_token %}
-          {{ form3|crispy }}
+          {{ delete_user_form|crispy }}
           <input class='btn btn-primary' type='submit' value='Delete User'/>
         </form>
       </div>

@@ -6,7 +6,7 @@
         {% for instance in queryset %}
           <div class="col-md-4 course-box-model">
             <div class="inner-wrap">
-              <a href="{{ instance.course_link }}">
+              <a href="{{ instance.get_absolute_url }}">
                 <h3>{{ instance.course_name }}</h3>
               </a>
             </div>
