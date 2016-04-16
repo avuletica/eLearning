@@ -1,5 +1,6 @@
 from django import forms
 from users.models import *
+from crispy_forms.helper import FormHelper
 
 
 class AddUser(forms.ModelForm):
@@ -8,19 +9,13 @@ class AddUser(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-        fields = ['username', 'password', 'email', 'is_staff']
-
-
-class DeleteUser(forms.ModelForm):
-    class Meta:
-        model = DeleteUser
-        fields = ['username']
+        fields = ['username', 'password', 'email', 'is_staff', 'is_superuser']
 
 
 class EditUser(forms.ModelForm):
     class Meta:
-        model = EditUser
+        model = User
         widgets = {
             'password': forms.PasswordInput(),
         }
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'password', 'email', 'is_staff', 'is_superuser']
