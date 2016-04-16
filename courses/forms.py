@@ -18,15 +18,3 @@ class AddChapterForm(forms.ModelForm):
     class Meta:
         model = Chapter
         fields = ['chapter_name']
-
-
-class DeleteCourseForm(forms.ModelForm):
-    class Meta:
-        model = DeleteCourse
-        fields = ['course_name']
-
-
-class DeleteChapterForm(forms.ModelForm):
-    class Meta:
-        model = DeleteChapter
-        fields = ['chapter_name']
