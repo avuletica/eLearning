@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from source import settings
-from courses.forms import AddCourseForm, DeleteCourseForm
+from courses.forms import AddCourseForm
 from courses.models import Course
 
 from .forms import *
@@ -21,7 +21,6 @@ def home(request):
 def profile(request):
     title = 'Profile'
     add_course_form = AddCourseForm(request.POST or None)
-    delete_course_form = DeleteCourseForm(request.POST or None)
     add_user_form = AddUser(request.POST or None)
     delete_user_form = DeleteUser(request.POST or None)
     queryset = User.objects.all()
@@ -29,7 +28,6 @@ def profile(request):
     context = {
         "title": title,
         "add_course_form": add_course_form,
-        "delete_course_form": delete_course_form,
         "add_user_form": add_user_form,
         "delete_user_form": delete_user_form,
         "queryset": queryset,
