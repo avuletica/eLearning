@@ -21,7 +21,8 @@ from users import views as user_views
 
 urlpatterns = [
     url(r'^$', user_views.home, name='home'),
-    url(r'^user/(?P<username>[\w.@+-]+)', user_views.update_profile, name='update_profile'),
+    url(r'^user/edit/(?P<username>[\w.@+-]+)', user_views.update_user, name='update_user'),
+    url(r'^user/delete/(?P<username>[\w.@+-]+)', user_views.delete_user, name='delete_user'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^courses/', include('courses.urls')),
