@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from .forms import *
 from source import settings
 
@@ -60,16 +61,4 @@ def chapter(request, course_name=None, chapter_name=None):
 def delete_chapter(request, course_name=None, chapter_id=None):
     instance = Chapter.objects.get(id=chapter_id)
     instance.delete()
-    
-    title = course_name
-    add_chapter_form = AddChapterForm(request.POST or None)
-    queryset_course = Course.objects.all()
-    queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
-
-    context = {
-        "title": title,
-        "add_chapter_form": add_chapter_form,
-        "queryset_course": queryset_course,
-        "queryset_chapter": queryset_chapter,
-    }
-    return render(request, "courses/course.html", context)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
