@@ -15,17 +15,7 @@
           <input class='btn btn-primary' type='submit' value='Add chapter'/>
         </form>
       </div>
-
-      <div class="col-md-3">
-        <form method='POST' action=''>
-          {% csrf_token %}
-          {{ delete_chapter_form|crispy }}
-          <input class='btn btn-primary' type='submit' value='Delete chapter'/>
-        </form>
-      </div>
     </div>
   </div>
-
-
 
 {% endblock %}
