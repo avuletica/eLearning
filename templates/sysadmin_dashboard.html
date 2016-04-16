@@ -4,13 +4,22 @@
 {% block content %}
 
   <h2 class="user-main-title" style="text-align: center">
-    Sys Admin Panel
+    Admin Panel
   </h2>
   <hr/>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+
+      <div class="col-md-2">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_user_form|crispy }}
+          <input class='btn btn-primary' type='submit' value='Add User'/>
+        </form>
+      </div>
+
+      <div class="col-md-10">
         {% if queryset %}
           <table class="table">
             <thead>
@@ -26,34 +35,27 @@
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td><a href="/user/{{ instance.username }}">{{ instance.username }}</a></td>
+                <td><a href="/user/edit/{{ instance.username }}">{{ instance.username }}</a></td>
                 <td>{{ instance.email }}</td>
                 <td>{{ instance.is_active }}</td>
                 <td>{{ instance.is_staff }}</td>
                 <td>{{ instance.is_superuser }}</td>
                 <td>{{ instance.date_joined }}</td>
                 <td>{{ instance.last_login }}</td>
+                <td>
+                  <a href="/user/delete/{{ instance.username }}">
+                    <button class="btn btn-danger btn-sm">
+                      Delete{{ instance.delete }}</button>
+                  </a>
+                  </a>
+                </td>
               </tr>
             {% endfor %}
           </table>
         {% endif %}
 
       </div>
-      <div class="col-md-3">
-        <form method='POST' action=''>
-          {% csrf_token %}
-          {{ add_user_form|crispy }}
-          <input class='btn btn-primary' type='submit' value='Add User'/>
-        </form>
-      </div>
 
-      <div class="col-md-3">
-        <form method='POST' action=''>
-          {% csrf_token %}
-          {{ delete_user_form|crispy }}
-          <input class='btn btn-primary' type='submit' value='Delete User'/>
-        </form>
-      </div>
 
     </div>
   </div>
