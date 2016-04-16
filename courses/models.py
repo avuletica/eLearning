@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.conf import settings
+from users.models import User
 from django.core.urlresolvers import reverse
 
 
@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 class Course(models.Model):
     course_name = models.CharField(unique=True, max_length=50)
     course_created_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+    user = models.ForeignKey(User, default=1)
 
     def __unicode__(self):
         return self.course_name
@@ -37,5 +37,6 @@ class TextBlock(models.Model):
 
 
 class YTLink(models.Model):
-    link = models.URLField(unique=True, max_length=200, default='')
+    link = models.URLField(max_length=200, default='')
     yt_link_fk = models.ForeignKey(Chapter, default=1)
+
