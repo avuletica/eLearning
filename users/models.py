@@ -8,13 +8,3 @@ from django.contrib.auth.models import User
 class UserProxy(User):
     class Meta:
         proxy = True
-
-
-class DeleteUser(models.Model):
-    username = models.CharField(max_length=30)
-
-
-class EditUser(models.Model):
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
-    email = models.CharField(max_length=30)
