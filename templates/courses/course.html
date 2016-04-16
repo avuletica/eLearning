@@ -18,4 +18,38 @@
     </div>
   </div>
 
+  <h3 class="lead" style="text-align: center">Chapters</h3>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if queryset_chapter %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Chapter name</th>
+              <th>Course</th>
+              <th>Date created</th>
+            </tr>
+            </thead>
+            {% for instance in queryset_chapter %}
+              <tr>
+                <td>{{ instance.id }}</td>
+                <td><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
+                <td>{{ instance.course }}</td>
+                <td>{{ instance.chapter_created_date }}</td>
+                <td>
+                  <a href="{{ instance.id }}/delete">
+                    <input class='btn btn-primary' type='submit' value='Delete Chapter'/>
+                  </a>
+                </td>
+              </tr>
+            {%endfor%}
+          </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
