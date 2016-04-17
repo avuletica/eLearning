@@ -27,8 +27,8 @@
               <th>Username</th>
               <th>Email</th>
               <th>Active</th>
-              <th>Staff</th>
-              <th>Superuser</th>
+              <th>Professor</th>
+              <th>Admin</th>
               <th>Date joined</th>
               <th>Last login</th>
             </tr>
@@ -38,8 +38,8 @@
                 <td><a href="/user/edit/{{ instance.username }}">{{ instance.username }}</a></td>
                 <td>{{ instance.email }}</td>
                 <td>{{ instance.is_active }}</td>
-                <td>{{ instance.is_staff }}</td>
-                <td>{{ instance.is_superuser }}</td>
+                <td>{{ instance.is_professor }}</td>
+                <td>{{ instance.is_site_admin }}</td>
                 <td>{{ instance.date_joined }}</td>
                 <td>{{ instance.last_login }}</td>
                 <td>
