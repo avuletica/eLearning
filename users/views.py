@@ -7,6 +7,7 @@ from .forms import *
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import user_passes_test
 
 
 def home(request):
@@ -23,7 +24,6 @@ def profile(request):
     add_course_form = AddCourseForm(request.POST or None)
     delete_course_form = DeleteCourseForm(request.POST or None)
     add_user_form = AddUser(request.POST or None)
-    delete_user_form = DeleteUser(request.POST or None)
     queryset = User.objects.all()
 
     context = {
@@ -31,7 +31,6 @@ def profile(request):
         "add_course_form": add_course_form,
         "delete_course_form": delete_course_form,
         "add_user_form": add_user_form,
-        "delete_user_form": delete_user_form,
         "queryset": queryset,
     }
 
@@ -41,17 +40,6 @@ def profile(request):
         instance.password = make_password(password=passwd,
                                           salt='salt', )
         instance.save()
-        return HttpResponseRedirect('/profile')
-
-    if delete_user_form.is_valid():
-        instance = delete_user_form.save(commit=False)
-        delete_user_name = delete_user_form.cleaned_data.get("username")
-
-        try:
-            User.objects.get(username=delete_user_name).delete()
-        except User.DoesNotExist:
-            pass
-
         return HttpResponseRedirect('/profile')
 
     if add_course_form.is_valid():
@@ -76,28 +64,34 @@ def profile(request):
         return redirect(settings.LOGIN_URL)
 
 
-def update_profile(request, username):
-    if request.user.is_superuser:
-        user = User.objects.get(username=username)
+@user_passes_test(lambda user: user.is_superuser)
+def update_user(request, username):
+    user = User.objects.get(username=username)
+    data_dict = {'username': user.username, 'email': user.email}
+    update_user_form = EditUser(initial=data_dict, instance=user)
+    title = 'Edit user'
+    context = {
+        "title": title,
+        "update_user_form": update_user_form,
+    }
 
-        data_dict = {'username': user.username, 'email': user.email}
-        update_user_form = EditUser(initial=data_dict, instance=user)
-        title = 'Edit user'
-        context = {
-            "title": title,
-            "update_user_form": update_user_form,
-        }
+    if request.POST:
+        user_form = EditUser(request.POST, instance=user)
 
-        if request.POST:
-            user_form = EditUser(request.POST, instance=user)
+        if user_form.is_valid():
+            instance = user_form.save(commit=False)
+            passwd = user_form.cleaned_data.get("password")
+            instance.password = make_password(password=passwd,
+                                              salt='salt', )
+            instance.save()
 
-            if user_form.is_valid():
-                instance = user_form.save(commit=False)
-                passwd = user_form.cleaned_data.get("password")
-                instance.password = make_password(password=passwd,
-                                                  salt='salt', )
-                instance.save()
+            return redirect('/profile/')
 
-                return redirect('/profile/')
+    return render(request, "edit_user.html", context)
 
-        return render(request, "edit_user.html", context)
+
+@user_passes_test(lambda user: user.is_superuser)
+def delete_user(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+    return redirect('/profile/')
