@@ -24,7 +24,7 @@ def profile(request):
     add_course_form = AddCourseForm(request.POST or None)
     delete_course_form = DeleteCourseForm(request.POST or None)
     add_user_form = AddUser(request.POST or None)
-    queryset = User.objects.all()
+    queryset = UserProfile.objects.all()
 
     context = {
         "title": title,
@@ -49,14 +49,14 @@ def profile(request):
         return redirect(instance.get_absolute_url())
 
     if request.user.is_authenticated():
-        if request.user.is_staff and not request.user.is_superuser:
+        if request.user.is_professor:
             queryset = Course.objects.all()
             context = {
                 "queryset": queryset,
                 "form": add_course_form
             }
             return render(request, "professor_dashboard.html", context)
-        elif request.user.is_superuser:
+        elif request.user.is_site_admin:
             return render(request, "sysadmin_dashboard.html", context)
         else:
             return render(request, "student_dashboard.html", context)
@@ -64,9 +64,9 @@ def profile(request):
         return redirect(settings.LOGIN_URL)
 
 
-@user_passes_test(lambda user: user.is_superuser)
+@user_passes_test(lambda user: user.is_site_admin)
 def update_user(request, username):
-    user = User.objects.get(username=username)
+    user = UserProfile.objects.get(username=username)
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
     title = 'Edit user'
@@ -90,8 +90,8 @@ def update_user(request, username):
     return render(request, "edit_user.html", context)
 
 
-@user_passes_test(lambda user: user.is_superuser)
+@user_passes_test(lambda user: user.is_site_admin)
 def delete_user(request, username):
-    user = User.objects.get(username=username)
+    user = UserProfile.objects.get(username=username)
     user.delete()
     return redirect('/profile/')
