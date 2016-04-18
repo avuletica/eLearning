@@ -62,3 +62,10 @@ def delete_chapter(request, course_name=None, chapter_id=None):
     instance = Chapter.objects.get(id=chapter_id)
     instance.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_course(request, course_name=None):
+    if request.user.is_authenticated and request.user.is_professor:
+        instance = Course.objects.get(course_name=course_name)
+        instance.delete()
+        return redirect('/profile/')
