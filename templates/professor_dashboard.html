@@ -22,27 +22,29 @@
   <hr/>
 
   <h3 class="lead" style="text-align: center">
-  Added Courses
+  Your Courses
   </h3>  
 
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         {% if queryset %}
-          <table class="table">
+          <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Course name</th>
               <th>Date created</th>
+              <th>Action</th>
             </tr>
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td>{{ instance.course_name }}</td>
-                <td>{{ instance.created_date }}</td>
-                <td><input class='btn btn-primary' type='submit' value='Delete Course' name="{{ instance.id }}"/></td>
+                <td>{{ instance.course_created_date }}</td>
+                <td>
+                  <a href="http://127.0.0.1:8000/courses/{{ instance.course_name }}/delete">
+                  <input class='btn btn-primary' type='submit' value='Delete Course'/></a>
+                </td>
               </tr>
             {%endfor%}
           </table>
