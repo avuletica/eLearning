@@ -5,25 +5,24 @@ from django.contrib.auth.hashers import make_password
 
 
 def initial_users(apps, schema_editor):
-    UserProxy = apps.get_model("users", "UserProxy")
+    user = apps.get_model("users", "UserProfile")
 
-    UserProxy(username='user',
-              email='username.one@gmail.com',
-              password=make_password('letmein123')
-              ).save()
+    user(username='user',
+         email='username.one@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
 
-    UserProxy(username='staffuser',
-              email='username.two@gmail.com',
-              password=make_password('letmein123'),
-              is_staff=True,
-              ).save()
+    user(username='professor',
+         email='username.two@gmail.com',
+         password=make_password('letmein123'),
+         is_professor=True,
+         ).save()
 
-    UserProxy(username='superuser',
-              email='username.three@gmail.com',
-              password=make_password('letmein123'),
-              is_staff=True,
-              is_superuser=True,
-              ).save()
+    user(username='admin',
+         email='username.three@gmail.com',
+         password=make_password('letmein123'),
+         is_site_admin=True,
+         ).save()
 
 
 class Migration(migrations.Migration):
