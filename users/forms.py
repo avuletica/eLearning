@@ -1,6 +1,5 @@
 from django import forms
 from users.models import *
-from crispy_forms.helper import FormHelper
 
 
 class AddUser(forms.ModelForm):
