@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+import re
 
 
 class AddCourseForm(forms.ModelForm):
@@ -10,8 +11,9 @@ class AddCourseForm(forms.ModelForm):
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')
 
-        if not course_name.isalnum():
-            raise forms.ValidationError("Please make sure all characters are alphabetic")
+        regexp = re.compile(r'[0-9a-zA-Z ]')
+        if not regexp.match(course_name):
+            raise forms.ValidationError("Please make sure course name contains (a-z, A-Z, 0-9, space) characters")
 
         return course_name
 
@@ -24,7 +26,8 @@ class AddChapterForm(forms.ModelForm):
     def clean_chapter_name(self):
         chapter_name = self.cleaned_data.get('chapter_name')
 
-        if not chapter_name.isalnum():
-            raise forms.ValidationError("Please make sure all characters are alphabetic")
+        regexp = re.compile(r'[0-9a-zA-Z ]')
+        if not regexp.match(chapter_name):
+            raise forms.ValidationError("Please make sure chapter name contains (a-z, A-Z, 0-9, space) characters")
 
         return chapter_name
