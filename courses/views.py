@@ -89,18 +89,18 @@ def delete_course(request, course_name=None):
 def delete_chapter(request, course_name=None, chapter_id=None):
     instance = Chapter.objects.get(id=chapter_id)
     instance.delete()
-    return HttpResponseRedirect(request.META.get(''))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
 def delete_yt_link(request, course_name=None, chapter_name=None, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     instance.delete()
-    return HttpResponseRedirect(request.META.get(''))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
 def delete_text_block(request, course_name=None, chapter_name=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     instance.delete()
-    return HttpResponseRedirect(request.META.get(''))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
