@@ -25,11 +25,14 @@ def profile(request):
     add_course_form = AddCourseForm(request.POST or None)
     add_user_form = AddUser(request.POST or None)
     queryset = UserProfile.objects.all()
+    queryset_course = Course.objects.filter(user__username=request.user)
 
     context = {
         "title": title,
         "add_user_form": add_user_form,
+        "add_course_form": add_course_form,
         "queryset": queryset,
+        "queryset_course": queryset_course,
     }
 
     if add_user_form.is_valid():
@@ -49,12 +52,6 @@ def profile(request):
         return redirect(instance.get_absolute_url())
 
     if request.user.is_professor:
-        queryset = Course.objects.filter(user__username=request.user)
-        context = {
-            "queryset": queryset,
-            "form": add_course_form
-        }
-
         return render(request, "professor_dashboard.html", context)
 
     elif request.user.is_site_admin:
@@ -93,5 +90,4 @@ def update_user(request, username):
 def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
-
     return HttpResponseRedirect(reverse('profile'))
