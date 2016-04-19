@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from source import settings
 from courses.forms import AddCourseForm
 from courses.models import Course
 
 from .forms import *
-from django.contrib.auth.models import User
+
 from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.core.urlresolvers import reverse
 
 
 def home(request):
@@ -19,6 +19,7 @@ def home(request):
     return render(request, "home.html", context)
 
 
+@login_required
 def profile(request):
     title = 'Profile'
     add_course_form = AddCourseForm(request.POST or None)
@@ -27,7 +28,6 @@ def profile(request):
 
     context = {
         "title": title,
-        "add_course_form": add_course_form,
         "add_user_form": add_user_form,
         "queryset": queryset,
     }
@@ -38,28 +38,29 @@ def profile(request):
         instance.password = make_password(password=passwd,
                                           salt='salt', )
         instance.save()
-        return HttpResponseRedirect('/profile')
+
+        reverse('profile')
 
     if add_course_form.is_valid():
         instance = add_course_form.save(commit=False)
         instance.user = request.user
         instance.save()
+
         return redirect(instance.get_absolute_url())
 
-    if request.user.is_authenticated():
-        if request.user.is_professor:
-            queryset = Course.objects.all()
-            context = {
-                "queryset": queryset,
-                "form": add_course_form
-            }
-            return render(request, "professor_dashboard.html", context)
-        elif request.user.is_site_admin:
-            return render(request, "sysadmin_dashboard.html", context)
-        else:
-            return render(request, "student_dashboard.html", context)
+    if request.user.is_professor:
+        queryset = Course.objects.all()
+        context = {
+            "queryset": queryset,
+            "form": add_course_form
+        }
+
+        return render(request, "professor_dashboard.html", context)
+
+    elif request.user.is_site_admin:
+        return render(request, "sysadmin_dashboard.html", context)
     else:
-        return redirect(settings.LOGIN_URL)
+        return render(request, "student_dashboard.html", context)
 
 
 @user_passes_test(lambda user: user.is_site_admin)
@@ -92,4 +93,5 @@ def update_user(request, username):
 def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
-    return redirect('/profile/')
+
+    return HttpResponseRedirect(reverse('profile'))

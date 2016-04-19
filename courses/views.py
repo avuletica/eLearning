@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
 from source import settings
 
 
+@login_required
 def courses(request):
     title = 'Courses'
     queryset = Course.objects.all()
@@ -19,6 +21,7 @@ def courses(request):
         return redirect(settings.LOGIN_URL)
 
 
+@user_passes_test(lambda user: user.is_professor)
 def course(request, course_name=None):
     title = course_name
     add_chapter_form = AddChapterForm(request.POST or None)
@@ -39,12 +42,10 @@ def course(request, course_name=None):
         instance.save()
         return redirect(instance.get_absolute_url())
 
-    if request.user.is_authenticated():
-        return render(request, "courses/course.html", context)
-    else:
-        return redirect(settings.LOGIN_URL)
+    return render(request, "courses/course.html", context)
 
 
+@user_passes_test(lambda user: user.is_professor)
 def chapter(request, course_name=None, chapter_name=None):
     title = course_name + " : " + chapter_name
 
@@ -52,12 +53,10 @@ def chapter(request, course_name=None, chapter_name=None):
         "title": title,
     }
 
-    if request.user.is_authenticated():
-        return render(request, "courses/chapter.html", context)
-    else:
-        return redirect(settings.LOGIN_URL)
+    return render(request, "courses/chapter.html", context)
 
 
+@user_passes_test(lambda user: user.is_professor)
 def delete_chapter(request, course_name=None, chapter_id=None):
     instance = Chapter.objects.get(id=chapter_id)
     instance.delete()

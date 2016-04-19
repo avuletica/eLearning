@@ -30,6 +30,7 @@
               <th>ID</th>
               <th>Chapter name</th>
               <th>Date created</th>
+              <th></th>
             </tr>
             </thead>
             {% for instance in queryset_chapter %}
@@ -39,7 +40,7 @@
                 <td>{{ instance.chapter_created_date }}</td>
                 <td>
                   <a href="{{ instance.id }}/delete">
-                    <input class='btn btn-primary' type='submit' value='Delete Chapter'/>
+                    <input class='btn btn-primary btn-sm' type='submit' value='Delete Chapter'/>
                   </a>
                 </td>
               </tr>
