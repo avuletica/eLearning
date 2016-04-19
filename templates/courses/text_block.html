@@ -8,8 +8,9 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Chapter description</th>
+              <th>Lessons</th>
               <th>Date created</th>
+              <th>Actions</th>
             </tr>
             </thead>
             {% for instance in queryset_txt_block %}
@@ -18,8 +19,11 @@
                 <td>{{ instance.chapter_description }}</td>
                 <td>{{ instance.txt_created_date }}</td>
                 <td>
-                  <a href="{{ instance.id }}/delete">
-                    <input class='btn btn-primary' type='submit' value='Delete text block'/>
+                  <a href="{% url 'courses' %}txt/edit/{{ instance.id }}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Edit Lesson'/>
+                  </a>
+                  <a href="{% url 'courses' %}txt/delete/{{ instance.id }}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Delete Lesson'/>
                   </a>
                 </td>
               </tr>

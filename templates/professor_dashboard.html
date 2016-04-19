@@ -44,8 +44,12 @@
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
+                  <a href="{% url 'courses' %}{{ instance.course_name }}/edit">
+                    <input class='btn btn-primary' type='submit' value='Edit Course'/>
+                  </a>
                   <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
-                  <input class='btn btn-primary' type='submit' value='Delete Course'/></a>
+                    <input class='btn btn-primary' type='submit' value='Delete Course'/>
+                  </a>
                 </td>
               </tr>
             {%endfor%}
