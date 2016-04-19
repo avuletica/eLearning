@@ -49,7 +49,7 @@ def profile(request):
         return redirect(instance.get_absolute_url())
 
     if request.user.is_professor:
-        queryset = Course.objects.all()
+        queryset = Course.objects.filter(user__username=request.user)
         context = {
             "queryset": queryset,
             "form": add_course_form
