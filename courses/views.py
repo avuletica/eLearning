@@ -15,10 +15,7 @@ def courses(request):
         "queryset": queryset,
     }
 
-    if request.user.is_authenticated():
-        return render(request, "user.html", context)
-    else:
-        return redirect(settings.LOGIN_URL)
+    return render(request, "user.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
