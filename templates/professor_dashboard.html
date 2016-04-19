@@ -42,7 +42,7 @@
                 <td>{{ instance.course_name }}</td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
-                  <a href="http://127.0.0.1:8000/courses/{{ instance.course_name }}/delete">
+                  <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
                   <input class='btn btn-primary' type='submit' value='Delete Course'/></a>
                 </td>
               </tr>
