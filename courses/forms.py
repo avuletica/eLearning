@@ -31,3 +31,15 @@ class AddChapterForm(forms.ModelForm):
             raise forms.ValidationError("Please make sure chapter name contains (a-z, A-Z, 0-9, space) characters")
 
         return chapter_name
+
+
+class AddLinkForm(forms.ModelForm):
+    class Meta:
+        model = YTLink
+        fields = ['link']
+
+
+class AddTxtForm(forms.ModelForm):
+    class Meta:
+        model = TextBlock
+        fields = ['chapter_description']
