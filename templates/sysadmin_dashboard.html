@@ -36,7 +36,7 @@
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td><a href="/user/edit/{{ instance.username }}">{{ instance.username }}</a></td>
+                <td><a href="/profile/edit/{{ instance.username }}">{{ instance.username }}</a></td>
                 <td>{{ instance.email }}</td>
                 <td>{{ instance.is_active }}</td>
                 <td>{{ instance.is_professor }}</td>
@@ -44,10 +44,8 @@
                 <td>{{ instance.date_joined }}</td>
                 <td>{{ instance.last_login }}</td>
                 <td>
-                  <a href="/user/delete/{{ instance.username }}">
-                    <button class="btn btn-danger btn-sm">
-                      Delete{{ instance.delete }}</button>
-                  </a>
+                  <a href="/profile/delete/{{ instance.username }}">
+                    <button class="btn btn-danger btn-sm">Delete{{ instance.delete }}</button>
                   </a>
                 </td>
               </tr>
@@ -56,7 +54,6 @@
         {% endif %}
 
       </div>
-
 
     </div>
   </div>
