@@ -32,6 +32,7 @@
           <table class="table table-condensed table-hover">
             <thead>
             <tr>
+              <th>ID</th>
               <th>Course name</th>
               <th>Date created</th>
               <th>Action</th>
@@ -39,7 +40,8 @@
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td>{{ instance.course_name }}</td>
+                <td>{{ instance.id }}</td>
+                <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
                   <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
