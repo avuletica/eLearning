@@ -26,6 +26,15 @@ def about(request):
     return render(request, "users/about.html", context)
 
 
+def contact(request):
+    title = 'Contact'
+    context = {
+        "title": title,
+    }
+
+    return render(request, "users/contact.html", context)
+
+
 @login_required
 def profile(request):
     title = 'Profile'
