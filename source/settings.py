@@ -147,7 +147,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # One-week activation window; you may, of course, use a different value.
 ACCOUNT_ACTIVATION_DAYS = 7
 
-# Automatically log the user in.
+# Automatically log the users in.
 REGISTRATION_AUTO_LOGIN = True
 
 REGISTRATION_OPEN = True
