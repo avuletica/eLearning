@@ -1,5 +1,5 @@
 <!-- Navigation bar -->
-<nav class="navbar  " role="navigation">
+<nav class="navbar" role="navigation">
   <div class="container-fluid">
 
     <!-- Logo -->
@@ -14,12 +14,12 @@
     <!-- Menu items -->
     <div class="collapse navbar-collapse" id="mainNavBar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
         {% if request.user.is_authenticated %}
-          <li class="active"><a href="{% url 'courses' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="{% url 'courses' %}"><span class="glyphicon glyphicon-education"></span> Courses</a></li>
         {% else %}
-          <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="/"><span class="glyphicon glyphicon-education"></span> Courses</a></li>
         {% endif %}
-        <li><a href="/"><span class="glyphicon glyphicon-education"></span> Courses</a></li>
         <li><a href="/"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
         <li><a href="/"><span class="glyphicon glyphicon-earphone"></span> Contact</a></li>
 

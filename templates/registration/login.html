@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "users/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -10,8 +10,8 @@
       window.location.replace("http://127.0.0.1:8000");
     </script>
   {% else %}
-    <div class='row'>
-      <div class='col-sm-6 col-sm-offset-3'>
+    <div class='row login'>
+      <div class='col-sm-4 col-sm-offset-4'>
         <h1>Login</h1>
         <form method="post" action=".">
           {% csrf_token %}
@@ -23,8 +23,8 @@
       </div>
     </div>
     <hr/>
-    <div class='row'>
-      <div class='col-sm-6 col-sm-offset-3 text-align-center'>
+    <div class='row form-opt'>
+      <div class='col-sm-4 col-sm-offset-4 text-align-center'>
         <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
         <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
       </div>
