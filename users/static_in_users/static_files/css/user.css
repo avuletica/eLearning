@@ -1,3 +1,12 @@
+html, body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 100%;
+    background-color: #F6F6F6;
+    color: #637f83;
+
+}
+
+
 .inner-wrap {
     margin-top: 10px;
     border: solid black 1px;
