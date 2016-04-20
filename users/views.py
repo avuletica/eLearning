@@ -17,6 +17,15 @@ def home(request):
     return render(request, "home.html", context)
 
 
+def about(request):
+    title = 'About'
+    context = {
+        "title": title,
+    }
+
+    return render(request, "users/about.html", context)
+
+
 @login_required
 def profile(request):
     title = 'Profile'

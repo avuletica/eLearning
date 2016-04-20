@@ -14,7 +14,7 @@ def courses(request):
         "queryset": queryset,
     }
 
-    return render(request, "users/user.html", context)
+    return render(request, "users/course.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
