@@ -79,3 +79,8 @@ class EditTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
         fields = ['chapter_description']
+
+class AddStudentToCourse(forms.ModelForm):
+    class Meta:
+        model = AddStudents
+        fields = ['student_name']
