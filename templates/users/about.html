@@ -1,10 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'users/../users/../base.html' %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block content %}
+  <!-- About core css -->
+  <link href="{% static "css/about.css" %}" rel="stylesheet"/>
+
+  <!----//End-header---->
+  <div class="about">
+    <!----//start-banner---->
+    <div class="container">
+      <section class="title-section">
+        <h1 class="title-header">
+          About </h1>
+        <ul class="breadcrumb breadcrumb__t">
+          <li><a href="/">Home</a></li>
+          <li class="active">About</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="about_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 about_left">
+          <h3 class="m_2">A New Investment</h3>
+          <ul class="about_grid1 about_box">
+            <li class="about_img"><img src="{% static "img/a1.jpg" %}" class="img-responsive" alt=""/></li>
+            <li class="about_desc">
+              <h5><a href="#">Image Format</a></h5>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex</p>
+              <a href="#" class="about_btn" title="Image Format">more</a>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+
+          <ul class="about_grid1">
+            <li class="about_img"><img src="{% static "img/a2.jpg" %}" class="img-responsive" alt=""/></li>
+            <li class="about_desc">
+              <h5><a href="#">slideshow Format</a></h5>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                ullamcorper suscipit lobortis nisl ut aliquip ex</p>
+              <a href="#" class="about_btn" title="slideshow Format">more</a>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="m_2">Investment Focuses</h3>
+          <div class="list styled custom-list">
+            <ul>
+              <li><span class="dropcap">1.</span>  <h5><a href="#">nunc nobis videntur parum clari,.</a></h5>
+                <p> anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo
+                  typi, qui nunc nobis videntur paru.</p></li>
+              <li><span class="dropcap">2.</span>  <h5><a href="#">augue duis dolore te feugait nulla.</a></h5>
+                <p>Fusce dictum aliquam turpis! Fusce et am augue id, dictum augue. Phasellus at velit vel aliquam
+                  metus, quis dapibus sapien faucibus sed tellus massa.</p></li>
+              <li><span class="dropcap">3.</span>  <h5><a href="#">quod mazim placerat facer possim.</a></h5>
+                <p>aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper Ut wisi
+                  enim ad minim veniam, quis nostrud .</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'users/../users/../base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- Course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+
+  <!----//End-header---->
+  <div class="about">
+    <!----//start-banner---->
+    <div class="container">
+      <section class="title-section">
+        <h1 class="title-header">
+          Course </h1>
+        <ul class="breadcrumb breadcrumb__t">
+          <li><a href="/">Home</a></li>
+          <li class="active">Course</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+
+  {% include 'courses/course_box_model.html' %}
+
+{% endblock %}
