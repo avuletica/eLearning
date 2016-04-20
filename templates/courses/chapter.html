@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <h2 class="user-main-title" style="text-align: center">{{ title }}</h2>
+  <hr/>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_txt_form|crispy }}
+          <input class='btn btn-primary' type='submit' value='Add text'/>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_link_form|crispy}}
+          <input class='btn btn-primary' type='submit' value='Add YouTube video link'/>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  {% include 'courses/text_block.html' %}
+  <hr>
+  {% include 'courses/yt_link.html' %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if queryset_txt_block %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Chapter description</th>
+              <th>Date created</th>
+            </tr>
+            </thead>
+            {% for instance in queryset_txt_block %}
+              <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.chapter_description }}</td>
+                <td>{{ instance.txt_created_date }}</td>
+                <td>
+                  <a href="{{ instance.id }}/delete">
+                    <input class='btn btn-primary' type='submit' value='Delete text block'/>
+                  </a>
+                </td>
+              </tr>
+            {%endfor%}
+          </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

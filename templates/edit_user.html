@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% include 'head_css.html' %}
+{% include 'javascript.html' %}
+
+{% block content %}
+
+  <div class="col-md-2 col-md-offset-5">
+    <form method='POST' action=''>
+      {% csrf_token %}
+      {{ update_user_form|crispy }}
+      <input class='btn btn-primary' type='submit' value='Edit User'/>
+    </form>
+  </div>
+
+{% endblock %}

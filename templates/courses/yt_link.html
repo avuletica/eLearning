@@ -1,0 +1,33 @@
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% if queryset_yt_link %}
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Link</th>
+              <th>Date created</th>
+            </tr>
+            </thead>
+            {% for instance in queryset_yt_link %}
+              <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.link }}</td>
+                <td>{{ instance.link_created_date }}</td>
+                <td>
+                  <a href="delete/{{ instance.id }}">
+                    <input class='btn btn-primary' type='submit' value='Delete YouTube link'/>
+                  </a>
+                </td>
+              </tr>
+            {%endfor%}
+          </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
