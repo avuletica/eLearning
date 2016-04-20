@@ -185,3 +185,32 @@ def update_text_block(request, course_name=None, txt_id=None):
 
     return render(request, "courses/edit.html", context)
 
+@user_passes_test(lambda user: user.is_professor)
+def add_students(request, course_name=None):
+    add_student_form = AddStudentToCourse(request.POST or None)
+    title = "Edit students in course " + course_name
+    course = Course.objects.get(course_name=course_name)
+    added_students = UserProfile.objects.filter(students_to_course=course)
+    context = {
+        "title": title,
+        "add_student_form": add_student_form,
+        "added_students": added_students, 
+        "course_name": course_name,       
+    }
+
+    if add_student_form.is_valid():
+        instance = add_student_form.save(commit=False)
+        student = UserProfile.objects.get(username=instance.student_name)
+        course.students.add(student)
+
+    return render(request, "courses/add_students.html", context)
+
+@user_passes_test(lambda user: user.is_professor)
+def remove_students(request, student_id, course_name=None):
+    student = UserProfile.objects.get(id=student_id)
+    course = Course.objects.get(course_name=course_name)
+    course.students.remove(student) 
+
+    return redirect("http://127.0.0.1:8000/courses")
+
+
