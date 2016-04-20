@@ -1,13 +1,11 @@
-from django.shortcuts import render, redirect
 from courses.forms import AddCourseForm
 from courses.models import Course
-
 from .forms import *
 
-from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
 
 
 def home(request):
@@ -77,11 +75,13 @@ def update_user(request, username):
         if user_form.is_valid():
             instance = user_form.save(commit=False)
             passwd = user_form.cleaned_data.get("password")
-            instance.password = make_password(password=passwd,
-                                              salt='salt', )
+
+            if passwd:
+                instance.password = make_password(password=passwd,
+                                                  salt='salt', )
             instance.save()
 
-            return redirect('/profile/')
+            return redirect(reverse('profile'))
 
     return render(request, "edit_user.html", context)
 
@@ -90,4 +90,5 @@ def update_user(request, username):
 def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
-    return HttpResponseRedirect(reverse('profile'))
+
+    return redirect(reverse('profile'))
