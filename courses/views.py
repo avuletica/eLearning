@@ -52,6 +52,7 @@ def chapter(request, course_name=None, chapter_name=None):
 
     context = {
         "title": title,
+        "course_name": course_name,
         "add_link_form": add_link_form,
         "add_txt_form": add_txt_form,
         "queryset_yt_link": queryset_yt_link,
@@ -110,14 +111,13 @@ def update_course(request, course_name=None):
 
     context = {
         "title": title,
-        "instance": instance,
         "form": update_course_form,
     }
 
     if update_course_form.is_valid():
         instance = update_course_form.save(commit=False)
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('profile'))
 
     return render(request, "courses/edit.html", context)
 
@@ -131,56 +131,57 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     context = {
         "title": title,
-        "instance": instance,
         "form": update_chapter_form,
     }
 
     if update_chapter_form.is_valid():
         instance = update_chapter_form.save(commit=False)
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('course', kwargs={'course_name': course_name}))
 
     return render(request, "courses/edit.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_yt_link(request, yt_id=None):
+def update_yt_link(request, course_name=None, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     update_link_form = EditYTLinkForm(request.POST or None, instance=instance)
+    chapters = Chapter.objects.get(course__course_name=course_name)
 
     title = 'Edit link'
 
     context = {
         "title": title,
-        "instance": instance,
         "form": update_link_form,
     }
 
     if update_link_form.is_valid():
         instance = update_link_form.save(commit=False)
         instance.save()
-        return redirect('')
+        return redirect(reverse('chapter', kwargs={'course_name': course_name,
+                                                   "chapter_name": chapters.chapter_name}))
 
     return render(request, "courses/edit.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_text_block(request, txt_id=None):
+def update_text_block(request, course_name=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     update_txt_form = EditTxtForm(request.POST or None, instance=instance)
+    chapters = Chapter.objects.get(course__course_name=course_name)
 
     title = 'Edit lesson'
 
     context = {
         "title": title,
-        "instance": instance,
         "form": update_txt_form,
     }
 
     if update_txt_form.is_valid():
         instance = update_txt_form.save(commit=False)
         instance.save()
-        return redirect('')
+        return redirect(reverse('chapter', kwargs={'course_name': course_name,
+                                                   "chapter_name": chapters.chapter_name}))
 
     return render(request, "courses/edit.html", context)
 
