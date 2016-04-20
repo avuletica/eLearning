@@ -37,6 +37,6 @@ class TextBlock(models.Model):
 
 
 class YTLink(models.Model):
-    link = models.URLField(max_length=200, default='')
+    link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
 
