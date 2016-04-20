@@ -59,13 +59,13 @@ def chapter(request, course_name=None, chapter_name=None):
         "queryset_txt_block": queryset_txt_block
     }
 
-    if add_link_form.is_valid():
+    if add_link_form.is_valid() and 'add_link' in request.POST:
         instance = add_link_form.save(commit=False)
         instance.yt_link_fk = Chapter.objects.get(id=place)
         instance.save()
         return render(request, "courses/chapter.html", context)
 
-    if add_txt_form.is_valid():
+    if add_txt_form.is_valid() and 'add_text' in request.POST:
         instance = add_txt_form.save(commit=False)
         instance.text_block_fk = Chapter.objects.get(id=place)
         instance.save()
