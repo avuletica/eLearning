@@ -12,7 +12,7 @@
         <form method='POST' action=''>
           {% csrf_token %}
           {{ add_txt_form|crispy }}
-          <input class='btn btn-primary' type='submit' value='Add text'/>
+          <input class='btn btn-primary' type='submit' name="add_text" value='Add text'/>
         </form>
       </div>
 
@@ -20,7 +20,7 @@
         <form method='POST' action=''>
           {% csrf_token %}
           {{ add_link_form|crispy}}
-          <input class='btn btn-primary' type='submit' value='Add YouTube video link'/>
+          <input class='btn btn-primary' type='submit' name="add_link" value='Add YouTube video link'/>
         </form>
       </div>
     </div>
