@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 
 def home(request):
     title = 'eLearning'
+
     context = {
         "title": title,
     }
@@ -19,6 +20,7 @@ def home(request):
 
 def about(request):
     title = 'About'
+
     context = {
         "title": title,
     }
@@ -28,6 +30,7 @@ def about(request):
 
 def contact(request):
     title = 'Contact'
+
     context = {
         "title": title,
     }
@@ -99,7 +102,6 @@ def student(request):
     return render(request, "users/student_dashboard.html", context)
 
 
-
 @user_passes_test(lambda user: user.is_site_admin)
 def update_user(request, username):
     user = UserProfile.objects.get(username=username)
@@ -132,5 +134,4 @@ def update_user(request, username):
 def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
-
     return redirect(reverse('profile'))
