@@ -60,6 +60,7 @@ def admin(request):
         "add_user_form": add_user_form,
         "queryset": queryset,
     }
+
     if add_user_form.is_valid():
         instance = add_user_form.save(commit=False)
         passwd = add_user_form.cleaned_data.get("password")
@@ -82,11 +83,11 @@ def professor(request):
         "add_course_form": add_course_form,
         "queryset_course": queryset_course,
     }
+
     if add_course_form.is_valid():
         instance = add_course_form.save(commit=False)
         instance.user = request.user
         instance.save()
-
         return redirect(instance.get_absolute_url())
 
     return render(request, "users/professor_dashboard.html", context)
@@ -99,6 +100,7 @@ def student(request):
     context = {
         "title": title,
     }
+
     return render(request, "users/student_dashboard.html", context)
 
 
@@ -108,6 +110,7 @@ def update_user(request, username):
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
     title = 'Edit users'
+
     context = {
         "title": title,
         "update_user_form": update_user_form,
