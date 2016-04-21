@@ -187,6 +187,7 @@ def update_text_block(request, course_name=None, txt_id=None):
 
     return render(request, "courses/edit.html", context)
 
+
 @user_passes_test(lambda user: user.is_professor)
 def add_students(request, course_name=None):
     add_student_form = AddStudentToCourse(request.POST or None)
@@ -207,12 +208,13 @@ def add_students(request, course_name=None):
 
     return render(request, "courses/add_students.html", context)
 
+
 @user_passes_test(lambda user: user.is_professor)
 def remove_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
     course.students.remove(student) 
 
-    return redirect("http://127.0.0.1:8000/courses")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
