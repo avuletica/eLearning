@@ -14,7 +14,7 @@ def courses(request):
         "queryset": queryset,
     }
 
-    return render(request, "user.html", context)
+    return render(request, "users/course.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
@@ -63,13 +63,15 @@ def chapter(request, course_name=None, chapter_name=None):
         instance = add_link_form.save(commit=False)
         instance.yt_link_fk = Chapter.objects.get(id=place)
         instance.save()
-        return render(request, "courses/chapter.html", context)
+        return redirect(reverse('chapter', kwargs={'course_name': course_name,
+                                                   'chapter_name': chapter_name}))
 
     if add_txt_form.is_valid() and 'add_text' in request.POST:
         instance = add_txt_form.save(commit=False)
         instance.text_block_fk = Chapter.objects.get(id=place)
         instance.save()
-        return render(request, "courses/chapter.html", context)
+        return redirect(reverse('chapter', kwargs={'course_name': course_name,
+                                                   'chapter_name': chapter_name}))
 
     return render(request, "courses/chapter.html", context)
 
