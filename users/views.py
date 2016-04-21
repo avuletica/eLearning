@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 
 def home(request):
     title = 'eLearning'
+
     context = {
         "title": title,
     }
@@ -19,6 +20,7 @@ def home(request):
 
 def about(request):
     title = 'About'
+
     context = {
         "title": title,
     }
@@ -28,6 +30,7 @@ def about(request):
 
 def contact(request):
     title = 'Contact'
+
     context = {
         "title": title,
     }
@@ -37,29 +40,48 @@ def contact(request):
 
 @login_required
 def profile(request):
-    title = 'Profile'
-    add_course_form = AddCourseForm(request.POST or None)
+    if request.user.is_site_admin:
+        return redirect(reverse('admin'))
+
+    elif request.user.is_professor:
+        return redirect(reverse('professor'))
+
+    return redirect(reverse('student'))
+
+
+@user_passes_test(lambda user: user.is_site_admin)
+def admin(request):
+    title = 'Admin'
     add_user_form = AddUser(request.POST or None)
     queryset = UserProfile.objects.all()
-    queryset_course = Course.objects.filter(user__username=request.user)
 
     context = {
         "title": title,
         "add_user_form": add_user_form,
-        "add_course_form": add_course_form,
         "queryset": queryset,
-        "queryset_course": queryset_course,
     }
-
     if add_user_form.is_valid():
         instance = add_user_form.save(commit=False)
         passwd = add_user_form.cleaned_data.get("password")
         instance.password = make_password(password=passwd,
                                           salt='salt', )
         instance.save()
-
         reverse('profile')
 
+    return render(request, "users/sysadmin_dashboard.html", context)
+
+
+@user_passes_test(lambda user: user.is_professor)
+def professor(request):
+    title = 'Professor'
+    add_course_form = AddCourseForm(request.POST or None)
+    queryset_course = Course.objects.filter(user__username=request.user)
+
+    context = {
+        "title": title,
+        "add_course_form": add_course_form,
+        "queryset_course": queryset_course,
+    }
     if add_course_form.is_valid():
         instance = add_course_form.save(commit=False)
         instance.user = request.user
@@ -67,13 +89,17 @@ def profile(request):
 
         return redirect(instance.get_absolute_url())
 
-    if request.user.is_professor:
-        return render(request, "users/professor_dashboard.html", context)
+    return render(request, "users/professor_dashboard.html", context)
 
-    elif request.user.is_site_admin:
-        return render(request, "users/sysadmin_dashboard.html", context)
-    else:
-        return render(request, "users/student_dashboard.html", context)
+
+@login_required
+def student(request):
+    title = 'Student'
+
+    context = {
+        "title": title,
+    }
+    return render(request, "users/student_dashboard.html", context)
 
 
 @user_passes_test(lambda user: user.is_site_admin)
@@ -108,5 +134,4 @@ def update_user(request, username):
 def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
-
     return redirect(reverse('profile'))
