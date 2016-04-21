@@ -4,8 +4,13 @@
 {% block content %}
   <!-- Course core css -->
   <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+  <div class="container-fluid">
 
-  {% include 'breadcrumb.html' %}
-  {% include 'courses/course_box_model.html' %}
+    <div class="row">
+      {% include 'breadcrumb.html' %}
+      {% include 'courses/course_box_model.html' %}
+    </div>
+
+  </div>
 
 {% endblock %}
