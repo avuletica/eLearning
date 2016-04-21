@@ -6,8 +6,9 @@ urlpatterns = [
 
     url(r'^(?P<course_name>[\w ]+)/$', course_views.course, name='course'),
     url(r'^(?P<course_name>[\w ]+)/delete/$', course_views.delete_course, name='delete'),
-    url(r'^(?P<course_name>[\w ]+)/students/$', course_views.add_students, name='add_students'),
-    url(r'^(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/$', course_views.remove_students, name='remove_students'),
+    url(r'^(?P<course_name>[\w ]+)/students/$', course_views.list_students, name='list_students'),
+    url(r'^(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/remove/$', course_views.remove_students, name='remove_students'),
+    url(r'^(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/add/$', course_views.add_students, name='add_students'),
     url(r'^(?P<course_name>[\w ]+)/edit/$', course_views.update_course, name='edit'),
 
     url(r'^(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', course_views.chapter, name='chapter'),
