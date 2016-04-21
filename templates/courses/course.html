@@ -27,7 +27,6 @@
           <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Chapter name</th>
               <th>Date created</th>
               <th>Actions</th>
@@ -35,7 +34,6 @@
             </thead>
             {% for instance in queryset_chapter %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
                 <td>{{ instance.chapter_created_date }}</td>
                 <td>

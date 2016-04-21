@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
-from django.db.models import Q
 
 @login_required
 def courses(request):
