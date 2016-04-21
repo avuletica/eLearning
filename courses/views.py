@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
-
+from django.db.models import Q
 
 @login_required
 def courses(request):
@@ -189,24 +189,27 @@ def update_text_block(request, course_name=None, txt_id=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def add_students(request, course_name=None):
-    add_student_form = AddStudentToCourse(request.POST or None)
+def list_students(request, course_name=None):
     title = "Edit students in course " + course_name
     course = Course.objects.get(course_name=course_name)
     added_students = UserProfile.objects.filter(students_to_course=course)
+    excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(is_site_admin=False)
     context = {
         "title": title,
-        "add_student_form": add_student_form,
+        "excluded_students": excluded_students,
         "added_students": added_students, 
         "course_name": course_name,       
     }
 
-    if add_student_form.is_valid():
-        instance = add_student_form.save(commit=False)
-        student = UserProfile.objects.get(username=instance.student_name)
-        course.students.add(student)
-
     return render(request, "courses/add_students.html", context)
+
+
+def add_students(request,student_id, course_name=None):
+    student = UserProfile.objects.get(id=student_id)
+    course = Course.objects.get(course_name=course_name)
+    course.students.add(student)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
