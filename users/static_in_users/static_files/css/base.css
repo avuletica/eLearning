@@ -1,0 +1,44 @@
+html,
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 100%;
+    background-color: #F6F6F6;
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -30px;
+    /* Pad bottom by footer height */
+    padding: 0 0 30px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 30px;
+    background-color: #637f83;
+    text-align: center;
+    color: white;
+}
+
+#footer > .container {
+    padding-top: 2px;
+}
+
+
+*h4, h5, h6,
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+ul, ol {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
