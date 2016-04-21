@@ -109,7 +109,7 @@ def update_user(request, username):
     user = UserProfile.objects.get(username=username)
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
-    title = 'Edit users'
+    title = 'Edit user'
 
     context = {
         "title": title,
