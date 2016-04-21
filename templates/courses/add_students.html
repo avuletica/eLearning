@@ -1,52 +1,61 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
+  {% extends 'base.html' %}
+  {% load crispy_forms_tags %}
 
-{% block content %}
+  {% block content %}
 
-  <h2 class="user-main-title" style="text-align: center">{{ title }}</h2>
-  <hr/>
+    <h2 class="user-main-title" style="text-align: center">{{ title }}</h2>
+    <hr/>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+        <p style='text-align:center'>Available students</p>
+          {% if excluded_students %}
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              {% for instance in excluded_students %}
+                <tr>
+                  <td>{{ instance.id }}</td>
+                  <td>{{ instance.username }}</td>
+                  <td><a href="{{instance.id}}/add">
+                      <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
+                      </a>
+                  </td>
+                </tr>
+              {%endfor%}
+            </table>
+          {% endif %}
+        </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <form method='POST' action=''>
-          {% csrf_token %}
-          {{ add_student_form|crispy }}
-          <input class='btn btn-primary' type='submit' value='Add student'/>
-        </form>
+        <div class="col-md-6">
+        <p style='text-align:center'>Added students</p>
+          {% if added_students %}
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User name</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                {% for instance in added_students %}
+                  <tr>
+                    <td>{{ instance.id }}</td>
+                    <td>{{ instance.username }}</td>
+                    <td><a href="{{instance.id}}/remove">
+                        <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>
+                        </a>
+                    </td>
+                  </tr>
+                {%endfor%}
+            </table>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-
-  <hr/>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        {% if added_students %}
-          <table class="table table-condensed table-hover">
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>User name</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            {% for instance in added_students %}
-              <tr>
-                <td>{{ instance.id }}</td>
-                <td>{{ instance.username }}</td>
-                <td><a href="{{instance.id}}">
-                    <input class='btn btn-primary' type='submit' value='Remove Student'/>
-                  </a>
-                </td>
-              </tr>
-            {%endfor%}
-          </table>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-
-{% endblock %}
+  {% endblock %}
