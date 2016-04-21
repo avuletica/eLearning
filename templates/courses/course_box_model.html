@@ -1,10 +1,8 @@
 {% block cbox_model %}
-{% load staticfiles %}
-
-
+  {% load staticfiles %}
 
   <div class="container content">
-  <link href="{% static "css/course.css" %}" rel="stylesheet" />
+    <link href="{% static "css/course.css" %}" rel="stylesheet"/>
     <div class="row">
       {% if queryset %}
         {% for instance in queryset %}
