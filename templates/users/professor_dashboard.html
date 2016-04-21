@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
+  <!-- Professor core css -->
+  <link href="{% static "css/professor.css" %}" rel="stylesheet"/>
+  {% include 'breadcrumb.html' %}
 
-  <h2 class="user-main-title" style="text-align: center">
-     Professor Dashboard
-  </h2>
-  <hr/>
-
-  <div class="container">
+  <div class="container professor-panel-content">
     <div class="row">
       <div class="col-md-3">
         <form method='POST' action=''>
-        {% csrf_token %}
-        {{ add_course_form|crispy }}
-        <input class='btn btn-primary' type='submit' value='Add course'/>
+          {% csrf_token %}
+          {{ add_course_form|crispy }}
+          <input class='btn btn-primary' type='submit' value='Add course'/>
         </form>
       </div>
     </div>
-  </div>
-  <hr/>
 
-  <h3 class="lead" style="text-align: center">
-  Your Courses
-  </h3>  
+    <hr/>
 
-  <div class="container">
+    <h3 class="lead" style="text-align: center">
+      Your Courses
+    </h3>
+
     <div class="row">
       <div class="col-md-12">
         {% if queryset_course %}
@@ -52,7 +50,7 @@
                   </a>
                 </td>
               </tr>
-            {%endfor%}
+            {% endfor %}
           </table>
         {% endif %}
       </div>
