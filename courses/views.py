@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
 
+
 @login_required
 def courses(request):
     title = 'Courses'
@@ -20,7 +21,6 @@ def courses(request):
 def course(request, course_name=None):
     title = course_name
     add_chapter_form = AddChapterForm(request.POST or None)
-
     queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
 
     context = {
@@ -212,7 +212,6 @@ def add_students(request,student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
     course.students.add(student)
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -220,8 +219,7 @@ def add_students(request,student_id, course_name=None):
 def remove_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
-    course.students.remove(student) 
-
+    course.students.remove(student)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
