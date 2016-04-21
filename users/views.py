@@ -17,6 +17,24 @@ def home(request):
     return render(request, "home.html", context)
 
 
+def about(request):
+    title = 'About'
+    context = {
+        "title": title,
+    }
+
+    return render(request, "users/about.html", context)
+
+
+def contact(request):
+    title = 'Contact'
+    context = {
+        "title": title,
+    }
+
+    return render(request, "users/contact.html", context)
+
+
 @login_required
 def profile(request):
     title = 'Profile'
@@ -50,12 +68,12 @@ def profile(request):
         return redirect(instance.get_absolute_url())
 
     if request.user.is_professor:
-        return render(request, "professor_dashboard.html", context)
+        return render(request, "users/professor_dashboard.html", context)
 
     elif request.user.is_site_admin:
-        return render(request, "sysadmin_dashboard.html", context)
+        return render(request, "users/sysadmin_dashboard.html", context)
     else:
-        return render(request, "student_dashboard.html", context)
+        return render(request, "users/student_dashboard.html", context)
 
 
 @user_passes_test(lambda user: user.is_site_admin)
@@ -63,7 +81,7 @@ def update_user(request, username):
     user = UserProfile.objects.get(username=username)
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
-    title = 'Edit user'
+    title = 'Edit users'
     context = {
         "title": title,
         "update_user_form": update_user_form,
@@ -83,7 +101,7 @@ def update_user(request, username):
 
             return redirect(reverse('profile'))
 
-    return render(request, "edit_user.html", context)
+    return render(request, "users/edit_user.html", context)
 
 
 @user_passes_test(lambda user: user.is_site_admin)
