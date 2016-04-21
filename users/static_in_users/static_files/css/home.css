@@ -60,11 +60,13 @@ a {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 /*--registration templates--*/
 .login {
     margin-top: 4%;
     color: #637f83;
 }
+
 .registration {
     margin-top: 2%;
     color: #637f83;

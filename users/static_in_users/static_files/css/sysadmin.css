@@ -5,3 +5,7 @@ label, h2, th {
 .user-main-title {
     text-align: center
 }
+
+.admin-panel-content {
+    margin-top: 25px;
+}
