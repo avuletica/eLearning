@@ -117,8 +117,7 @@ def update_course(request, course_name=None):
     }
 
     if update_course_form.is_valid():
-        instance = update_course_form.save(commit=False)
-        instance.save()
+        update_course_form.save()
         return redirect(reverse('profile'))
 
     return render(request, "courses/edit.html", context)
@@ -137,8 +136,7 @@ def update_chapter(request, course_name=None, chapter_id=None):
     }
 
     if update_chapter_form.is_valid():
-        instance = update_chapter_form.save(commit=False)
-        instance.save()
+        update_chapter_form.save()
         return redirect(reverse('course', kwargs={'course_name': course_name}))
 
     return render(request, "courses/edit.html", context)
@@ -158,8 +156,7 @@ def update_yt_link(request, course_name=None, yt_id=None):
     }
 
     if update_link_form.is_valid():
-        instance = update_link_form.save(commit=False)
-        instance.save()
+        update_link_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
                                                    "chapter_name": chapters.chapter_name}))
 
@@ -180,8 +177,7 @@ def update_text_block(request, course_name=None, txt_id=None):
     }
 
     if update_txt_form.is_valid():
-        instance = update_txt_form.save(commit=False)
-        instance.save()
+        update_txt_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
                                                    "chapter_name": chapters.chapter_name}))
 
