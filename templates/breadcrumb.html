@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<!-- Breadcrumb core css -->
+<link href="{% static "css/breadcrumb.css" %}" rel="stylesheet"/>
+
+<div class="bread-h">
+  <div class="container">
+    <section class="title-section">
+      <h1 class="title-header">{{ title }} </h1>
+      <ul class="breadcrumb breadcrumb__t">
+        <li><a href="/">Home</a></li>
+        <li class="active">{{ title }}</li>
+      </ul>
+    </section>
+  </div>
+</div>

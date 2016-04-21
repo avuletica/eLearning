@@ -4,21 +4,7 @@
 {% block content %}
   <!-- Contact core css -->
   <link href="{% static "css/contact.css" %}" rel="stylesheet"/>
-
-  <!----//End-header---->
-  <div class="bread-h">
-    <!----//start-banner---->
-    <div class="container">
-      <section class="title-section">
-        <h1 class="title-header">
-          Contact </h1>
-        <ul class="breadcrumb breadcrumb__t">
-          <li><a href="/">Home</a></li>
-          <li class="active">Contact</li>
-        </ul>
-      </section>
-    </div>
-  </div>
+  {% include 'breadcrumb.html' %}
 
   <div class="contact">
     <div class="container">

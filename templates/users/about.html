@@ -4,21 +4,8 @@
 {% block content %}
   <!-- About core css -->
   <link href="{% static "css/about.css" %}" rel="stylesheet"/>
+  {% include 'breadcrumb.html' %}
 
-  <!----//End-header---->
-  <div class="about">
-    <!----//start-banner---->
-    <div class="container">
-      <section class="title-section">
-        <h1 class="title-header">
-          About </h1>
-        <ul class="breadcrumb breadcrumb__t">
-          <li><a href="/">Home</a></li>
-          <li class="active">About</li>
-        </ul>
-      </section>
-    </div>
-  </div>
 
   <div class="about_bottom">
     <div class="container">

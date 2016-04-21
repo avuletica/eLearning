@@ -5,22 +5,7 @@
   <!-- Course core css -->
   <link href="{% static "css/course.css" %}" rel="stylesheet"/>
 
-  <!----//End-header---->
-  <div class="about">
-    <!----//start-banner---->
-    <div class="container">
-      <section class="title-section">
-        <h1 class="title-header">
-          Courses </h1>
-        <ul class="breadcrumb breadcrumb__t">
-          <li><a href="/">Home</a></li>
-          <li class="active">Courses</li>
-        </ul>
-      </section>
-    </div>
-  </div>
-
-
+  {% include 'breadcrumb.html' %}
   {% include 'courses/course_box_model.html' %}
 
 {% endblock %}
