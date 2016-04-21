@@ -6,6 +6,11 @@ h3.m_2 {
     margin-bottom: 1em;
 }
 
+.about_bottom {
+    margin-top: 25px;
+    margin-bottom: 45px;
+}
+
 ul.about_grid1 {
     padding: 0;
     list-style: none;
