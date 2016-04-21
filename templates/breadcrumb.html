@@ -1,0 +1,32 @@
+{% load staticfiles %}
+
+<!-- Breadcrumb core css -->
+<link href="{% static "css/breadcrumb.css" %}" rel="stylesheet"/>
+
+<div class="bread-h">
+  <div class="container">
+    <section class="title-section">
+      <h1 class="title-header">{{ title }} </h1>
+      <ul class="breadcrumb breadcrumb__t">
+        <li><a href="/">Home</a></li>
+
+        {% url 'student' as profile_url %}
+        {% if request.get_full_path == profile_url %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        {% url 'professor' as profile_url %}
+        {% if request.get_full_path == profile_url %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        {% url 'admin' as profile_url %}
+        {% if request.get_full_path == profile_url %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        <li class="active">{{ title }}</li>
+      </ul>
+    </section>
+  </div>
+</div>

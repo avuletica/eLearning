@@ -5,12 +5,9 @@
 {% block content %}
   <!-- Contact core css -->
   <link href="{% static "css/sysadmin.css" %}" rel="stylesheet"/>
-  <h2 class="user-main-title">
-    Admin Panel
-  </h2>
-  <hr/>
+  {% include 'breadcrumb.html' %}
 
-  <div class="container-fluid">
+  <div class="container-fluid admin-panel-content">
     <div class="row">
 
       <div class="col-md-2">
