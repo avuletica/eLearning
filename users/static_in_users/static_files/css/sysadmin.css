@@ -5,3 +5,11 @@ label, h2, th {
 .admin-panel-content {
     margin-top: 25px;
 }
+
+a {
+    color: #e4551d;
+}
+
+.btn-primary {
+    background-color: #637F83;
+}
