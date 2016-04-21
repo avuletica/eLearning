@@ -9,6 +9,10 @@
       <div class="row">
         <div class="col-md-6">
         <p style='text-align:center'>Available students</p>
+        <form method='GET' action="">
+          <input type="text" name="q1" placeholder="Search students" value="{{ request.GET.q }}"/>
+          <input type="submit" value="Search"/>
+        </form>
           {% if excluded_students %}
             <table class="table table-condensed table-hover">
               <thead>
@@ -34,6 +38,10 @@
 
         <div class="col-md-6">
         <p style='text-align:center'>Added students</p>
+        <form method='GET' action="">
+          <input type="text" name="q2" placeholder="Search students" value="{{ request.GET.q }}"/>
+          <input type="submit" value="Search"/>
+        </form>
           {% if added_students %}
             <table class="table table-condensed table-hover">
               <thead>

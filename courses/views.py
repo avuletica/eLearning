@@ -194,6 +194,15 @@ def list_students(request, course_name=None):
     course = Course.objects.get(course_name=course_name)
     added_students = UserProfile.objects.filter(students_to_course=course)
     excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(is_site_admin=False)
+    
+    query_first = request.GET.get("q1")
+    if query_first:
+        excluded_students = excluded_students.filter(username__icontains=query_first)
+
+    query_second = request.GET.get("q2")
+    if query_second:
+        added_students = added_students.filter(username__icontains=query_second)    
+
     context = {
         "title": title,
         "excluded_students": excluded_students,
