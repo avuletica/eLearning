@@ -27,8 +27,8 @@ class AddChapterForm(forms.ModelForm):
 
     def clean_chapter_name(self):
         chapter_name = self.cleaned_data.get('chapter_name')
-
         regexp = re.compile(r'[0-9a-zA-Z ]')
+
         if not regexp.match(chapter_name):
             raise forms.ValidationError("Please make sure chapter name contains (a-z, A-Z, 0-9, space) characters")
 
@@ -82,6 +82,7 @@ class EditTxtForm(forms.ModelForm):
         model = TextBlock
         fields = ['chapter_description']
 
+
 class AddStudentToCourse(forms.ModelForm):
     class Meta:
         model = AddStudents
@@ -89,6 +90,8 @@ class AddStudentToCourse(forms.ModelForm):
 
     def clean_student_name(self):
         student_name = self.cleaned_data['student_name']
+
         if not UserProfile.objects.filter(username=student_name).exists():
             raise ValidationError("User does not exists!")
+
         return student_name
