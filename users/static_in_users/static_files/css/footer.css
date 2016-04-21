@@ -1,0 +1,16 @@
+.footer {
+    text-align: center;
+    background: #637f83;
+    color: white;
+    width: 100%;
+
+}
+
+.footer > p {
+    padding-top: 12px;
+}
+
+body {
+     overflow-x: hidden;
+}
+
