@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-md-12">
         {% if queryset_chapter %}
-          <table class="table">
+          <table class="table table-condensed table-hover">
             <thead>
             <tr>
               <th>ID</th>
@@ -43,7 +43,7 @@
                     <input class='btn btn-primary btn-sm' type='submit' value='Edit Chapter'/>
                   </a>
                   <a href="{% url 'courses' %}delete/{{ instance.course }}/{{ instance.id }}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Delete Chapter'/>
+                    <input class='btn btn-danger btn-sm' type='submit' value='Delete Chapter'/>
                   </a>
                 </td>
               </tr>

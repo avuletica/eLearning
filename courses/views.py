@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
-
+from django.db.models import Q
 
 @login_required
 def courses(request):
@@ -182,4 +182,47 @@ def update_text_block(request, course_name=None, txt_id=None):
                                                    "chapter_name": chapters.chapter_name}))
 
     return render(request, "courses/edit.html", context)
+
+
+@user_passes_test(lambda user: user.is_professor)
+def list_students(request, course_name=None):
+    title = "Edit students in course " + course_name
+    course = Course.objects.get(course_name=course_name)
+    added_students = UserProfile.objects.filter(students_to_course=course)
+    excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(is_site_admin=False)
+    
+    query_first = request.GET.get("q1")
+    if query_first:
+        excluded_students = excluded_students.filter(username__icontains=query_first)
+
+    query_second = request.GET.get("q2")
+    if query_second:
+        added_students = added_students.filter(username__icontains=query_second)    
+
+    context = {
+        "title": title,
+        "excluded_students": excluded_students,
+        "added_students": added_students, 
+        "course_name": course_name,       
+    }
+
+    return render(request, "courses/add_students.html", context)
+
+
+def add_students(request,student_id, course_name=None):
+    student = UserProfile.objects.get(id=student_id)
+    course = Course.objects.get(course_name=course_name)
+    course.students.add(student)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@user_passes_test(lambda user: user.is_professor)
+def remove_students(request, student_id, course_name=None):
+    student = UserProfile.objects.get(id=student_id)
+    course = Course.objects.get(course_name=course_name)
+    course.students.remove(student) 
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 

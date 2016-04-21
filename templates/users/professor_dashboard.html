@@ -45,10 +45,13 @@
                 <td>{{ instance.course_created_date }}</td>
                 <td>
                   <a href="{% url 'courses' %}{{ instance.course_name }}/edit">
-                    <input class='btn btn-primary' type='submit' value='Edit Course'/>
+                    <input class='btn btn-primary btn-sm' type='submit' value='Edit Course'/>
                   </a>
                   <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
-                    <input class='btn btn-primary' type='submit' value='Delete Course'/>
+                    <input class='btn btn-danger btn-sm' type='submit' value='Delete Course'/>
+                  </a>
+                  <a href="{% url 'courses' %}{{ instance.course_name }}/students">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Edit students'/>
                   </a>
                 </td>
               </tr>
