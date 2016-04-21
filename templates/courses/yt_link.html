@@ -10,6 +10,7 @@
               <th>ID</th>
               <th>Link</th>
               <th>Date created</th>
+              <th>Actions</th>
             </tr>
             </thead>
             {% for instance in queryset_yt_link %}
@@ -18,8 +19,11 @@
                 <td>{{ instance.link }}</td>
                 <td>{{ instance.link_created_date }}</td>
                 <td>
-                  <a href="delete/{{ instance.id }}">
-                    <input class='btn btn-primary' type='submit' value='Delete YouTube link'/>
+                  <a href="/courses/{{course_name}}/link/edit/{{ instance.id }}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
+                  </a>
+                  <a href="{% url 'courses' %}link/delete/{{ instance.id }}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Delete Link'/>
                   </a>
                 </td>
               </tr>
