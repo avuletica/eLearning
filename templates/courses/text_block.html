@@ -17,10 +17,10 @@
                 <td>{{ instance.chapter_description }}</td>
                 <td>{{ instance.txt_created_date }}</td>
                 <td>
-                  <a href="/courses/{{course_name}}/txt/edit/{{ instance.id }}">
+                  <a href="{% url 'edit_txt' course_name chapter_id instance.id %}">
                     <input class='btn btn-primary btn-sm' type='submit' value='Edit Lesson'/>
                   </a>
-                  <a href="{% url 'courses' %}txt/delete/{{ instance.id }}">
+                  <a href="{% url 'delete_txt' instance.id %}">
                     <input class='btn btn-primary btn-sm' type='submit' value='Delete Lesson'/>
                   </a>
                 </td>
