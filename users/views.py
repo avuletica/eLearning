@@ -112,7 +112,6 @@ def update_user(request, username):
     title = 'Edit user'
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
