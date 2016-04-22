@@ -110,11 +110,9 @@ def update_user(request, username):
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
     title = 'Edit user'
-    path = request.path
-    path = path.split('/')
-    path = path [1]
+    path = request.path.split('/')[1]
     redirect_path = path
-    path = '/ ' + path
+    path = '/  ' + path
     path = path.title()
 
     context = {
