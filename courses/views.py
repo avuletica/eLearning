@@ -25,7 +25,6 @@ def course(request, course_name=None):
 
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
@@ -59,7 +58,6 @@ def chapter(request, course_name=None, chapter_name=None):
 
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
@@ -127,7 +125,6 @@ def update_course(request, course_name=None):
     title = 'Edit course'
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
@@ -153,7 +150,6 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
@@ -200,7 +196,6 @@ def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     title = 'Edit lesson'
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
@@ -236,7 +231,6 @@ def list_students(request, course_name=None):
 
     path = request.path.split('/')[1]
     redirect_path = path
-    path = '/  ' + path
     path = path.title()
 
     context = {
