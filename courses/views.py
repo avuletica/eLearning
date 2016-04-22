@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
-from django.db.models import Q
+
 
 @login_required
 def courses(request):
@@ -24,10 +24,18 @@ def course(request, course_name=None):
 
     queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
 
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
+
     context = {
         "title": title,
         "add_chapter_form": add_chapter_form,
         "queryset_chapter": queryset_chapter,
+        "course_name": course_name,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     if add_chapter_form.is_valid():
@@ -50,13 +58,20 @@ def chapter(request, course_name=None, chapter_name=None):
     queryset_txt_block = TextBlock.objects.filter(text_block_fk__id=place)
     queryset_yt_link = YTLink.objects.filter(yt_link_fk__id=place)
 
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
+
     context = {
         "title": title,
         "course_name": course_name,
         "add_link_form": add_link_form,
         "add_txt_form": add_txt_form,
         "queryset_yt_link": queryset_yt_link,
-        "queryset_txt_block": queryset_txt_block
+        "queryset_txt_block": queryset_txt_block,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     if add_link_form.is_valid() and 'add_link' in request.POST:
@@ -110,10 +125,16 @@ def update_course(request, course_name=None):
     update_course_form = EditCourseForm(request.POST or None, instance=instance)
 
     title = 'Edit course'
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
 
     context = {
         "title": title,
         "form": update_course_form,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     if update_course_form.is_valid():
@@ -130,9 +151,16 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     title = 'Edit chapter'
 
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
+
     context = {
         "title": title,
         "form": update_chapter_form,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     if update_chapter_form.is_valid():
@@ -170,10 +198,16 @@ def update_text_block(request, course_name=None, txt_id=None):
     chapters = Chapter.objects.get(course__course_name=course_name)
 
     title = 'Edit lesson'
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
 
     context = {
         "title": title,
         "form": update_txt_form,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     if update_txt_form.is_valid():
@@ -189,27 +223,35 @@ def list_students(request, course_name=None):
     title = "Edit students in course " + course_name
     course = Course.objects.get(course_name=course_name)
     added_students = UserProfile.objects.filter(students_to_course=course)
-    excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(is_site_admin=False)
-    
+    excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(
+        is_site_admin=False)
+
     query_first = request.GET.get("q1")
     if query_first:
         excluded_students = excluded_students.filter(username__icontains=query_first)
 
     query_second = request.GET.get("q2")
     if query_second:
-        added_students = added_students.filter(username__icontains=query_second)    
+        added_students = added_students.filter(username__icontains=query_second)
+
+    path = request.path.split('/')[1]
+    redirect_path = path
+    path = '/  ' + path
+    path = path.title()
 
     context = {
         "title": title,
         "excluded_students": excluded_students,
-        "added_students": added_students, 
-        "course_name": course_name,       
+        "added_students": added_students,
+        "course_name": course_name,
+        "path": path,
+        "redirect_path": redirect_path,
     }
 
     return render(request, "courses/add_students.html", context)
 
 
-def add_students(request,student_id, course_name=None):
+def add_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
     course.students.add(student)
@@ -221,8 +263,6 @@ def add_students(request,student_id, course_name=None):
 def remove_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
-    course.students.remove(student) 
+    course.students.remove(student)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
