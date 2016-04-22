@@ -65,6 +65,7 @@ def chapter(request, course_name=None, chapter_name=None):
     context = {
         "title": title,
         "course_name": course_name,
+        "chapter_id": place,
         "add_link_form": add_link_form,
         "add_txt_form": add_txt_form,
         "queryset_yt_link": queryset_yt_link,
@@ -170,10 +171,10 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_yt_link(request, course_name=None, yt_id=None):
+def update_yt_link(request, course_name=None, chapter_id=None, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     update_link_form = EditYTLinkForm(request.POST or None, instance=instance)
-    chapters = Chapter.objects.get(course__course_name=course_name)
+    name = Chapter.objects.get(id=chapter_id).chapter_name
 
     title = 'Edit link'
 
@@ -185,16 +186,16 @@ def update_yt_link(request, course_name=None, yt_id=None):
     if update_link_form.is_valid():
         update_link_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": chapters.chapter_name}))
+                                                   "chapter_name": name}))
 
     return render(request, "courses/edit.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_text_block(request, course_name=None, txt_id=None):
+def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     update_txt_form = EditTxtForm(request.POST or None, instance=instance)
-    chapters = Chapter.objects.get(course__course_name=course_name)
+    name = Chapter.objects.get(id=chapter_id).chapter_name
 
     title = 'Edit lesson'
     path = request.path.split('/')[1]
@@ -212,7 +213,7 @@ def update_text_block(request, course_name=None, txt_id=None):
     if update_txt_form.is_valid():
         update_txt_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": chapters.chapter_name}))
+                                                   "chapter_name": name}))
 
     return render(request, "courses/edit.html", context)
 
@@ -262,5 +263,4 @@ def remove_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
     course.students.remove(student)
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
