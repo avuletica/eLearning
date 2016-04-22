@@ -32,13 +32,13 @@
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
-                  <a href="{% url 'courses' %}{{ instance.course_name }}/edit">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Edit Course'/>
+                  <a href="{% url 'edit' instance.course_name %}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Rename Course'/>
                   </a>
-                  <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
+                  <a href="{% url 'delete' instance.course_name %}">
                     <input class='btn btn-danger btn-sm' type='submit' value='Delete Course'/>
                   </a>
-                  <a href="{% url 'courses' %}{{ instance.course_name }}/students">
+                  <a href="{% url 'list_students' instance.course_name %}">
                     <input class='btn btn-primary btn-sm' type='submit' value='Edit students'/>
                   </a>
                 </td>

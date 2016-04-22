@@ -23,7 +23,7 @@
               {% for instance in excluded_students %}
                 <tr>
                   <td>{{ instance.username }}</td>
-                  <td><a href="{{instance.id}}/add">
+                  <td><a href="{% url 'add_students' course_name instance.id %}">
                       <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
                       </a>
                   </td>
@@ -52,7 +52,7 @@
                   <tr>
                     <td>{{ instance.id }}</td>
                     <td>{{ instance.username }}</td>
-                    <td><a href="{{instance.id}}/remove">
+                    <td><a href="{% url 'remove_students' course_name instance.id %}">
                         <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>
                         </a>
                     </td>
