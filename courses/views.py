@@ -21,7 +21,6 @@ def courses(request):
 def course(request, course_name=None):
     title = course_name
     add_chapter_form = AddChapterForm(request.POST or None)
-
     queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
 
     path = request.path.split('/')[1]
@@ -255,7 +254,6 @@ def add_students(request, student_id, course_name=None):
     student = UserProfile.objects.get(id=student_id)
     course = Course.objects.get(course_name=course_name)
     course.students.add(student)
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

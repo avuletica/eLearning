@@ -41,6 +41,7 @@ class YTLink(models.Model):
     link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
 
+
 class AddStudents(models.Model):
     student_name = models.CharField(max_length=50)
 

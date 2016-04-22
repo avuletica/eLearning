@@ -9,28 +9,19 @@
 
   <div class="container professor-panel-content">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <form method='POST' action=''>
           {% csrf_token %}
           {{ add_course_form|crispy }}
           <input class='btn btn-primary' type='submit' value='Add course'/>
         </form>
       </div>
-    </div>
 
-    <hr/>
-
-    <h3 class="lead" style="text-align: center">
-      Your Courses
-    </h3>
-
-    <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8">
         {% if queryset_course %}
           <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Course name</th>
               <th>Date created</th>
               <th>Action</th>
@@ -38,7 +29,6 @@
             </thead>
             {% for instance in queryset_course %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
@@ -57,7 +47,7 @@
           </table>
         {% endif %}
       </div>
-    </div>
   </div>
+</div>
 
 {% endblock %}

@@ -16,14 +16,12 @@
             <table class="table table-condensed table-hover">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>User name</th>
                   <th>Action</th>
                 </tr>
               </thead>
               {% for instance in excluded_students %}
                 <tr>
-                  <td>{{ instance.id }}</td>
                   <td>{{ instance.username }}</td>
                   <td><a href="{{instance.id}}/add">
                       <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
