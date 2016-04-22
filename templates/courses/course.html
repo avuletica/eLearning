@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
+  <!-- Course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
 
-  <h2 class="user-main-title" style="text-align: center">{{ title }}</h2>
-  <hr/>
+  {% include 'breadcrumb.html' %}
 
-  <div class="container">
+  <div class="container course-professor-panel">
     <div class="row">
       <div class="col-md-3">
         <form method='POST' action=''>
