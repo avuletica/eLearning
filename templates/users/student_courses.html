@@ -7,7 +7,11 @@
 	<ul class="sidebar-nav">
 		{% if chapter_list %}
 			{% for instance in chapter_list %}
-				{{ instance.chapter_name}}
+				<ul>
+					<li><a href="{% url 'student' %}{{course_name}}/{{instance.chapter_name}}">
+					{{ instance.chapter_name}}
+					</a></li>
+				</ul>
 			{% endfor %}
 		{% endif %}
     </ul>
@@ -26,9 +30,7 @@
 
   	{% if videos %}
   		{% for instance in videos %}
-  			<iframe width="420" height="345"
-			src= "{{ instance.link }}">
-			</iframe>
+  			<iframe width="420" height="315" src="{{ instance.link }}" frameborder="0" allowfullscreen></iframe>
   			<hr/>
   		{% endfor %}
   	{% endif %}
