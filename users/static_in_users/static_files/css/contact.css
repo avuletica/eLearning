@@ -15,6 +15,7 @@
     font-weight: bold;
     color: #637f83;
     margin-bottom: 1em;
+    margin-top: 5px;
 }
 
 i.address {
@@ -26,7 +27,6 @@ i.address {
 }
 
 .contact_address, .contact_mail {
-    overflow: hidden;
     font-size: 0.85em;
     color: #999;
     line-height: 1.5em;
@@ -56,52 +56,9 @@ i.mail {
     margin-right: 5px;
 }
 
-.contact_bottom {
-    margin-top: 20px;
-}
-
-.contact_bottom h3 {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #637f83;
-}
-
-.contact_bottom p {
-    font-size: 0.85em;
-    line-height: 1.8em;
-    color: #999;
-    margin: 1em 0;
-}
-
-.contact-to input[type="text"] {
-    padding: 10px 10px;
-    width: 32.5%;
-    margin: 10px 0;
-    border: 1px solid #E1E2E2;
-    color: #999;
-    background: #FFF;
-    float: left;
-    outline: none;
-    font-size: 0.85em;
-}
-
-.text2 input[type="text"], .text2 textarea {
-    width: 99%;
-    margin: 10px 0;
-    border: 1px solid #E1E2E2;
-    color: #999;
-    outline: none;
-    margin-bottom: 25px;
-    height: 150px;
-    padding: 10px 10px;
-    font-size: 0.85em;
-    resize: none;
-}
-
 .submit {
     color: #FFF;
     font-size: 1em;
-    font-weight: normal;
     padding: 12px 30px;
     border: none;
     font-weight: bold;
@@ -110,9 +67,10 @@ i.mail {
     display: inline-block;
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
+
+    margin-bottom: 1em;
 }
 
 .submit:hover {
@@ -121,3 +79,14 @@ i.mail {
     background: #637f83;
 }
 
+#id_message {
+    resize: none;
+}
+
+form {
+    color: #637f83;
+}
+
+.alert-success {
+    text-align: center;
+}
