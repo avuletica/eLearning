@@ -1,0 +1,37 @@
+  {% extends 'base.html' %}
+
+  {% block content %}
+
+  <div class="col-md-2">
+  	<div id="sidebar-wrapper">
+	<ul class="sidebar-nav">
+		{% if chapter_list %}
+			{% for instance in chapter_list %}
+				{{ instance.chapter_name}}
+			{% endfor %}
+		{% endif %}
+    </ul>
+</div>
+  </div>
+
+  <div class="col-md-10">	
+  	<p style="text-align: center">{{ course_name }}</p>
+
+  	{% if text %}
+  		{% for instance in text %}
+  			{{ instance.chapter_description}}
+  			<hr/>
+  		{% endfor %}
+  	{% endif %}
+
+  	{% if videos %}
+  		{% for instance in videos %}
+  			<iframe width="420" height="345"
+			src= "{{ instance.link }}">
+			</iframe>
+  			<hr/>
+  		{% endfor %}
+  	{% endif %}
+
+  </div>
+  {% endblock %}
