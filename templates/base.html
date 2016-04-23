@@ -7,11 +7,24 @@
   {% include 'head_css.html' %}
 </head>
 <body>
-{% include 'navbar.html' %}
 
-{% block content %}
+<!-- Wrap all page content here -->
+<div id="wrap">
 
-{% endblock %}
+  <!-- Begin page content -->
+  {% include 'navbar.html' %}
+  {% block content %}
+  {% endblock %}
+
+</div>
+
+<div id="footer">
+  <div class="container">
+    © 2016 Orange-Team
+  </div>
+</div>
+
+
 
 {% include 'javascript.html' %}
 </body>

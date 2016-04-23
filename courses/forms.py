@@ -1,5 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import *
+from users.models import *
 import re
 
 
@@ -25,8 +27,8 @@ class AddChapterForm(forms.ModelForm):
 
     def clean_chapter_name(self):
         chapter_name = self.cleaned_data.get('chapter_name')
-
         regexp = re.compile(r'[0-9a-zA-Z ]')
+
         if not regexp.match(chapter_name):
             raise forms.ValidationError("Please make sure chapter name contains (a-z, A-Z, 0-9, space) characters")
 
@@ -38,23 +40,11 @@ class AddLinkForm(forms.ModelForm):
         model = YTLink
         fields = ['link']
 
-    def __init__(self, *args, **kwargs):
-        super(AddLinkForm, self).__init__(*args, **kwargs)
-
-        for key in self.fields:
-            self.fields[key].required = False
-
 
 class AddTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
         fields = ['chapter_description']
-
-    def __init__(self, *args, **kwargs):
-        super(AddTxtForm, self).__init__(*args, **kwargs)
-
-        for key in self.fields:
-            self.fields[key].required = False
 
 
 class EditCourseForm(forms.ModelForm):
@@ -79,3 +69,17 @@ class EditTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
         fields = ['chapter_description']
+
+
+class AddStudentToCourse(forms.ModelForm):
+    class Meta:
+        model = AddStudents
+        fields = ['student_name']
+
+    def clean_student_name(self):
+        student_name = self.cleaned_data['student_name']
+
+        if not UserProfile.objects.filter(username=student_name).exists():
+            raise ValidationError("User does not exists!")
+
+        return student_name

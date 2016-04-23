@@ -2,6 +2,14 @@ label, h2, th {
     color: #637f83;
 }
 
-.user-main-title {
-    text-align: center
+.admin-panel-content {
+    margin-top: 25px;
+}
+
+a {
+    color: #e4551d;
+}
+
+.btn-primary {
+    background-color: #637F83;
 }

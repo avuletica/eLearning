@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
+  <!-- Course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
 
-  <h2 class="user-main-title" style="text-align: center">{{ title }}</h2>
-  <hr/>
+  {% include 'breadcrumb.html' %}
 
-  <div class="container">
+  <div class="container course-professor-panel">
     <div class="row">
       <div class="col-md-3">
         <form method='POST' action=''>
@@ -24,10 +26,9 @@
     <div class="row">
       <div class="col-md-12">
         {% if queryset_chapter %}
-          <table class="table">
+          <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Chapter name</th>
               <th>Date created</th>
               <th>Actions</th>
@@ -35,15 +36,14 @@
             </thead>
             {% for instance in queryset_chapter %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
                 <td>{{ instance.chapter_created_date }}</td>
                 <td>
-                  <a href="{% url 'courses' %}edit/{{ instance.course }}/{{ instance.id }}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Edit Chapter'/>
+                  <a href="{% url 'edit_chapter' instance.course instance.id %}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Rename Chapter'/>
                   </a>
-                  <a href="{% url 'courses' %}delete/{{ instance.course }}/{{ instance.id }}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Delete Chapter'/>
+                  <a href="{% url 'delete_chapter' instance.course instance.id%}">
+                    <input class='btn btn-danger btn-sm' type='submit' value='Delete Chapter'/>
                   </a>
                 </td>
               </tr>

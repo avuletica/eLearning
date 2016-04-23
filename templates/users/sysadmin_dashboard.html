@@ -5,12 +5,9 @@
 {% block content %}
   <!-- Contact core css -->
   <link href="{% static "css/sysadmin.css" %}" rel="stylesheet"/>
-  <h2 class="user-main-title">
-    Admin Panel
-  </h2>
-  <hr/>
+  {% include 'breadcrumb.html' %}
 
-  <div class="container-fluid">
+  <div class="container-fluid admin-panel-content">
     <div class="row">
 
       <div class="col-md-2">
@@ -38,7 +35,7 @@
             </thead>
             {% for instance in queryset %}
               <tr>
-                <td><a href="/profile/edit/{{ instance.username }}">{{ instance.username }}</a></td>
+                <td><a href="{% url 'update_user' instance.username %}">{{ instance.username }}</a></td>
                 <td>{{ instance.email }}</td>
                 <td>{{ instance.is_active }}</td>
                 <td>{{ instance.is_professor }}</td>
@@ -46,7 +43,7 @@
                 <td>{{ instance.date_joined }}</td>
                 <td>{{ instance.last_login }}</td>
                 <td>
-                  <a href="/profile/delete/{{ instance.username }}">
+                  <a href="{% url 'delete_user' instance.username %}">
                     <button class="btn btn-danger btn-sm">Delete{{ instance.delete }}</button>
                   </a>
                 </td>

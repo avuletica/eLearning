@@ -1,54 +1,16 @@
-/*--about--*/
-.about{
-	background:#637f83;
-}
-.about_bottom {
-	padding:4em 0;
-}
-.title-section {
-	background: #637f83;
-	position: relative;
-	padding: 30px 0 0 0;
-	border-bottom: 1px solid #597275;
-}
-.title-section h1 {
-	margin: 0 0 5px 0;
-	line-height: 58px;
-	font-size:40px;
-	font-weight:bold;
-	color: #fff;
-}
-.title-section ul {
-	background: none;
-	position: relative;
-	margin: 0;
-	padding: 9px 0 10px 0;
-	border-top: 1px solid #597275;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
-}
-.title-section ul li {
-	line-height: 18px;
-	font-size: 13px;
-	color: #5f6775;
-}
-.title-section ul li a{
-	color:#fff;
-}
-.breadcrumb > .active {
-	color:#9eb3b6;
-}
 /*--course-box-model--*/
 
 .inner-wrap {
     margin-top: 30px;
     padding-top: 5px;
-
     border: solid black 1px;
-
 }
 
 .content {
     text-align: center;
+}
+
+/*--course--*/
+.course-professor-panel {
+    margin-top: 20px;
 }

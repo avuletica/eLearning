@@ -10,6 +10,7 @@ class Course(models.Model):
     course_name = models.CharField(unique=True, max_length=50)
     course_created_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(UserProfile, default=1)
+    students = models.ManyToManyField(UserProfile, related_name='students_to_course')
 
     def __unicode__(self):
         return self.course_name
@@ -39,4 +40,8 @@ class TextBlock(models.Model):
 class YTLink(models.Model):
     link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
+
+
+class AddStudents(models.Model):
+    student_name = models.CharField(max_length=50)
 

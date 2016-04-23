@@ -1,38 +1,27 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
+  <!-- Professor core css -->
+  <link href="{% static "css/professor.css" %}" rel="stylesheet"/>
+  {% include 'breadcrumb.html' %}
 
-  <h2 class="user-main-title" style="text-align: center">
-     Professor Dashboard
-  </h2>
-  <hr/>
-
-  <div class="container">
+  <div class="container professor-panel-content">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <form method='POST' action=''>
-        {% csrf_token %}
-        {{ add_course_form|crispy }}
-        <input class='btn btn-primary' type='submit' value='Add course'/>
+          {% csrf_token %}
+          {{ add_course_form|crispy }}
+          <input class='btn btn-primary' type='submit' value='Add course'/>
         </form>
       </div>
-    </div>
-  </div>
-  <hr/>
 
-  <h3 class="lead" style="text-align: center">
-  Your Courses
-  </h3>  
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8">
         {% if queryset_course %}
           <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Course name</th>
               <th>Date created</th>
               <th>Action</th>
@@ -40,23 +29,25 @@
             </thead>
             {% for instance in queryset_course %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
-                  <a href="{% url 'courses' %}{{ instance.course_name }}/edit">
-                    <input class='btn btn-primary' type='submit' value='Edit Course'/>
+                  <a href="{% url 'edit' instance.course_name %}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Rename Course'/>
                   </a>
-                  <a href="{% url 'courses' %}{{ instance.course_name }}/delete">
-                    <input class='btn btn-primary' type='submit' value='Delete Course'/>
+                  <a href="{% url 'delete' instance.course_name %}">
+                    <input class='btn btn-danger btn-sm' type='submit' value='Delete Course'/>
+                  </a>
+                  <a href="{% url 'list_students' instance.course_name %}">
+                    <input class='btn btn-primary btn-sm' type='submit' value='Edit students'/>
                   </a>
                 </td>
               </tr>
-            {%endfor%}
+            {% endfor %}
           </table>
         {% endif %}
       </div>
-    </div>
   </div>
+</div>
 
 {% endblock %}
