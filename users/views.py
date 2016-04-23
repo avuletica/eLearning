@@ -1,5 +1,5 @@
 from courses.forms import AddCourseForm
-from courses.models import Course
+from courses.models import *
 from .forms import *
 
 from django.contrib.auth.hashers import make_password
@@ -114,9 +114,10 @@ def professor(request):
 @login_required
 def student(request):
     title = 'Student'
+    queryset = Course.objects.filter(students=request.user)
 
     context = {
-        "title": title,
+        "queryset": queryset
     }
 
     return render(request, "users/student_dashboard.html", context)
@@ -161,3 +162,21 @@ def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
     return redirect(reverse('profile'))
+
+
+    
+def student_course(request, course_name, chapter_name):
+    course = Course.objects.filter(course_name=course_name)
+    chapter_list = Chapter.objects.filter(course=course)
+    chapter = Chapter.objects.filter(chapter_name=chapter_name)
+    text = TextBlock.objects.filter(text_block_fk=chapter)
+    videos = YTLink.objects.filter(yt_link_fk=chapter)
+
+    context = {
+        "course_name": course_name,
+        "chapter_list": chapter_list,
+        "text": text,
+        "videos": videos,
+    }
+
+    return  render(request, "users/student_courses.html", context)
