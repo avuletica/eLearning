@@ -82,16 +82,3 @@ class EditTxtForm(forms.ModelForm):
         model = TextBlock
         fields = ['chapter_description']
 
-
-class AddStudentToCourse(forms.ModelForm):
-    class Meta:
-        model = AddStudents
-        fields = ['student_name']
-
-    def clean_student_name(self):
-        student_name = self.cleaned_data['student_name']
-
-        if not UserProfile.objects.filter(username=student_name).exists():
-            raise ValidationError("User does not exists!")
-
-        return student_name
