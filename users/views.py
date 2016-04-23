@@ -5,6 +5,9 @@ from .forms import *
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
@@ -30,10 +33,25 @@ def about(request):
 
 def contact(request):
     title = 'Contact'
+    contact_form = Contact(request.POST or None)
 
     context = {
         "title": title,
+        "contact_form": contact_form,
     }
+
+    if contact_form.is_valid():
+        sender = contact_form.cleaned_data.get("sender")
+        subject = contact_form.cleaned_data.get("subject")
+        from_email = contact_form.cleaned_data.get("email")
+        message = contact_form.cleaned_data.get("message")
+        message = 'Sender; ' + sender + '\nSubject:' + subject + '\nFrom: ' + from_email + '\n\n' + message
+        send_mail(subject, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
+        success_message = "We appreciate you contacting us, one of our Customer Service colleagues will get back" \
+                          " to you within a 24 hours."
+        messages.success(request, success_message)
+
+        return redirect(reverse('contact'))
 
     return render(request, "users/contact.html", context)
 
