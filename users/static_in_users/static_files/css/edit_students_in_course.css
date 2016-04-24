@@ -1,0 +1,18 @@
+h5 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #637f83;
+    margin-top: 25px;
+}
+
+label, h2, th {
+    color: #637f83;
+}
+
+td {
+    color: #E55923;
+}
+
+.btn-danger {
+    background-color: #E55923 !important;
+}
