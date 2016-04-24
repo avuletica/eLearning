@@ -73,10 +73,15 @@ def admin(request):
     add_user_form = AddUser(request.POST or None)
     queryset = UserProfile.objects.all()
 
+    search = request.GET.get("search")
+    if search:
+        queryset = queryset.filter(username__icontains=search)
+
     context = {
         "title": title,
         "add_user_form": add_user_form,
         "queryset": queryset,
+
     }
 
     if add_user_form.is_valid():
