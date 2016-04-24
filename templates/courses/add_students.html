@@ -1,66 +1,78 @@
-  {% extends 'base.html' %}
-  {% load crispy_forms_tags %}
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
 
-  {% block content %}
-    {% include 'breadcrumb.html' %}
+{% block content %}
+  {% include 'breadcrumb.html' %}
+  <!-- edit-students-in-course core css -->
+  <link href="{% static "css/edit_students_in_course.css" %}" rel="stylesheet"/>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-        <p style='text-align:center'>Available students</p>
-        <form method='GET' action="">
-          <input type="text" name="q1" placeholder="Search students" value="{{ request.GET.q }}"/>
-          <input type="submit" value="Search"/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+
+        <form class="form-inline" method='GET' action="" role="form">
+          <div class="form-group">
+            <input class="form-control" type="text" name="q1" placeholder="Search students"
+                   value="{{ request.GET.q }}"/>
+            <button class="btn btn-danger btn-md">Submit</button>
+          </div>
         </form>
-          {% if excluded_students %}
-            <table class="table table-condensed table-hover">
-              <thead>
-                <tr>
-                  <th>User name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              {% for instance in excluded_students %}
-                <tr>
-                  <td>{{ instance.username }}</td>
-                  <td><a href="{% url 'add_students' course_name instance.id %}">
-                      <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
-                      </a>
-                  </td>
-                </tr>
-              {%endfor%}
-            </table>
-          {% endif %}
-        </div>
 
-        <div class="col-md-6">
-        <p style='text-align:center'>Added students</p>
-        <form method='GET' action="">
-          <input type="text" name="q2" placeholder="Search students" value="{{ request.GET.q }}"/>
-          <input type="submit" value="Search"/>
+        <h5>Available students:</h5>
+        {% if excluded_students %}
+          <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>User name</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            {% for instance in excluded_students %}
+              <tr>
+                <td>{{ instance.username }}</td>
+                <td><a href="{% url 'add_students' course_name instance.id %}">
+                  <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
+                </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
+      </div>
+
+      <div class="col-md-6">
+        <form class="form-inline" method='GET' action="" role="form">
+          <div class="form-group">
+            <input class="form-control" type="text" name="q2" placeholder="Search students"
+                   value="{{ request.GET.q }}"/>
+            <button class="btn btn-danger btn-md">Submit</button>
+          </div>
         </form>
-          {% if added_students %}
-            <table class="table table-condensed table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>User name</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                {% for instance in added_students %}
-                  <tr>
-                    <td>{{ instance.id }}</td>
-                    <td>{{ instance.username }}</td>
-                    <td><a href="{% url 'remove_students' course_name instance.id %}">
-                        <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>
-                        </a>
-                    </td>
-                  </tr>
-                {%endfor%}
-            </table>
-          {% endif %}
-        </div>
+
+        <h5>Added students:</h5>
+        {% if added_students %}
+          <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>User name</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            {% for instance in added_students %}
+              <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.username }}</td>
+                <td><a href="{% url 'remove_students' course_name instance.id %}">
+                  <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>
+                </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
       </div>
     </div>
-  {% endblock %}
+  </div>
+{% endblock %}
