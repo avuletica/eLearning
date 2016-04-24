@@ -13,3 +13,8 @@ a {
 .btn-primary {
     background-color: #637F83;
 }
+
+.admin-search-form {
+    margin-top: 27px;
+    margin-bottom: 5px;
+}
