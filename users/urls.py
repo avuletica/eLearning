@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^admin/$', user_views.admin, name='admin'),
     url(r'^professor/$', user_views.professor, name='professor'),
     url(r'^student/$', user_views.student, name='student'),
+    url(r'^student/(?P<course_name>[\w.@+-]+)/$', user_views.course_homepage, name='course_homepage'),
     url(r'^student/(?P<course_name>[\w.@+-]+)/(?P<chapter_name>[\w.@+-]+)/$', user_views.student_course, name='student_courses'),
 
 
