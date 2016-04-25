@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+from itertools import chain
 
 
 def home(request):
@@ -146,7 +147,7 @@ def delete_user(request, username):
     return redirect(reverse('profile'))
 
 
-    
+@login_required
 def student_course(request, course_name, chapter_name):
     course = Course.objects.filter(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
@@ -154,11 +155,29 @@ def student_course(request, course_name, chapter_name):
     text = TextBlock.objects.filter(text_block_fk=chapter)
     videos = YTLink.objects.filter(yt_link_fk=chapter)
 
+    result_list = sorted(
+        chain(text,videos),
+        key=lambda instance: instance.date_created)
+
+
     context = {
         "course_name": course_name,
         "chapter_list": chapter_list,
-        "text": text,
-        "videos": videos,
+        "result_list": result_list,
     }
 
     return  render(request, "users/student_courses.html", context)
+
+
+@login_required
+def course_homepage(request, course_name):
+    course = Course.objects.filter(course_name=course_name)
+    chapter_list = Chapter.objects.filter(course=course)
+
+
+    context = {
+        "course_name": course_name,
+        "chapter_list": chapter_list,
+    }
+
+    return  render(request, "users/course_homepage.html", context)
