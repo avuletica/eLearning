@@ -14,3 +14,8 @@
 .course-professor-panel {
     margin-top: 20px;
 }
+
+/*--courses->chapter--*/
+#id_chapter_description {
+    resize: none;
+}
