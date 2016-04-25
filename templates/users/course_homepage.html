@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+  {% load staticfiles %}
+
+  	{% block content %}
+  		<link href="{% static 'css/sidebar.css' %}" rel="stylesheet"/>
+  		
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+        	{% if chapter_list %}
+        	{% for instance in chapter_list %}
+            <ul class="sidebar-nav">
+            	<li><a href="{% url 'student' %}{{course_name}}/{{instance.chapter_name}}">
+					{{ instance.chapter_name}}
+					</a>
+				</li> 
+            </ul>
+            {% endfor %}
+            {% endif %}
+        </div>
+  </div>
+
+  {% endblock %}
