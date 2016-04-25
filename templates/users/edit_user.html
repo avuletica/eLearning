@@ -2,9 +2,11 @@
 {% load crispy_forms_tags %}
 {% include 'head_css.html' %}
 {% include 'javascript.html' %}
+{% load staticfiles %}
 
 {% block content %}
   {% include 'breadcrumb.html' %}
+    <link href="{% static "css/sysadmin.css" %}" rel="stylesheet"/>
 
   <div class="col-md-2 col-md-offset-5">
     <form method='POST' action=''>

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
-
+  <!-- Chapter css is in course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
   {% include 'breadcrumb.html' %}
 
   <div class="container">

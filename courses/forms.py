@@ -40,23 +40,11 @@ class AddLinkForm(forms.ModelForm):
         model = YTLink
         fields = ['link']
 
-    def __init__(self, *args, **kwargs):
-        super(AddLinkForm, self).__init__(*args, **kwargs)
-
-        for key in self.fields:
-            self.fields[key].required = False
-
 
 class AddTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
         fields = ['chapter_description']
-
-    def __init__(self, *args, **kwargs):
-        super(AddTxtForm, self).__init__(*args, **kwargs)
-
-        for key in self.fields:
-            self.fields[key].required = False
 
 
 class EditCourseForm(forms.ModelForm):
