@@ -171,6 +171,20 @@ def delete_user(request, username):
 
 
 @login_required
+def course_homepage(request, course_name):
+    course = Course.objects.filter(course_name=course_name)
+    chapter_list = Chapter.objects.filter(course=course)
+
+
+    context = {
+        "course_name": course_name,
+        "chapter_list": chapter_list,
+    }
+
+    return  render(request, "users/course_homepage.html", context)
+    
+
+@login_required
 def student_course(request, course_name, chapter_name):
     course = Course.objects.filter(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
@@ -192,15 +206,4 @@ def student_course(request, course_name, chapter_name):
     return  render(request, "users/student_courses.html", context)
 
 
-@login_required
-def course_homepage(request, course_name):
-    course = Course.objects.filter(course_name=course_name)
-    chapter_list = Chapter.objects.filter(course=course)
 
-
-    context = {
-        "course_name": course_name,
-        "chapter_list": chapter_list,
-    }
-
-    return  render(request, "users/course_homepage.html", context)
