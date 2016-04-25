@@ -35,9 +35,11 @@ class Chapter(models.Model):
 class TextBlock(models.Model):
     chapter_description = models.TextField()
     text_block_fk = models.ForeignKey(Chapter, default=1)
+    date_created = models.DateTimeField(auto_now_add=True)
 
 
 class YTLink(models.Model):
     link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
+    date_created = models.DateTimeField(auto_now_add=True)
 
