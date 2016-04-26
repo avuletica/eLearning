@@ -29,7 +29,7 @@
             </thead>
             {% for instance in queryset_course %}
               <tr>
-                <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
+                <td><a href="{% url 'professor_course' instance.course_name %}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
                   <a href="{% url 'edit' instance.course_name %}">
