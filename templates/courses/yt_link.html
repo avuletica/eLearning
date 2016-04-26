@@ -7,7 +7,6 @@
           <table class="table">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Link</th>
               <th>Date created</th>
               <th>Actions</th>
@@ -15,7 +14,6 @@
             </thead>
             {% for instance in queryset_yt_link %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td>{{ instance.link }}</td>
                 <td>{{ instance.link_created_date }}</td>
                 <td>
