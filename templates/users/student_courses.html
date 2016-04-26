@@ -1,53 +1,58 @@
-  {% extends 'base.html' %}
-  {% load staticfiles %}
+{% extends 'base.html' %}
+{% load staticfiles %}
 
-  	{% block content %}
-  		<link href="{% static 'css/sidebar.css' %}" rel="stylesheet"/>
-  		{% include 'breadcrumb.html' %}
+{% block content %}
+  <link href="{% static 'css/sidebar.css' %}" rel="stylesheet"/>
+  {% include 'breadcrumb.html' %}
 
-    <div id="wrapper">
+  <div class="container student-course">
+    <div class="row">
+      <div class="col-md-2">
+        {% if chapter_list %}
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-        	{% if chapter_list %}
-        	{% for instance in chapter_list %}
-            <ul class="sidebar-nav">
-            	<li><a href="{% url 'student' %}{{course_name}}/{{instance.chapter_name}}">
-					{{ instance.chapter_name}}
-					</a>
-				</li> 
-            </ul>
-            {% endfor %}
+          <ul class="sidebar-nav">
+            <li>
+              {% for instance in chapter_list %}
+                <a class="a-target" href="{% url 'student' %}{{ course_name }}/{{ instance.chapter_name }}">
+                  {{ instance.chapter_name }}
+                </a>
+              {% endfor %}
+            </li>
+          </ul>
+
+        {% endif %}
+      </div>
+
+      <div class="col-md-10">
+        {% if result_list %}
+          {% for item in result_list %}
+            {% if item.link %}
+              <div class="course-inner-content video">
+                <iframe width="640" height="360" src="{{ item.link }}" frameborder="0" allowfullscreen></iframe>
+              </div>
+            {% else %}
+              <div class="course-inner-content">
+                {{ item.chapter_description }}
+              </div>
             {% endif %}
-        </div>
-
-        <!-- Page content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 style="text-align: center">{{ course_name }}</h1>
-                        {% if result_list %}
-  							{% for item in result_list %}
-  								{% if item.link %}
-  								<div align="center">
-  									<br>
-  									<p>&nbsp;</p>
-  									<iframe width="640" height="360" src="{{item.link}}" frameborder="0" allowfullscreen></iframe>
-  								</div>
-  								{% else %}
-  									<br>
-  									<p>&nbsp;</p>
-  									{{item.chapter_description}}
-  								{% endif %}
-  							{% endfor %}
-  						{% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-
+          {% endfor %}
+        {% endif %}
+      </div>
     </div>
+  </div>
 
+  <script>
+    $(document).ready(function () {
+      /* Make left-border same height as parent */
+      var rightColumn = $(".col-md-10");
+      var parentHeight = rightColumn.parent().height();
+      rightColumn.css("height", parentHeight);
 
-    {% endblock %}
+      /* Add active class on chapter change */
+      var pathname = window.location.pathname;
+      pathname = pathname.substring(0, pathname.length - 1);
+      $('.sidebar-nav > li a[href="' + pathname + '"]').addClass('active-sidebar');
+    });
+  </script>
+
+{% endblock %}
