@@ -12,7 +12,7 @@
         	{% if chapter_list %}
         	{% for instance in chapter_list %}
             <ul class="sidebar-nav">
-            	<li><a href="{% url 'student' %}{{course_name}}/{{instance.chapter_name}}">
+            	<li><a href="{% url 'courses' %}{{course_name}}/{{instance.chapter_name}}">
 					{{ instance.chapter_name}}
 					</a>
 				</li> 
