@@ -15,9 +15,6 @@ class Course(models.Model):
     def __unicode__(self):
         return self.course_name
 
-    def get_absolute_url(self):
-        return reverse("course", kwargs={"course_name": self.course_name})
-
 
 class Chapter(models.Model):
     chapter_name = models.CharField(max_length=50)
@@ -42,4 +39,3 @@ class YTLink(models.Model):
     link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
     date_created = models.DateTimeField(auto_now_add=True)
-
