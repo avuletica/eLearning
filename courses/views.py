@@ -40,7 +40,7 @@ def course(request, course_name=None):
         instance = add_chapter_form.save(commit=False)
         instance.course = Course.objects.get(course_name=title)
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name }))
 
     return render(request, "courses/course.html", context)
 
@@ -161,7 +161,7 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     if update_chapter_form.is_valid():
         update_chapter_form.save()
-        return redirect(reverse('course', kwargs={'course_name': course_name}))
+        return redirect(reverse('courses', kwargs={'course_name': course_name}))
 
     return render(request, "courses/edit.html", context)
 
