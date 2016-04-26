@@ -119,11 +119,11 @@ def professor(request):
 
 @login_required
 def student(request):
-    title = 'Student'
     queryset = Course.objects.filter(students=request.user)
 
     context = {
-        "queryset": queryset
+        "queryset": queryset,
+        "title": request.user,
     }
 
     return render(request, "users/student_dashboard.html", context)
@@ -175,14 +175,9 @@ def course_homepage(request, course_name):
     course = Course.objects.filter(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
 
+    return redirect(reverse(student_course, kwargs={'course_name': course_name,
+                                                    "chapter_name": chapter_list[0]}))
 
-    context = {
-        "course_name": course_name,
-        "chapter_list": chapter_list,
-    }
-
-    return  render(request, "users/course_homepage.html", context)
-    
 
 @login_required
 def student_course(request, course_name, chapter_name):
@@ -193,17 +188,14 @@ def student_course(request, course_name, chapter_name):
     videos = YTLink.objects.filter(yt_link_fk=chapter)
 
     result_list = sorted(
-        chain(text,videos),
+        chain(text, videos),
         key=lambda instance: instance.date_created)
-
 
     context = {
         "course_name": course_name,
         "chapter_list": chapter_list,
         "result_list": result_list,
+        "title": course_name + ' : ' + chapter_name,
     }
 
-    return  render(request, "users/student_courses.html", context)
-
-
-
+    return render(request, "users/student_courses.html", context)

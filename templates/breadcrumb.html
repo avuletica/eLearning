@@ -9,18 +9,12 @@
       <h1 class="title-header">{{ title }} </h1>
       <ul class="breadcrumb breadcrumb__t">
 
-
         <li>
           <a href="/">Home&nbsp</a>
           {% if  path  != None %}
-          <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
+            <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
           {% endif %}
         </li>
-
-        {% url 'student' as profile_url %}
-        {% if request.get_full_path == profile_url %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-        {% endif %}
 
         {% url 'professor' as profile_url %}
         {% if request.get_full_path == profile_url %}
@@ -29,6 +23,11 @@
 
         {% url 'admin' as profile_url %}
         {% if request.get_full_path == profile_url %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        {% url 'student_course' as student_course_url %}
+        {% if student_course_url in request.get_full_path  %}
           <li><a href="{% url 'profile' %}">Profile</a></li>
         {% endif %}
 
