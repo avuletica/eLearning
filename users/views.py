@@ -109,10 +109,11 @@ def professor(request):
     }
 
     if add_course_form.is_valid():
+        course_name = add_course_form.cleaned_data.get("course_name")
         instance = add_course_form.save(commit=False)
         instance.user = request.user
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
     return render(request, "users/professor_dashboard.html", context)
 

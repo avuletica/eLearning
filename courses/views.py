@@ -161,7 +161,7 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     if update_chapter_form.is_valid():
         update_chapter_form.save()
-        return redirect(reverse('courses', kwargs={'course_name': course_name}))
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
     return render(request, "courses/edit.html", context)
 
