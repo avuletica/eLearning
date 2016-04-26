@@ -4,7 +4,8 @@ from courses import views as course_views
 
 urlpatterns = [
     url(r'^$', user_views.profile, name='profile'),
-    url(r'^admin/$', user_views.admin, name='admin'),
+    url(r'^student/$', user_views.student, name='student'),
+
     url(r'^professor/$', user_views.professor, name='professor'),
     url(r'^professor/(?P<course_name>[\w ]+)/$', course_views.course, name='professor_course'),
     url(r'^professor/(?P<course_name>[\w ]+)/delete/$', course_views.delete_course, name='delete'),
@@ -30,11 +31,7 @@ urlpatterns = [
         course_views.update_yt_link, name='edit_link'),
     url(r'^professor/link/delete/(?P<yt_id>[\d ]+)/$', course_views.delete_yt_link, name='delete_link'),
 
-
-
-    url(r'^student/$', user_views.student, name='student'),
-
-
+    url(r'^admin/$', user_views.admin, name='admin'),
     url(r'^edit/(?P<username>[\w ]+)/$', user_views.update_user, name='update_user'),
     url(r'^delete/(?P<username>[\w ]+)/$', user_views.delete_user, name='delete_user'),
 ]

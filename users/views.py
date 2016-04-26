@@ -13,31 +13,26 @@ from itertools import chain
 
 
 def home(request):
-    title = 'eLearning'
-
     context = {
-        "title": title,
+        "title": "eLearning",
     }
 
     return render(request, "home.html", context)
 
 
 def about(request):
-    title = 'About'
-
     context = {
-        "title": title,
+        "title": "About",
     }
 
     return render(request, "users/about.html", context)
 
 
 def contact(request):
-    title = 'Contact'
     contact_form = Contact(request.POST or None)
 
     context = {
-        "title": title,
+        "title": "Contact",
         "contact_form": contact_form,
     }
 
@@ -70,7 +65,6 @@ def profile(request):
 
 @user_passes_test(lambda user: user.is_site_admin)
 def admin(request):
-    title = 'Admin'
     add_user_form = AddUser(request.POST or None)
     queryset = UserProfile.objects.all()
 
@@ -79,7 +73,7 @@ def admin(request):
         queryset = queryset.filter(username__icontains=search)
 
     context = {
-        "title": title,
+        "title": "Admin",
         "add_user_form": add_user_form,
         "queryset": queryset,
 
@@ -98,12 +92,11 @@ def admin(request):
 
 @user_passes_test(lambda user: user.is_professor)
 def professor(request):
-    title = 'Professor'
     add_course_form = AddCourseForm(request.POST or None)
     queryset_course = Course.objects.filter(user__username=request.user)
 
     context = {
-        "title": title,
+        "title": "Professor",
         "add_course_form": add_course_form,
         "queryset_course": queryset_course,
     }
@@ -135,13 +128,13 @@ def update_user(request, username):
     user = UserProfile.objects.get(username=username)
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
-    title = 'Edit user'
+
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit",
         "update_user_form": update_user_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -195,6 +188,7 @@ def student_course(request, course_name, chapter_name):
     context = {
         "course_name": course_name,
         "chapter_list": chapter_list,
+        "chapter_name": chapter_name,
         "result_list": result_list,
         "title": course_name + ' : ' + chapter_name,
     }

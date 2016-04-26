@@ -7,6 +7,5 @@ urlpatterns = [
 
     url(r'^(?P<course_name>[\w ]+)/$', user_views.course_homepage, name='course_homepage'),
     url(r'^(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', user_views.student_course,
-        name='student_courses'),
-   
+        name='student_course'),
 ]
