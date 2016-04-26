@@ -9,11 +9,10 @@
       <h1 class="title-header">{{ title }} </h1>
       <ul class="breadcrumb breadcrumb__t">
 
-
         <li>
           <a href="/">Home&nbsp</a>
           {% if  path  != None %}
-          <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
+            <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
           {% endif %}
         </li>
 
@@ -30,6 +29,31 @@
         {% url 'admin' as profile_url %}
         {% if request.get_full_path == profile_url %}
           <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        {% url 'student_course' course_name chapter_name as student_course_url %}
+        {% if request.get_full_path ==  student_course_url %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+        {% url 'chapter' course_name chapter_name as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'professor_course' course_name %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_txt' course_name chapter_id text_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'chapter' course_name chapter_name %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_chapter' course_name chapter_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'professor_course' course_name %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_link' course_name chapter_id yt_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'chapter' course_name chapter_name %}">{{ course_name }}</a></li>
         {% endif %}
 
         <li class="active">&nbsp{{ title }}</li>

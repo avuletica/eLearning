@@ -7,10 +7,21 @@
   <link href="{% static "css/student_profile.css" %}" rel="stylesheet"/>
   {% include 'breadcrumb.html' %}
 
-  <div class="container-fluid">
-    <div class="row">
-
-    </div>
-  </div>
+	<div class="container content">
+	    <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+	    <div class="row">
+	      {% if queryset %}
+	        {% for instance in queryset %}
+	          <div class="col-md-4 course-box-model">
+	            <div class="inner-wrap">
+	              <a href="{% url 'courses' %}{{ instance.course_name }}">
+	                <h3>{{ instance.course_name }}</h3>
+	              </a>
+	            </div>
+	          </div>
+	        {% endfor %}
+	      {% endif %}
+	    </div>
+	</div>
 
 {% endblock %}

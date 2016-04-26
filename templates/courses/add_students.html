@@ -55,14 +55,12 @@
           <table class="table table-condensed table-hover">
             <thead>
             <tr>
-              <th>ID</th>
               <th>User name</th>
               <th>Action</th>
             </tr>
             </thead>
             {% for instance in added_students %}
               <tr>
-                <td>{{ instance.id }}</td>
                 <td>{{ instance.username }}</td>
                 <td><a href="{% url 'remove_students' course_name instance.id %}">
                   <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>

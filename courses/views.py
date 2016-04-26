@@ -6,11 +6,10 @@ from .forms import *
 
 @login_required
 def courses(request):
-    title = 'Courses'
     queryset = Course.objects.all()
 
     context = {
-        "title": title,
+        "title": "Courses",
         "queryset": queryset,
     }
 
@@ -19,7 +18,6 @@ def courses(request):
 
 @user_passes_test(lambda user: user.is_professor)
 def course(request, course_name=None):
-    title = course_name
     add_chapter_form = AddChapterForm(request.POST or None)
     queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
 
@@ -28,7 +26,7 @@ def course(request, course_name=None):
     path = path.title()
 
     context = {
-        "title": title,
+        "title": course_name,
         "add_chapter_form": add_chapter_form,
         "queryset_chapter": queryset_chapter,
         "course_name": course_name,
@@ -40,14 +38,13 @@ def course(request, course_name=None):
         instance = add_chapter_form.save(commit=False)
         instance.course = Course.objects.get(course_name=title)
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
     return render(request, "courses/course.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
 def chapter(request, course_name=None, chapter_name=None):
-    title = course_name + " : " + chapter_name
     place = Chapter.objects.get(course__course_name=course_name, chapter_name=chapter_name).id
 
     add_link_form = AddLinkForm(request.POST or None)
@@ -61,8 +58,9 @@ def chapter(request, course_name=None, chapter_name=None):
     path = path.title()
 
     context = {
-        "title": title,
+        "title": chapter_name,
         "course_name": course_name,
+        "chapter_name": chapter_name,
         "chapter_id": place,
         "add_link_form": add_link_form,
         "add_txt_form": add_txt_form,
@@ -122,13 +120,12 @@ def update_course(request, course_name=None):
     instance = Course.objects.get(course_name=course_name)
     update_course_form = EditCourseForm(request.POST or None, instance=instance)
 
-    title = 'Edit course'
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit",
         "form": update_course_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -146,14 +143,14 @@ def update_chapter(request, course_name=None, chapter_id=None):
     instance = Chapter.objects.get(id=chapter_id)
     update_chapter_form = EditChapterForm(request.POST or None, instance=instance)
 
-    title = 'Edit chapter'
-
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit",
+        "course_name": course_name,
+        "chapter_id": chapter_id,
         "form": update_chapter_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -161,7 +158,7 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
     if update_chapter_form.is_valid():
         update_chapter_form.save()
-        return redirect(reverse('course', kwargs={'course_name': course_name}))
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
     return render(request, "courses/edit.html", context)
 
@@ -170,19 +167,21 @@ def update_chapter(request, course_name=None, chapter_id=None):
 def update_yt_link(request, course_name=None, chapter_id=None, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     update_link_form = EditYTLinkForm(request.POST or None, instance=instance)
-    name = Chapter.objects.get(id=chapter_id).chapter_name
-
-    title = 'Edit link'
+    chapter_name = Chapter.objects.get(id=chapter_id).chapter_name
 
     context = {
-        "title": title,
+        "title": "Edit",
+        "course_name": course_name,
+        "chapter_name": chapter_name,
+        "chapter_id": chapter_id,
+        "yt_id": yt_id,
         "form": update_link_form,
     }
 
     if update_link_form.is_valid():
         update_link_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": name}))
+                                                   "chapter_name": chapter_name}))
 
     return render(request, "courses/edit.html", context)
 
@@ -191,15 +190,18 @@ def update_yt_link(request, course_name=None, chapter_id=None, yt_id=None):
 def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     update_txt_form = EditTxtForm(request.POST or None, instance=instance)
-    name = Chapter.objects.get(id=chapter_id).chapter_name
+    chapter_name = Chapter.objects.get(id=chapter_id).chapter_name
 
-    title = 'Edit lesson'
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit",
+        "course_name": course_name,
+        "chapter_name": chapter_name,
+        "chapter_id": chapter_id,
+        "text_id": txt_id,
         "form": update_txt_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -208,14 +210,13 @@ def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     if update_txt_form.is_valid():
         update_txt_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": name}))
+                                                   "chapter_name": chapter_name}))
 
     return render(request, "courses/edit.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
 def list_students(request, course_name=None):
-    title = "Edit students in course " + course_name
     course = Course.objects.get(course_name=course_name)
     added_students = UserProfile.objects.filter(students_to_course=course)
     excluded_students = UserProfile.objects.exclude(students_to_course=course).filter(is_professor=False).filter(
@@ -234,7 +235,7 @@ def list_students(request, course_name=None):
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit students in course " + course_name,
         "excluded_students": excluded_students,
         "added_students": added_students,
         "course_name": course_name,
