@@ -1,10 +1,37 @@
 from django.conf.urls import url
 from . import views as user_views
+from courses import views as course_views
 
 urlpatterns = [
     url(r'^$', user_views.profile, name='profile'),
     url(r'^admin/$', user_views.admin, name='admin'),
     url(r'^professor/$', user_views.professor, name='professor'),
+    url(r'^professor/(?P<course_name>[\w ]+)/$', course_views.course, name='professor_course'),
+    url(r'^professor/(?P<course_name>[\w ]+)/delete/$', course_views.delete_course, name='delete'),
+    url(r'^professor/(?P<course_name>[\w ]+)/edit/$', course_views.update_course, name='edit'),
+
+    url(r'^professor/(?P<course_name>[\w ]+)/students/$', course_views.list_students, name='list_students'),
+    url(r'^professor/(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/remove/$',
+        course_views.remove_students, name='remove_students'),
+    url(r'^professor/(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/add/$',
+        course_views.add_students, name='add_students'),
+
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', course_views.chapter, name='chapter'),
+    url(r'^professor/edit/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',
+        course_views.update_chapter, name='edit_chapter'),
+    url(r'^professor/delete/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',
+        course_views.delete_chapter, name='delete_chapter'),
+
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/txt/edit/(?P<txt_id>[\d ]+)/$',
+        course_views.update_text_block, name='edit_txt'),
+    url(r'^txt/delete/(?P<txt_id>[\d ]+)/$', course_views.delete_text_block, name='delete_txt'),
+
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/link/edit/(?P<yt_id>[\d ]+)/$',
+        course_views.update_yt_link, name='edit_link'),
+    url(r'^professor/link/delete/(?P<yt_id>[\d ]+)/$', course_views.delete_yt_link, name='delete_link'),
+
+
+
     url(r'^student/$', user_views.student, name='student'),
     url(r'^student/(?P<course_name>[\w ]+)/$', user_views.course_homepage, name='course_homepage'),
     url(r'^student/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', user_views.student_course, name='student_courses'),
