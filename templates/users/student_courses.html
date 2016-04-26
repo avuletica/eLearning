@@ -13,7 +13,7 @@
           <ul class="sidebar-nav">
             <li>
               {% for instance in chapter_list %}
-                <a class="a-target" href="{% url 'student' %}{{ course_name }}/{{ instance.chapter_name }}">
+                <a class="a-target" href="{% url 'courses' %}{{ course_name }}/{{ instance.chapter_name }}">
                   {{ instance.chapter_name }}
                 </a>
               {% endfor %}
