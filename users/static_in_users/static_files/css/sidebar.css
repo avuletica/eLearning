@@ -2,6 +2,7 @@
 .sidebar-nav {
     padding: 0;
     list-style: none;
+
 }
 
 .sidebar-nav li {
@@ -14,6 +15,7 @@
     text-align: center;
     color: #000000;
     border-bottom: 2px solid #E6E6E6;
+    font-weight: bold;
 }
 
 .sidebar-nav li a:hover {
@@ -24,6 +26,7 @@
 .student-course {
     word-wrap: break-word;
     margin-bottom: 1em;
+    background-color: #FEFEFE;
 
     /* border&shadow */
     -moz-border-radius: 5px;
@@ -43,6 +46,7 @@
 
 .course-inner-content {
     margin-bottom: 1.3em;
+    margin-top: 1.3em;
 }
 
 .video {
