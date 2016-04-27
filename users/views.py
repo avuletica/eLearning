@@ -174,8 +174,13 @@ def course_homepage(request, course_name):
         "chapter_list": chapter_list,
     }
 
-    return redirect(reverse(student_course, kwargs={'course_name': course_name,
-                                                    "chapter_name": chapter_list[0]}))
+    if chapter_list:
+        return redirect(reverse(student_course, kwargs={'course_name': course_name,
+                                                        "chapter_name": chapter_list[0]}))
+    else:
+        warning_message = "Currently there are no chapters for this course "
+        messages.warning(request, warning_message)
+        return redirect(reverse('courses'))
 
 
 @login_required
