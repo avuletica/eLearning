@@ -19,3 +19,7 @@
 #id_chapter_description {
     resize: none;
 }
+
+.message {
+    text-align: center;
+}
