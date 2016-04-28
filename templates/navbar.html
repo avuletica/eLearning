@@ -22,7 +22,9 @@
         {% endif %}
         <li><a href="{% url 'about' %}"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
         <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-earphone"></span> Contact</a></li>
-
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'forum' %}"><span class="glyphicon glyphicon glyphicon-comment"></span> Forum</a></li>
+        {% endif %}
       </ul>
 
       <!-- Right align -->
