@@ -63,13 +63,11 @@ i.mail {
     border: none;
     font-weight: bold;
     background: #e4551d;
-    float: right;
     display: inline-block;
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-
     margin-bottom: 1em;
 }
 

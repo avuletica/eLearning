@@ -24,6 +24,31 @@ def initial_users(apps, schema_editor):
          is_site_admin=True,
          ).save()
 
+    user(username='test',
+         email='username.test@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
+
+    user(username='test2',
+         email='username.test2@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
+
+    user(username='test3',
+         email='username.test3@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
+
+    user(username='test4',
+         email='username.test4@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
+
+    user(username='test5',
+         email='username.test5@gmail.com',
+         password=make_password('letmein123'),
+         ).save()
+
 
 class Migration(migrations.Migration):
     dependencies = [
