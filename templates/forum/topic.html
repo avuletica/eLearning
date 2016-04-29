@@ -29,10 +29,10 @@
         <tr>
         <tr class="table-row-generic">
           <td>
-            <span class="span-left glyphicon glyphicon-user"> {{ first_comment_author|safe }}</span>
+            <span class="span-left glyphicon glyphicon-user"> {{ first_comment_author }}</span>
             <span class="span-right"> {{ first_comment_timestamp }}</span>
             <p class="comment-paragraph">
-              {{ first_comment }}
+              {{ first_comment|safe }}
             </p>
           </td>
         </tr>
@@ -49,8 +49,9 @@
             </td>
           </tr>
         {% endfor %}
-
       </table>
+
+    <div class="col-md-12 comment-text-input">
       <form method='POST' action="" role="form">
         {% csrf_token %}
         <a class="glyphicon glyphicon-arrow-left return-link"></a>
@@ -58,6 +59,9 @@
         <button class="btn btn-danger btn-sm submit-btn">Submit</button>
       </form>
     </div>
+
+    </div>
+
 
   </div>
 

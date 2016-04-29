@@ -118,3 +118,7 @@
 label {
     color: #637F83;
 }
+
+.comment-text-input {
+    padding-left: 0;
+}

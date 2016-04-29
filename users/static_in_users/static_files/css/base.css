@@ -4,7 +4,6 @@ body {
     font-size: 100%;
     background-color: #F6F6F6;
     height: 100%;
-    overflow-x: hidden;
     /* The html and body elements cannot have any padding or margin. */
 }
 
