@@ -92,6 +92,11 @@ a {
     background: #f6f6f6;
 }
 
+.featured_content a {
+    pointer-events: none;
+    cursor: default;
+}
+
 i.icon1 {
     width: 80px;
     height: 70px;
