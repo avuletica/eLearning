@@ -73,10 +73,6 @@
     background: #e4551d !important;
 }
 
-p {
-    word-break: break-all;
-}
-
 .topic-title {
     text-align: center;
     background-color: #637F83 !important;
@@ -102,7 +98,7 @@ p {
 
 .comment-paragraph {
     padding-top: 25px;
-    margin-top: 10px
+    white-space: pre-line;
 }
 
 .main-table-row {
@@ -112,6 +108,7 @@ p {
 
 .forum-search {
     padding-right: 18px;
+    float: right;
 }
 
 .pagination {

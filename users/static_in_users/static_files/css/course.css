@@ -23,3 +23,16 @@
 .message {
     text-align: center;
 }
+
+.lesson-table {
+    overflow-y: scroll;
+    height: 300px;
+    display: block;
+}
+
+
+
+.lesson-table td {
+    white-space: pre-line;
+    word-break: break-all;
+}
