@@ -16,6 +16,14 @@
 }
 
 /*--courses->chapter--*/
+.row {
+    margin-bottom: 1em;
+}
+
+.chapter-text-input {
+    padding-left: 0;
+}
+
 #id_chapter_description {
     resize: none;
 }
@@ -24,15 +32,36 @@
     text-align: center;
 }
 
-.lesson-table {
-    overflow-y: scroll;
-    height: 300px;
-    display: block;
+.generic-table {
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
 }
 
-
-
-.lesson-table td {
-    white-space: pre-line;
+.generic-table td {
     word-break: break-all;
+}
+
+.generic-table th {
+    background-color: #637F83;
+    color: white;
+}
+
+.generic-table th:nth-last-child(-n+2) {
+    text-align: center;
+}
+
+.generic-table td:last-child {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #637F83;;
+}
+
+label {
+    color: #637F83;
 }

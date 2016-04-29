@@ -9,7 +9,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 chapter-text-input">
         <form method='POST' action=''>
           {% csrf_token %}
           {{ add_txt_form|crispy }}
@@ -20,17 +20,70 @@
       <div class="col-md-3">
         <form method='POST' action=''>
           {% csrf_token %}
-          {{ add_link_form|crispy}}
+          {{ add_link_form|crispy }}
           <input class='btn btn-primary' type='submit' name="add_link" value='Add YouTube video link'/>
         </form>
       </div>
     </div>
+
+    <!-- Chapter text row -->
+    <div class="row">
+      {% if queryset_txt_block %}
+        <table class="table table-bordered generic-table scroll">
+          <thead>
+          <tr>
+            <th>Lessons</th>
+            <th>Date created</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          {% for instance in queryset_txt_block %}
+            <tr>
+              <td class="col-md-8">{{ instance.chapter_description }}</td>
+              <td class="col-md-2">{{ instance.date_created }}</td>
+              <td class="col-md-2">
+                <a href="{% url 'edit_txt' course_name chapter_id instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Edit'/>
+                </a>
+                <a href="{% url 'delete_txt' instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </div>
+
+    <!-- Link row -->
+    <div class="row">
+      {% if queryset_yt_link %}
+        <table class="table table-bordered generic-table scroll_table">
+          <thead>
+          <tr>
+            <th>Link</th>
+            <th>Date created</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          {% for instance in queryset_yt_link %}
+            <tr>
+              <td class="col-md-8">{{ instance.link }}</td>
+              <td class="col-md-2">{{ instance.date_created }}</td>
+              <td class="col-md-2">
+                <a href="{% url 'edit_link' course_name chapter_id instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
+                </a>
+                <a href="{% url 'delete_link' instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete Link'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </div>
+
   </div>
-
-  <hr>
-
-  {% include 'courses/text_block.html' %}
-  <hr>
-  {% include 'courses/yt_link.html' %}
 
 {% endblock %}

@@ -20,13 +20,11 @@
     </div>
   </div>
 
-  <h3 class="lead" style="text-align: center">Chapters</h3>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         {% if queryset_chapter %}
-          <table class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover generic-table">
             <thead>
             <tr>
               <th>Chapter name</th>
@@ -36,14 +34,14 @@
             </thead>
             {% for instance in queryset_chapter %}
               <tr>
-                <td><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
-                <td>{{ instance.chapter_created_date }}</td>
-                <td>
+                <td class="col-md-8"><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
+                <td class="col-md-2">{{ instance.chapter_created_date }}</td>
+                <td class="col-md-2">
                   <a href="{% url 'edit_chapter' instance.course instance.id %}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Rename Chapter'/>
+                    <input class='btn btn-primary btn-sm' type='submit' value='Rename'/>
                   </a>
                   <a href="{% url 'delete_chapter' instance.course instance.id%}">
-                    <input class='btn btn-danger btn-sm' type='submit' value='Delete Chapter'/>
+                    <input class='btn btn-danger btn-sm' type='submit' value='Delete'/>
                   </a>
                 </td>
               </tr>
