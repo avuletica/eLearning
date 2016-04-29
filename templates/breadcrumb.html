@@ -19,24 +19,9 @@
           {% endif %}
         </li>
 
-        {% url 'student' as profile_url %}
-        {% if request.get_full_path == profile_url %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-        {% endif %}
-
-        {% url 'professor' as profile_url %}
-        {% if request.get_full_path == profile_url %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-        {% endif %}
-
-        {% url 'admin' as profile_url %}
-        {% if request.get_full_path == profile_url %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-        {% endif %}
-
         {% url 'student_course' course_name chapter_name as student_course_url %}
         {% if request.get_full_path ==  student_course_url %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li><a href="{% url 'courses' %}">Courses</a></li>
         {% endif %}
 
         {% url 'chapter' course_name chapter_name as chapter_url %}
