@@ -12,7 +12,10 @@
         <li>
           <a href="/">Home&nbsp</a>
           {% if  path  != None %}
-            <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
+            {% url 'forum' as forum_url %}
+            {% if request.get_full_path != forum_url %}
+              <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
+            {% endif %}
           {% endif %}
         </li>
 
