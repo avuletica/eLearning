@@ -63,6 +63,11 @@ a.about_btn {
     border-left: 1px solid #555;
 }
 
+.about_bottom a {
+    pointer-events: none;
+    cursor: default;
+}
+
 a.about_btn:hover {
     background: url(../img/arrow_hover.png) no-repeat 100% 1px;
 }

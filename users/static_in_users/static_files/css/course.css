@@ -65,3 +65,7 @@
 label {
     color: #637F83;
 }
+
+textarea {
+    resize: none;
+}

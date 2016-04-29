@@ -5,6 +5,12 @@
 {% block content %}
   <!-- Contact core css -->
   <link href="{% static "css/forum.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
   {% include 'breadcrumb.html' %}
 
   <div class="container">

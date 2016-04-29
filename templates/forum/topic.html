@@ -5,6 +5,12 @@
 {% block content %}
   <!-- Contact core css -->
   <link href="{% static "css/forum.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
   {% include 'breadcrumb.html' %}
 
   <div class="container">
@@ -23,7 +29,7 @@
         <tr>
         <tr class="table-row-generic">
           <td>
-            <span class="span-left glyphicon glyphicon-user"> {{ first_comment_author }}</span>
+            <span class="span-left glyphicon glyphicon-user"> {{ first_comment_author|safe }}</span>
             <span class="span-right"> {{ first_comment_timestamp }}</span>
             <p class="comment-paragraph">
               {{ first_comment }}
@@ -38,7 +44,7 @@
               <span class="span-left glyphicon glyphicon-user"> {{ instance.author }}</span>
               <span class="span-right"> {{ instance.date_created }}</span>
               <p class="comment-paragraph">
-                {{ instance.message }}
+                {{ instance.message|safe }}
               </p>
             </td>
           </tr>

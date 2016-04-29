@@ -42,7 +42,7 @@ class AddLinkForm(forms.ModelForm):
 class AddTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
-        fields = ['chapter_description']
+        fields = ["lesson"]
 
 
 class EditCourseForm(forms.ModelForm):
@@ -66,5 +66,5 @@ class EditYTLinkForm(forms.ModelForm):
 class EditTxtForm(forms.ModelForm):
     class Meta:
         model = TextBlock
-        fields = ['chapter_description']
+        fields = ["lesson"]
 
