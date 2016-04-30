@@ -19,7 +19,7 @@
 
       <div class="col-md-8">
         {% if queryset_course %}
-          <table class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover generic-table table-bordered table-striped">
             <thead>
             <tr>
               <th>Course name</th>
@@ -39,7 +39,7 @@
                     <input class='btn btn-danger btn-sm' type='submit' value='Delete Course'/>
                   </a>
                   <a href="{% url 'list_students' instance.course_name %}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Edit students'/>
+                    <input class='btn btn-info btn-sm' type='submit' value='Edit students'/>
                   </a>
                 </td>
               </tr>

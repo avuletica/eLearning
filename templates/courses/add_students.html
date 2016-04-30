@@ -21,7 +21,7 @@
 
         <h5>Available students:</h5>
         {% if excluded_students %}
-          <table class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover generic-table">
             <thead>
             <tr>
               <th>User name</th>
@@ -30,8 +30,8 @@
             </thead>
             {% for instance in excluded_students %}
               <tr>
-                <td>{{ instance.username }}</td>
-                <td><a href="{% url 'add_students' course_name instance.id %}">
+                <td class="col-md-5">{{ instance.username }}</td>
+                <td class="col-md-1"><a href="{% url 'add_students' course_name instance.id %}">
                   <input class='btn btn-primary btn-xs' type='submit' value='Add Student'/>
                 </a>
                 </td>
@@ -52,7 +52,7 @@
 
         <h5>Added students:</h5>
         {% if added_students %}
-          <table class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover generic-table">
             <thead>
             <tr>
               <th>User name</th>
@@ -61,8 +61,8 @@
             </thead>
             {% for instance in added_students %}
               <tr>
-                <td>{{ instance.username }}</td>
-                <td><a href="{% url 'remove_students' course_name instance.id %}">
+                <td class="col-md-5">{{ instance.username }}</td>
+                <td class="col-md-1"><a href="{% url 'remove_students' course_name instance.id %}">
                   <input class='btn btn-danger btn-xs' type='submit' value='Remove Student'/>
                 </a>
                 </td>
