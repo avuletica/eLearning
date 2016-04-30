@@ -6,7 +6,7 @@ import re
 class AddCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['course_name']
+        fields = ['course_name', 'for_everybody']
 
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')

@@ -6,8 +6,10 @@ from .forms import *
 
 @login_required
 def courses(request):
-    queryset = Course.objects.all()
-
+    if request.user.is_professor or request.user.is_site_admin:
+        queryset = Course.objects.all()
+    else:
+        queryset = Course.objects.filter(for_everybody=True)
     context = {
         "title": "Courses",
         "queryset": queryset,

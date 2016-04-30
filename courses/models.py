@@ -7,17 +7,18 @@ from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Course(models.Model):
-    course_name = models.CharField(unique=True, max_length=50)
+    course_name = models.CharField(unique=True, max_length=20)
     course_created_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(UserProfile, default=1)
     students = models.ManyToManyField(UserProfile, related_name='students_to_course')
+    for_everybody = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.course_name
 
 
 class Chapter(models.Model):
-    chapter_name = models.CharField(max_length=50)
+    chapter_name = models.CharField(max_length=20)
     chapter_created_date = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
 
