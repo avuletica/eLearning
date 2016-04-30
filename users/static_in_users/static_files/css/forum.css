@@ -33,6 +33,7 @@
 
 .btn-success {
     background-color: #637F83;
+    font-weight: bolder;
 }
 
 .forum-th {
@@ -61,11 +62,6 @@
 
 .topic-table td {
     background-color: #F6F6F9;
-}
-
-.add-btn {
-    margin-bottom: 20px;
-    font-weight: bolder;
 }
 
 .btn-success:hover {
