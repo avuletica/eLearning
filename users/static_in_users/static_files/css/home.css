@@ -26,10 +26,17 @@ a {
     background-color: #e4551d;
 }
 
-@media (min-width: 900px) and (min-height: 650px) {
+@media (min-width: 1105px) {
     #mainNavBar {
         padding-left: 150px;
         padding-right: 150px;
+    }
+}
+
+@media (max-width: 1100px) {
+    #mainNavBar {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
@@ -83,6 +90,11 @@ a {
 /*--feature content--*/
 .featured_content {
     background: #f6f6f6;
+}
+
+.featured_content a {
+    pointer-events: none;
+    cursor: default;
 }
 
 i.icon1 {

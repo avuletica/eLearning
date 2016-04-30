@@ -30,7 +30,7 @@ class Chapter(models.Model):
 
 
 class TextBlock(models.Model):
-    chapter_description = models.TextField()
+    lesson = models.TextField()
     text_block_fk = models.ForeignKey(Chapter, default=1)
     date_created = models.DateTimeField(auto_now_add=True)
 

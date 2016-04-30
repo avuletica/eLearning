@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 
 {% block content %}
+   <link href="{% static 'css/registration.css' %}" rel="stylesheet"/>
   <!-- Using this because of django redux registration which contains built-in validation. -->
   {% if request.user.is_authenticated %}
     <script>

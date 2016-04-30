@@ -32,7 +32,7 @@
               </div>
             {% else %}
               <div class="course-inner-content">
-                {{ item.chapter_description }}
+                {{ item.lesson|safe }}
               </div>
             {% endif %}
           {% endfor %}

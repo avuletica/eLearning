@@ -114,3 +114,12 @@
 .pagination {
     margin: 0;
 }
+
+label {
+    color: #637F83;
+}
+
+.comment-text-input {
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -5,6 +5,12 @@
 {% block content %}
   <!-- Chapter css is in course core css -->
   <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
   {% include 'breadcrumb.html' %}
 
   <div class="container">
@@ -39,7 +45,7 @@
           </thead>
           {% for instance in queryset_txt_block %}
             <tr>
-              <td class="col-md-8">{{ instance.chapter_description }}</td>
+              <td class="col-md-8">{{ instance.lesson|safe }}</td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
                 <a href="{% url 'edit_txt' course_name chapter_id instance.id %}">
@@ -83,7 +89,8 @@
         </table>
       {% endif %}
     </div>
-
   </div>
+
+
 
 {% endblock %}
