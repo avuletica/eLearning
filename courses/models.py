@@ -73,7 +73,7 @@ class YTLink(models.Model):
 
 
 class FileUpload(models.Model):
-    file = models.FileField(null=True, blank=True)
+    file = models.FileField(null=False, blank=False, default='')
     date_created = models.DateTimeField(auto_now_add=True)
     file_fk = models.ForeignKey(Chapter, default=1)
 
