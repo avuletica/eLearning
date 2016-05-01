@@ -119,7 +119,7 @@
               </td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'delete_file' course_name chapter_name instance.id %}">
+                <a href="{% url 'delete_file' instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Delete File'/>
                 </a>
               </td>

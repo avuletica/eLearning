@@ -100,7 +100,7 @@ def chapter(request, course_name=None, slug=None):
 
     if file_upload_form.is_valid() and 'add_file' in request.POST:
         instance = file_upload_form.save(commit=False)
-        instance.file_fk = Chapter.objects.get(id=place)
+        instance.file_fk = Chapter.objects.get(id=place.id)
         instance.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
                                                    'slug': slug}))
@@ -123,21 +123,21 @@ def delete_chapter(request, course_name=None, slug=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def delete_yt_link(request, course_name=None, slug=None, yt_id=None):
+def delete_yt_link(request, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     instance.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
-def delete_text_block(request, course_name=None, slug=None, txt_id=None):
+def delete_text_block(request, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     instance.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
-def delete_file(request, course_name=None, chapter_name=None, file_id=None):
+def delete_file(request, file_id=None):
     instance = FileUpload.objects.get(id=file_id)
     instance.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
