@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 import os
-import uuid
 
 from django.db import models
 from users.models import UserProfile
