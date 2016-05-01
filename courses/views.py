@@ -199,6 +199,7 @@ def update_yt_link(request, course_name=None, slug=None, yt_id=None):
         "title": "Edit",
         "course_name": course_name,
         "yt_id": yt_id,
+        "slug": slug,
         "form": update_link_form,
     }
 
@@ -224,6 +225,7 @@ def update_text_block(request, course_name=None, slug=None, txt_id=None):
         "course_name": course_name,
         "text_id": txt_id,
         "form": update_txt_form,
+        "slug": slug,
         "path": path,
         "redirect_path": redirect_path,
     }
