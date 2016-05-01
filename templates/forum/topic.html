@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- Contact core css -->
+  <link href="{% static "css/forum.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
+  {% include 'breadcrumb.html' %}
+
+  <div class="container">
+
+    <div class="row">
+      <table class=" topic-table table table-bordered">
+
+        <!-- Display Topic title -->
+        <tr>
+          <td class="topic-title">
+            <span class="glyphicon glyphicon-tag"> {{ title }}</span>
+          </td>
+        </tr>
+
+        <!-- Display first comment -->
+        <tr>
+        <tr class="table-row-generic">
+          <td>
+            <span class="span-left glyphicon glyphicon-user"> {{ first_comment_author }}</span>
+            <span class="span-right"> {{ first_comment_timestamp }}</span>
+            <p class="comment-paragraph">
+              {{ first_comment|safe }}
+            </p>
+          </td>
+        </tr>
+        </tr>
+
+        {% for instance in comment_list %}
+          <tr class="table-row-generic">
+            <td>
+              <span class="span-left glyphicon glyphicon-user"> {{ instance.author }}</span>
+              <span class="span-right"> {{ instance.date_created }}</span>
+              <p class="comment-paragraph">
+                {{ instance.message|safe }}
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    <div class="col-md-12 comment-text-input">
+      <form method='POST' action="" role="form">
+        {% csrf_token %}
+        <a class="glyphicon glyphicon-arrow-left return-link"></a>
+        {{ add_new_comment_form | crispy }}
+        <button class="btn btn-danger btn-sm submit-btn">Submit</button>
+      </form>
+    </div>
+
+    </div>
+
+
+  </div>
+
+
+{% endblock %}

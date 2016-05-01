@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- Contact core css -->
+  <link href="{% static "css/forum.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
+  {% include 'breadcrumb.html' %}
+
+  <div class="container">
+
+    <div class="row">
+
+      <button class="btn btn-success add-btn">New Topic</button>
+      <div class="col-md-6 add-topic">
+        <form method='POST' action="" role="form">
+          {% csrf_token %}
+          <a class="glyphicon glyphicon-arrow-left return-link"></a>
+          {{ add_new_topic_form | crispy }}
+          <button class="btn btn-danger btn-sm">Submit</button>
+        </form>
+      </div>
+
+      <form class="form-inline forum-search" method='GET' action="" role="form">
+        <div class="form-group">
+          <input class="form-control" type="text" name="search" placeholder="Search topics"/>
+          <button class="btn btn-success btn-md">Submit</button>
+        </div>
+      </form>
+
+
+      <div class="col-md-12">
+        <table class="table table-striped table-condensed table-bordered forum-table">
+          <thead>
+          <tr class="main-table-row">
+            <th>Topic</th>
+            <th class="forum-th">Author</th>
+            <th class="forum-th">Comments</th>
+            <th class="forum-th">Last message</th>
+          </tr>
+          </thead>
+
+          {% for instance in topic_list %}
+            <tr>
+              <td class="col-md-2">
+                <a href="{% url 'forum' %}{{ instance.slug }}">{{ instance.subject }}</a>
+              </td>
+              <td class="col-md-1 forum-th">{{ instance.author }}</td>
+              <td class="col-md-1 forum-th">{{ instance.comment_count }}</td>
+              <td class="col-md-1 forum-th">{{ instance.stamp_updated }}</td>
+            </tr>
+          {% endfor %}
+
+        </table>
+      </div>
+    </div>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if topic_list.has_previous %}
+          <a href="?page={{ topic_list.previous_page_number }}">Previous</a>
+        {% endif %}
+
+      <span class="current">
+            Page {{ topic_list.number }} of {{ topic_list.paginator.num_pages }}.
+      </span>
+
+      {% if topic_list.has_next %}
+        <a class="" href="?page={{ topic_list.next_page_number }}">Next</a>
+      {% endif %}
+    </span>
+    </div>
+  </div>
+
+  <script src="{% static "js/forum.js" %}" rel="script"></script>
+{% endblock %}

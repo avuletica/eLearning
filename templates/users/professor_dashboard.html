@@ -19,7 +19,7 @@
 
       <div class="col-md-8">
         {% if queryset_course %}
-          <table class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover generic-table table-bordered table-striped">
             <thead>
             <tr>
               <th>Course name</th>
@@ -29,7 +29,7 @@
             </thead>
             {% for instance in queryset_course %}
               <tr>
-                <td><a href="{{ instance.get_absolute_url }}">{{ instance.course_name }}</a></td>
+                <td><a href="{% url 'professor_course' instance.course_name %}">{{ instance.course_name }}</a></td>
                 <td>{{ instance.course_created_date }}</td>
                 <td>
                   <a href="{% url 'edit' instance.course_name %}">
@@ -39,7 +39,7 @@
                     <input class='btn btn-danger btn-sm' type='submit' value='Delete Course'/>
                   </a>
                   <a href="{% url 'list_students' instance.course_name %}">
-                    <input class='btn btn-primary btn-sm' type='submit' value='Edit students'/>
+                    <input class='btn btn-info btn-sm' type='submit' value='Edit students'/>
                   </a>
                 </td>
               </tr>

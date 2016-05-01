@@ -1,16 +1,104 @@
 /*--course-box-model--*/
-
 .inner-wrap {
-    margin-top: 30px;
-    padding-top: 5px;
-    border: solid black 1px;
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+    background-color: #637F83;
 }
 
-.content {
+.inner-top {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #fff;
+    background: #637F83;
     text-align: center;
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.course-box-model {
+    margin-bottom: 2em;
+}
+
+.course-box-model a {
+    text-decoration: none;
+    color: white;
+}
+
+.inner-middle {
+    background: url(../img/course-box.jpg) no-repeat 0 0;
+    background-size: contain;
+    min-height: 100px;
+}
+
+.inner-bottom {
+    padding: 0 0.4em 0.6em 0.4em;
+    color: white;
+}
+
+.course-type {
+    float: right;
 }
 
 /*--course--*/
 .course-professor-panel {
     margin-top: 20px;
+}
+
+/*--courses->chapter--*/
+.row {
+    margin-bottom: 1em;
+}
+
+.chapter-text-input {
+    padding-left: 0;
+}
+
+#id_chapter_description {
+    resize: none;
+}
+
+.message {
+    text-align: center;
+}
+
+.generic-table {
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+}
+
+.generic-table td {
+    word-break: break-all;
+}
+
+.generic-table th {
+    background-color: #637F83;
+    color: white;
+}
+
+.generic-table th:nth-last-child(-n+2) {
+    text-align: center;
+}
+
+.generic-table td:last-child {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #637F83;;
+}
+
+label {
+    color: #637F83;
+}
+
+textarea {
+    resize: none;
 }

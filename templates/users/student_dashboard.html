@@ -7,9 +7,29 @@
   <link href="{% static "css/student_profile.css" %}" rel="stylesheet"/>
   {% include 'breadcrumb.html' %}
 
-  <div class="container-fluid">
+  <div class="container content">
+    <link href="{% static "css/course.css" %}" rel="stylesheet"/>
     <div class="row">
+      {% if queryset %}
+        {% for instance in queryset %}
+          <div class="col-md-4 course-box-model">
 
+            <a href="{% url 'courses' %}{{ instance.course_name }}  ">
+              <div class="inner-wrap">
+                <div class="inner-top">
+                  {{ instance.course_name }}
+                </div>
+                <div class="inner-middle"></div>
+                <div class="inner-bottom">
+                  <span class="author">Author: {{ instance.user }}</span>
+                  <span class="course-type">Self-Paced</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 

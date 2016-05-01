@@ -2,16 +2,26 @@
 {% load crispy_forms_tags %}
 {% include 'head_css.html' %}
 {% include 'javascript.html' %}
+{% load staticfiles %}
 
 {% block content %}
   {% include 'breadcrumb.html' %}
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
 
-  <div class="col-md-2 col-md-offset-5">
-    <form method='POST' action=''>
-      {% csrf_token %}
-      {{ form|crispy }}
-      <input class='btn btn-primary' type='submit' value='Edit'/>
-    </form>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <form method='POST' action=''>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class='btn btn-primary' type='submit' value='Edit'/>
+      </form>
+    </div>
   </div>
+
 
 {% endblock %}

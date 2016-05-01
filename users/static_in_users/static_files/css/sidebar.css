@@ -1,0 +1,59 @@
+/* Sidebar styling - the entire ul list */
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+
+}
+
+.sidebar-nav li {
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #000000;
+    border-bottom: 2px solid #E6E6E6;
+    font-weight: bold;
+}
+
+.sidebar-nav li a:hover {
+    background: #E4551D;
+    color: white;
+}
+
+.student-course {
+    word-wrap: break-word;
+    margin-bottom: 1em;
+    background-color: #FEFEFE;
+
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+}
+
+.col-md-2 {
+    padding: 0;
+}
+
+.col-md-10 {
+    border-left: 2px solid #E6E6E6;
+}
+
+.course-inner-content {
+    margin-bottom: 1.3em;
+    margin-top: 1.3em;
+}
+
+.video {
+    text-align: center;
+}
+
+.active-sidebar {
+    background: #E4551D;
+    color: white !important;
+}

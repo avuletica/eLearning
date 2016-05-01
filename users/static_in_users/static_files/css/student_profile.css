@@ -1,0 +1,39 @@
+.inner-wrap {
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+    background-color: #637F83;
+}
+
+.inner-top {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #fff;
+    background: #637F83;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.course-box-model {
+    margin-bottom: 2em;
+}
+
+.course-box-model a {
+    text-decoration: none;
+    color: white;
+}
+
+.inner-middle {
+    background: url(../img/course-box.jpg) no-repeat 0 0;
+    background-size: contain;
+    min-height: 100px;
+}
+
+.inner-bottom {
+    padding: 0 0.4em 0.6em 0.4em;
+    color: white;
+}

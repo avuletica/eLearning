@@ -7,11 +7,18 @@
       {% if queryset %}
         {% for instance in queryset %}
           <div class="col-md-4 course-box-model">
-            <div class="inner-wrap">
-              <a href="{{ instance.get_absolute_url }}">
-                <h3>{{ instance.course_name }}</h3>
-              </a>
-            </div>
+            <a href="{% url 'course_homepage' instance.course_name %}">
+              <div class="inner-wrap">
+                <div class="inner-top">
+                  {{ instance.course_name }}
+                </div>
+                <div class="inner-middle"></div>
+                <div class="inner-bottom">
+                  <span class="author">Author: {{ instance.user }}</span>
+                  <span class="course-type">Self-Paced</span>
+                </div>
+              </div>
+            </a>
           </div>
         {% endfor %}
       {% endif %}

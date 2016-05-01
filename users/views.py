@@ -1,39 +1,53 @@
 from courses.forms import AddCourseForm
-from courses.models import Course
+from courses.models import *
 from .forms import *
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from itertools import chain
 
 
 def home(request):
-    title = 'eLearning'
-
     context = {
-        "title": title,
+        "title": "eLearning",
     }
 
     return render(request, "home.html", context)
 
 
 def about(request):
-    title = 'About'
-
     context = {
-        "title": title,
+        "title": "About",
     }
 
     return render(request, "users/about.html", context)
 
 
 def contact(request):
-    title = 'Contact'
+    contact_form = Contact(request.POST or None)
 
     context = {
-        "title": title,
+        "title": "Contact",
+        "contact_form": contact_form,
     }
+
+    if contact_form.is_valid():
+        sender = contact_form.cleaned_data.get("sender")
+        subject = contact_form.cleaned_data.get("subject")
+        from_email = contact_form.cleaned_data.get("email")
+        message = contact_form.cleaned_data.get("message")
+        message = 'Sender:  ' + sender + '\nFrom:  ' + from_email + '\n\n' + message
+        send_mail(subject, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
+        success_message = "We appreciate you contacting us, one of our Customer Service colleagues will get back" \
+                          " to you within a 24 hours."
+        messages.success(request, success_message)
+
+        return redirect(reverse('contact'))
 
     return render(request, "users/contact.html", context)
 
@@ -51,14 +65,18 @@ def profile(request):
 
 @user_passes_test(lambda user: user.is_site_admin)
 def admin(request):
-    title = 'Admin'
     add_user_form = AddUser(request.POST or None)
     queryset = UserProfile.objects.all()
 
+    search = request.GET.get("search")
+    if search:
+        queryset = queryset.filter(username__icontains=search)
+
     context = {
-        "title": title,
+        "title": "Admin",
         "add_user_form": add_user_form,
         "queryset": queryset,
+
     }
 
     if add_user_form.is_valid():
@@ -74,31 +92,32 @@ def admin(request):
 
 @user_passes_test(lambda user: user.is_professor)
 def professor(request):
-    title = 'Professor'
     add_course_form = AddCourseForm(request.POST or None)
     queryset_course = Course.objects.filter(user__username=request.user)
 
     context = {
-        "title": title,
+        "title": "Professor",
         "add_course_form": add_course_form,
         "queryset_course": queryset_course,
     }
 
     if add_course_form.is_valid():
+        course_name = add_course_form.cleaned_data.get("course_name")
         instance = add_course_form.save(commit=False)
         instance.user = request.user
         instance.save()
-        return redirect(instance.get_absolute_url())
+        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
     return render(request, "users/professor_dashboard.html", context)
 
 
 @login_required
 def student(request):
-    title = 'Student'
+    queryset = Course.objects.filter(students=request.user)
 
     context = {
-        "title": title,
+        "queryset": queryset,
+        "title": request.user,
     }
 
     return render(request, "users/student_dashboard.html", context)
@@ -109,13 +128,13 @@ def update_user(request, username):
     user = UserProfile.objects.get(username=username)
     data_dict = {'username': user.username, 'email': user.email}
     update_user_form = EditUser(initial=data_dict, instance=user)
-    title = 'Edit user'
+
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": title,
+        "title": "Edit",
         "update_user_form": update_user_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -143,3 +162,45 @@ def delete_user(request, username):
     user = UserProfile.objects.get(username=username)
     user.delete()
     return redirect(reverse('profile'))
+
+
+@login_required
+def course_homepage(request, course_name):
+    course = Course.objects.filter(course_name=course_name)
+    chapter_list = Chapter.objects.filter(course=course)
+
+    context = {
+        "course_name": course_name,
+        "chapter_list": chapter_list,
+    }
+
+    if chapter_list:
+        return redirect(reverse(student_course, kwargs={'course_name': course_name,
+                                                        "chapter_name": chapter_list[0]}))
+    else:
+        warning_message = "Currently there are no chapters for this course "
+        messages.warning(request, warning_message)
+        return redirect(reverse('courses'))
+
+
+@login_required
+def student_course(request, course_name, chapter_name):
+    course = Course.objects.filter(course_name=course_name)
+    chapter_list = Chapter.objects.filter(course=course)
+    chapter = Chapter.objects.filter(chapter_name=chapter_name)
+    text = TextBlock.objects.filter(text_block_fk=chapter)
+    videos = YTLink.objects.filter(yt_link_fk=chapter)
+
+    result_list = sorted(
+        chain(text, videos),
+        key=lambda instance: instance.date_created)
+
+    context = {
+        "course_name": course_name,
+        "chapter_list": chapter_list,
+        "chapter_name": chapter_name,
+        "result_list": result_list,
+        "title": course_name + ' : ' + chapter_name,
+    }
+
+    return render(request, "users/student_courses.html", context)

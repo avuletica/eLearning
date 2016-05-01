@@ -1,0 +1,41 @@
+h5 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #637f83;
+    margin-top: 25px;
+}
+
+label, h2, th {
+    color: #637f83;
+}
+
+td {
+    color: #E55923;
+}
+
+.btn-danger {
+    background-color: #E55923 !important;
+}
+
+.generic-table {
+    margin-top: 5px;
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+}
+
+.generic-table th {
+    background-color: #637F83;
+    color: white;
+}
+
+.generic-table td:last-child {
+    text-align: center;
+}
+
+.generic-table th:last-child {
+    text-align: center;
+}
