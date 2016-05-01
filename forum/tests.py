@@ -14,8 +14,6 @@ class TestCalls(TestCase):
     def test_call_view_denies_anonymous(self):
         response = self.client.get('forum', follow=True)
         self.assertEqual(response.status_code, 404)
-        response = self.client.get('topic', follow=True)
-        self.assertEqual(response.status_code, 404)
 
     # Test forum view after login
     def test_call_view_loads(self):
