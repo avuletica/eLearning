@@ -44,24 +44,23 @@ def course(request, course_name=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def chapter(request, course_name=None, chapter_name=None):
-    place = Chapter.objects.get(course__course_name=course_name, chapter_name=chapter_name).id
+def chapter(request, course_name=None, slug=None):
+    place = Chapter.objects.get(course__course_name=course_name, slug=slug)
 
     add_link_form = AddLinkForm(request.POST or None)
     add_txt_form = AddTxtForm(request.POST or None)
 
-    queryset_txt_block = TextBlock.objects.filter(text_block_fk__id=place)
-    queryset_yt_link = YTLink.objects.filter(yt_link_fk__id=place)
+    queryset_txt_block = TextBlock.objects.filter(text_block_fk__id=place.id)
+    queryset_yt_link = YTLink.objects.filter(yt_link_fk__id=place.id)
 
     path = request.path.split('/')[1]
     redirect_path = path
     path = path.title()
 
     context = {
-        "title": chapter_name,
+        "title": place.chapter_name,
         "course_name": course_name,
-        "chapter_name": chapter_name,
-        "chapter_id": place,
+        "slug": slug,
         "add_link_form": add_link_form,
         "add_txt_form": add_txt_form,
         "queryset_yt_link": queryset_yt_link,
@@ -72,17 +71,17 @@ def chapter(request, course_name=None, chapter_name=None):
 
     if add_link_form.is_valid() and 'add_link' in request.POST:
         instance = add_link_form.save(commit=False)
-        instance.yt_link_fk = Chapter.objects.get(id=place)
+        instance.yt_link_fk = Chapter.objects.get(id=place.id)
         instance.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   'chapter_name': chapter_name}))
+                                                   'slug': slug}))
 
     if add_txt_form.is_valid() and 'add_text' in request.POST:
         instance = add_txt_form.save(commit=False)
-        instance.text_block_fk = Chapter.objects.get(id=place)
+        instance.text_block_fk = Chapter.objects.get(id=place.id)
         instance.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   'chapter_name': chapter_name}))
+                                                   'slug': slug}))
 
     return render(request, "courses/chapter.html", context)
 
@@ -95,8 +94,8 @@ def delete_course(request, course_name=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def delete_chapter(request, course_name=None, chapter_id=None):
-    instance = Chapter.objects.get(id=chapter_id)
+def delete_chapter(request, course_name=None, slug=None):
+    instance = Chapter.objects.get(slug=slug)
     instance.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -139,8 +138,8 @@ def update_course(request, course_name=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_chapter(request, course_name=None, chapter_id=None):
-    instance = Chapter.objects.get(id=chapter_id)
+def update_chapter(request, course_name=None, slug=None):
+    instance = Chapter.objects.get(slug=slug)
     update_chapter_form = EditChapterForm(request.POST or None, instance=instance)
 
     path = request.path.split('/')[1]
@@ -150,7 +149,6 @@ def update_chapter(request, course_name=None, chapter_id=None):
     context = {
         "title": "Edit",
         "course_name": course_name,
-        "chapter_id": chapter_id,
         "form": update_chapter_form,
         "path": path,
         "redirect_path": redirect_path,
@@ -164,16 +162,13 @@ def update_chapter(request, course_name=None, chapter_id=None):
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_yt_link(request, course_name=None, chapter_id=None, yt_id=None):
+def update_yt_link(request, course_name=None, slug=None, yt_id=None):
     instance = YTLink.objects.get(id=yt_id)
     update_link_form = EditYTLinkForm(request.POST or None, instance=instance)
-    chapter_name = Chapter.objects.get(id=chapter_id).chapter_name
 
     context = {
         "title": "Edit",
         "course_name": course_name,
-        "chapter_name": chapter_name,
-        "chapter_id": chapter_id,
         "yt_id": yt_id,
         "form": update_link_form,
     }
@@ -181,16 +176,15 @@ def update_yt_link(request, course_name=None, chapter_id=None, yt_id=None):
     if update_link_form.is_valid():
         update_link_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": chapter_name}))
+                                                   "slug": slug}))
 
     return render(request, "courses/edit.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
-def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
+def update_text_block(request, course_name=None, slug=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     update_txt_form = EditTxtForm(request.POST or None, instance=instance)
-    chapter_name = Chapter.objects.get(id=chapter_id).chapter_name
 
     path = request.path.split('/')[1]
     redirect_path = path
@@ -199,8 +193,6 @@ def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     context = {
         "title": "Edit",
         "course_name": course_name,
-        "chapter_name": chapter_name,
-        "chapter_id": chapter_id,
         "text_id": txt_id,
         "form": update_txt_form,
         "path": path,
@@ -210,7 +202,7 @@ def update_text_block(request, course_name=None, chapter_id=None, txt_id=None):
     if update_txt_form.is_valid():
         update_txt_form.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   "chapter_name": chapter_name}))
+                                                   "slug": slug}))
 
     return render(request, "courses/edit.html", context)
 
