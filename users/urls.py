@@ -18,6 +18,7 @@ urlpatterns = [
         course_views.add_students, name='add_students'),
 
     url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', course_views.chapter, name='chapter'),
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/(?P<file_id>[\d ]+)/$', course_views.delete_file, name='delete_file'),
     url(r'^professor/edit/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',
         course_views.update_chapter, name='edit_chapter'),
     url(r'^professor/delete/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',

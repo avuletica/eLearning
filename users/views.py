@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from itertools import chain
+from django.http import Http404
 
 
 def home(request):
@@ -185,22 +186,29 @@ def course_homepage(request, course_name):
 
 @login_required
 def student_course(request, course_name, chapter_name):
-    course = Course.objects.filter(course_name=course_name)
+    course = Course.objects.get(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
     chapter = Chapter.objects.filter(chapter_name=chapter_name)
     text = TextBlock.objects.filter(text_block_fk=chapter)
     videos = YTLink.objects.filter(yt_link_fk=chapter)
+    files = FileUpload.objects.filter(file_fk = chapter)
+    user = request.user
 
-    result_list = sorted(
-        chain(text, videos),
-        key=lambda instance: instance.date_created)
 
-    context = {
-        "course_name": course_name,
-        "chapter_list": chapter_list,
-        "chapter_name": chapter_name,
-        "result_list": result_list,
-        "title": course_name + ' : ' + chapter_name,
-    }
+    if user in course.students.all() or user.is_professor or user.is_site_admin or course.for_everybody:
+        result_list = sorted(
+            chain(text, videos, files),
+            key=lambda instance: instance.date_created)
 
-    return render(request, "users/student_courses.html", context)
+        context = {
+            "course_name": course_name,
+            "chapter_list": chapter_list,
+            "chapter_name": chapter_name,
+            "result_list": result_list,
+            "title": course_name + ' : ' + chapter_name,
+        }
+
+        return render(request, "users/student_courses.html", context)
+
+    else:
+        raise Http404
