@@ -68,3 +68,7 @@ class EditTxtForm(forms.ModelForm):
         model = TextBlock
         fields = ["lesson"]
 
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = FileUpload
+        fields = ['file']

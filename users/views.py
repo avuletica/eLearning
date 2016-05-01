@@ -190,9 +190,10 @@ def student_course(request, course_name, chapter_name):
     chapter = Chapter.objects.filter(chapter_name=chapter_name)
     text = TextBlock.objects.filter(text_block_fk=chapter)
     videos = YTLink.objects.filter(yt_link_fk=chapter)
+    files = FileUpload.objects.filter(file_fk = chapter)
 
     result_list = sorted(
-        chain(text, videos),
+        chain(text, videos, files),
         key=lambda instance: instance.date_created)
 
     context = {

@@ -30,7 +30,16 @@
           <input class='btn btn-primary' type='submit' name="add_link" value='Add YouTube video link'/>
         </form>
       </div>
+
+      <div class="col-md-3">
+        <form method='POST' action='' enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ file_upload_form|crispy }}
+          <input class='btn btn-primary' type='submit' name="add_file" value='Add File'/>
+        </form>
+      </div>
     </div>
+  </div>
 
     <!-- Chapter text row -->
     <div class="row">
@@ -81,6 +90,39 @@
                   <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
                 </a>
                 <a href="{% url 'delete_link' instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete Link'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </div>
+  </div>
+
+
+    <!-- File row -->
+    <div class="row">
+      {% if queryset_files %}
+        <table class="table table-bordered generic-table scroll_table">
+          <thead>
+          <tr>
+            <th>File</th>
+            <th>Date created</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          {% for instance in queryset_files %}
+            <tr>
+              <td class="col-md-8">
+              <a href='{{ instance.file.url }}'>{{ instance.file }}</a>
+              </td>
+              <td class="col-md-2">{{ instance.date_created }}</td>
+              <td class="col-md-2">
+                <a href="#">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
+                </a>
+                <a href="#">
                   <input class='btn btn-primary btn-sm' type='submit' value='Delete Link'/>
                 </a>
               </td>

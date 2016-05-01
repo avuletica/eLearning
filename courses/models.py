@@ -40,3 +40,9 @@ class YTLink(models.Model):
     link = models.URLField(max_length=200)
     yt_link_fk = models.ForeignKey(Chapter, default=1)
     date_created = models.DateTimeField(auto_now_add=True)
+
+
+class FileUpload(models.Model):
+    file = models.FileField(null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    file_fk = models.ForeignKey(Chapter, default=1)
