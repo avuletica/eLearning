@@ -202,6 +202,7 @@ def student_course(request, course_name, slug):
             "course_name": course_name,
             "chapter_list": chapter_list,
             "chapter_name": chapter.chapter_name,
+            "slug": chapter.slug,
             "result_list": result_list,
             "title": course_name + ' : ' + chapter.chapter_name,
         }

@@ -1,9 +1,7 @@
-# Introduction
-Project was created by participating in team project of extension engine spring camp.
+﻿# Introduction
+Project was created by participating team in extension engine spring camp.
 E-Learning is scalable web application written in python (django).
-E-Learning was written with user experience in mind, so by design it’s an extremely
- good looking and well polished.
-
+E-Learning was designed to provide pleasant experience for users.
 # Installation
 Assuming you use virtualenv, follow these steps to download and run the
 e-learning application in this directory:
@@ -30,4 +28,6 @@ e-learning application in this directory:
 # Notes
 * This project uses third-party library tinymce (https://www.tinymce.com/) with own licence
     * Licence is located in static_files/js/tinymce
-
+* If you wish to use contact/registration features you will need to add settings_sensitive file in source
+*	You can find template for settings sensitive in source directory
+*	For more information visit (https://docs.djangoproject.com/ja/1.9/topics/email/)
