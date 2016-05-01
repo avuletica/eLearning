@@ -13,6 +13,7 @@ e-learning application in this directory:
     $ virtualenv venv
     $ source ./venv/bin/activate
     $ pip install -r requirements
+    $ python manage.py migrate
     $ python manage.py runserver
 
 * Initial data supports 3 types of users for testing purposes:
