@@ -167,8 +167,7 @@ def delete_user(request, username):
 
 @login_required
 def course_homepage(request, course_name):
-    course = Course.objects.filter(course_name=course_name)
-    chapter_list = Chapter.objects.filter(course=course)
+    chapter_list = Chapter.objects.filter(course__course_name=course_name)
 
     context = {
         "course_name": course_name,
@@ -177,7 +176,7 @@ def course_homepage(request, course_name):
 
     if chapter_list:
         return redirect(reverse(student_course, kwargs={'course_name': course_name,
-                                                        "chapter_name": chapter_list[0]}))
+                                                        "slug": chapter_list[0]}))
     else:
         warning_message = "Currently there are no chapters for this course "
         messages.warning(request, warning_message)
@@ -185,15 +184,14 @@ def course_homepage(request, course_name):
 
 
 @login_required
-def student_course(request, course_name, chapter_name):
+def student_course(request, course_name, slug):
     course = Course.objects.get(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
-    chapter = Chapter.objects.filter(chapter_name=chapter_name)
+    chapter = Chapter.objects.get(course__course_name=course_name, slug=slug)
     text = TextBlock.objects.filter(text_block_fk=chapter)
     videos = YTLink.objects.filter(yt_link_fk=chapter)
-    files = FileUpload.objects.filter(file_fk = chapter)
+    files = FileUpload.objects.filter(file_fk=chapter)
     user = request.user
-
 
     if user in course.students.all() or user.is_professor or user.is_site_admin or course.for_everybody:
         result_list = sorted(
@@ -203,9 +201,10 @@ def student_course(request, course_name, chapter_name):
         context = {
             "course_name": course_name,
             "chapter_list": chapter_list,
-            "chapter_name": chapter_name,
+            "chapter_name": chapter.chapter_name,
+            "slug": chapter.slug,
             "result_list": result_list,
-            "title": course_name + ' : ' + chapter_name,
+            "title": course_name + ' : ' + chapter.chapter_name,
         }
 
         return render(request, "users/student_courses.html", context)

@@ -57,7 +57,7 @@
               <td class="col-md-8">{{ instance.lesson|safe }}</td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'edit_txt' course_name chapter_id instance.id %}">
+                <a href="{% url 'edit_txt' course_name slug instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Edit Lesson'/>
                 </a>
                 <a href="{% url 'delete_txt' instance.id %}">
@@ -86,7 +86,7 @@
               <td class="col-md-8">{{ instance.link }}</td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'edit_link' course_name chapter_id instance.id %}">
+                <a href="{% url 'edit_link' course_name slug instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
                 </a>
                 <a href="{% url 'delete_link' instance.id %}">
@@ -119,7 +119,7 @@
               </td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'delete_file' course_name chapter_name instance.id %}">
+                <a href="{% url 'delete_file' instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Delete File'/>
                 </a>
               </td>

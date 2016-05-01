@@ -17,18 +17,20 @@ urlpatterns = [
     url(r'^professor/(?P<course_name>[\w ]+)/students/(?P<student_id>[\d ]+)/add/$',
         course_views.add_students, name='add_students'),
 
-    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/$', course_views.chapter, name='chapter'),
-    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_name>[\w ]+)/(?P<file_id>[\d ]+)/$', course_views.delete_file, name='delete_file'),
-    url(r'^professor/edit/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<slug>[\w-]+)/$', course_views.chapter, name='chapter'),
+    url(r'^professor/edit/(?P<course_name>[\w ]+)/(?P<slug>[\w-]+)/$',
         course_views.update_chapter, name='edit_chapter'),
-    url(r'^professor/delete/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/$',
+    url(r'^professor/file/delete/(?P<file_id>[\d ]+)/$',
+        course_views.delete_file, name='delete_file'),
+
+    url(r'^professor/delete/(?P<course_name>[\w ]+)/(?P<slug>[\w-]+)/$',
         course_views.delete_chapter, name='delete_chapter'),
 
-    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/txt/edit/(?P<txt_id>[\d ]+)/$',
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<slug>[\w-]+)/txt/edit/(?P<txt_id>[\d ]+)/$',
         course_views.update_text_block, name='edit_txt'),
-    url(r'^txt/delete/(?P<txt_id>[\d ]+)/$', course_views.delete_text_block, name='delete_txt'),
+    url(r'^professor/txt/delete/(?P<txt_id>[\d ]+)/$', course_views.delete_text_block, name='delete_txt'),
 
-    url(r'^professor/(?P<course_name>[\w ]+)/(?P<chapter_id>[\d ]+)/link/edit/(?P<yt_id>[\d ]+)/$',
+    url(r'^professor/(?P<course_name>[\w ]+)/(?P<slug>[\w-]+)/link/edit/(?P<yt_id>[\d ]+)/$',
         course_views.update_yt_link, name='edit_link'),
     url(r'^professor/link/delete/(?P<yt_id>[\d ]+)/$', course_views.delete_yt_link, name='delete_link'),
 

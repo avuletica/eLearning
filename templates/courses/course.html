@@ -37,10 +37,10 @@
                 <td class="col-md-8"><a href="{{ instance.get_absolute_url }}">{{ instance.chapter_name }}</a></td>
                 <td class="col-md-2">{{ instance.chapter_created_date }}</td>
                 <td class="col-md-2">
-                  <a href="{% url 'edit_chapter' instance.course instance.id %}">
+                  <a href="{% url 'edit_chapter' instance.course instance.slug %}">
                     <input class='btn btn-primary btn-sm' type='submit' value='Rename'/>
                   </a>
-                  <a href="{% url 'delete_chapter' instance.course instance.id%}">
+                  <a href="{% url 'delete_chapter' instance.course instance.slug%}">
                     <input class='btn btn-danger btn-sm' type='submit' value='Delete'/>
                   </a>
                 </td>
