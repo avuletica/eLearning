@@ -1,8 +1,12 @@
 from __future__ import unicode_literals
+import os
+import uuid
 
 from django.db import models
 from users.models import UserProfile
 from django.core.urlresolvers import reverse
+from django.dispatch import receiver
+from django.utils.translation import ugettext_lazy as _
 
 
 # Create your models here.
@@ -46,3 +50,10 @@ class FileUpload(models.Model):
     file = models.FileField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     file_fk = models.ForeignKey(Chapter, default=1)
+
+
+@receiver(models.signals.post_delete, sender=FileUpload)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
