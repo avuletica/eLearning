@@ -78,6 +78,10 @@ def chapter(request, course_name=None, chapter_name=None):
 
     if add_link_form.is_valid() and 'add_link' in request.POST:
         instance = add_link_form.save(commit=False)
+        key = add_link_form.cleaned_data.get("link")
+        if 'embed' not in key and 'youtube' in key:
+            key = key.split('=')[1]
+            instance.link = 'https://www.youtube.com/embed/' + key
         instance.yt_link_fk = Chapter.objects.get(id=place)
         instance.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
@@ -91,11 +95,11 @@ def chapter(request, course_name=None, chapter_name=None):
                                                    'chapter_name': chapter_name}))
 
     if file_upload_form.is_valid() and 'add_file' in request.POST:
-        instance = file_upload_form.save(commit=False)  
+        instance = file_upload_form.save(commit=False)
         instance.file_fk = Chapter.objects.get(id=place)
         instance.save()
         return redirect(reverse('chapter', kwargs={'course_name': course_name,
-                                                   'chapter_name': chapter_name})) 
+                                                   'chapter_name': chapter_name}))
 
     return render(request, "courses/chapter.html", context)
 
@@ -132,7 +136,7 @@ def delete_text_block(request, course_name=None, chapter_name=None, txt_id=None)
 def delete_file(request, course_name=None, chapter_name=None, file_id=None):
     instance = FileUpload.objects.get(id=file_id)
     instance.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda user: user.is_professor)
@@ -279,5 +283,3 @@ def remove_students(request, student_id, course_name=None):
     course = Course.objects.get(course_name=course_name)
     course.students.remove(student)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-    
