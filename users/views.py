@@ -192,10 +192,10 @@ def student_course(request, course_name, chapter_name):
     text = TextBlock.objects.filter(text_block_fk=chapter)
     videos = YTLink.objects.filter(yt_link_fk=chapter)
     files = FileUpload.objects.filter(file_fk = chapter)
-    r_user = request.user
+    user = request.user
 
 
-    if request.user in course.students.all() or r_user.is_professor or r_user.is_site_admin or course.for_everybody:
+    if user in course.students.all() or user.is_professor or user.is_site_admin or course.for_everybody:
         result_list = sorted(
             chain(text, videos, files),
             key=lambda instance: instance.date_created)
