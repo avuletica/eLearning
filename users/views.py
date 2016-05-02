@@ -169,14 +169,9 @@ def delete_user(request, username):
 def course_homepage(request, course_name):
     chapter_list = Chapter.objects.filter(course__course_name=course_name)
 
-    context = {
-        "course_name": course_name,
-        "chapter_list": chapter_list,
-    }
-
     if chapter_list:
         return redirect(reverse(student_course, kwargs={'course_name': course_name,
-                                                        "slug": chapter_list[0]}))
+                                                        "slug": chapter_list[0].slug}))
     else:
         warning_message = "Currently there are no chapters for this course "
         messages.warning(request, warning_message)
@@ -184,7 +179,7 @@ def course_homepage(request, course_name):
 
 
 @login_required
-def student_course(request, course_name, slug):
+def student_course(request, course_name, slug=None):
     course = Course.objects.get(course_name=course_name)
     chapter_list = Chapter.objects.filter(course=course)
     chapter = Chapter.objects.get(course__course_name=course_name, slug=slug)
