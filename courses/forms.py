@@ -48,7 +48,7 @@ class AddTxtForm(forms.ModelForm):
 class EditCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['course_name']
+        fields = ['course_name', 'for_everybody']
 
 
 class EditChapterForm(forms.ModelForm):
