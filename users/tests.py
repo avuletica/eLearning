@@ -2,10 +2,8 @@ from django.test import TestCase, RequestFactory
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from django.test import Client
-from django.contrib import auth
 
 from .models import UserProfile
-from courses.views import courses
 
 
 class UserProfileTestCase(TestCase):
