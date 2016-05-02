@@ -19,19 +19,19 @@
           {% endif %}
         </li>
 
-        {% url 'student_course' course_name chapter_name as student_course_url %}
+        {% url 'student_course' course_name slug as student_course_url %}
         {% if request.get_full_path ==  student_course_url %}
           <li><a href="{% url 'courses' %}">Courses</a></li>
         {% endif %}
 
-        {% url 'chapter' course_name chapter_name as chapter_url %}
+        {% url 'chapter' course_name slug as chapter_url %}
         {% if request.get_full_path ==  chapter_url %}
           <li><a href="{% url 'professor_course' course_name %}">{{ course_name }}</a></li>
         {% endif %}
 
-        {% url 'edit_txt' course_name chapter_id text_id as chapter_url %}
+        {% url 'edit_txt' course_name slug text_id as chapter_url %}
         {% if request.get_full_path ==  chapter_url %}
-          <li><a href="{% url 'chapter' course_name chapter_name %}">{{ course_name }}</a></li>
+          <li><a href="{% url 'chapter' course_name slug %}">{{ course_name }}</a></li>
         {% endif %}
 
         {% url 'edit_chapter' course_name chapter_id as chapter_url %}
@@ -39,9 +39,9 @@
           <li><a href="{% url 'professor_course' course_name %}">{{ course_name }}</a></li>
         {% endif %}
 
-        {% url 'edit_link' course_name chapter_id yt_id as chapter_url %}
+        {% url 'edit_link' course_name slug yt_id as chapter_url %}
         {% if request.get_full_path ==  chapter_url %}
-          <li><a href="{% url 'chapter' course_name chapter_name %}">{{ course_name }}</a></li>
+          <li><a href="{% url 'chapter' course_name slug %}">{{ course_name }}</a></li>
         {% endif %}
 
         <li class="active">&nbsp{{ title }}</li>

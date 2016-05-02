@@ -30,7 +30,16 @@
           <input class='btn btn-primary' type='submit' name="add_link" value='Add YouTube video link'/>
         </form>
       </div>
+
+      <div class="col-md-3">
+        <form method='POST' action='' enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ file_upload_form|crispy }}
+          <input class='btn btn-primary' type='submit' name="add_file" value='Add File'/>
+        </form>
+      </div>
     </div>
+  
 
     <!-- Chapter text row -->
     <div class="row">
@@ -48,11 +57,11 @@
               <td class="col-md-8">{{ instance.lesson|safe }}</td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'edit_txt' course_name chapter_id instance.id %}">
-                  <input class='btn btn-primary btn-sm' type='submit' value='Edit'/>
+                <a href="{% url 'edit_txt' course_name slug instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Edit Lesson'/>
                 </a>
                 <a href="{% url 'delete_txt' instance.id %}">
-                  <input class='btn btn-primary btn-sm' type='submit' value='Delete'/>
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete Lesson'/>
                 </a>
               </td>
             </tr>
@@ -77,11 +86,41 @@
               <td class="col-md-8">{{ instance.link }}</td>
               <td class="col-md-2">{{ instance.date_created }}</td>
               <td class="col-md-2">
-                <a href="{% url 'edit_link' course_name chapter_id instance.id %}">
+                <a href="{% url 'edit_link' course_name slug instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Edit Link'/>
                 </a>
                 <a href="{% url 'delete_link' instance.id %}">
                   <input class='btn btn-primary btn-sm' type='submit' value='Delete Link'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </div>
+  
+
+
+    <!-- File row -->
+    <div class="row">
+      {% if queryset_files %}
+        <table class="table table-bordered generic-table scroll_table">
+          <thead>
+          <tr>
+            <th>File</th>
+            <th>Date created</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          {% for instance in queryset_files %}
+            <tr>
+              <td class="col-md-8">
+              <a href='{{ instance.file.url }}'>{{ instance.file }}</a>
+              </td>
+              <td class="col-md-2">{{ instance.date_created }}</td>
+              <td class="col-md-2">
+                <a href="{% url 'delete_file' instance.id %}">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete File'/>
                 </a>
               </td>
             </tr>

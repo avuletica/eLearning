@@ -13,7 +13,7 @@
           <ul class="sidebar-nav">
             <li>
               {% for instance in chapter_list %}
-                <a class="a-target" href="{% url 'courses' %}{{ course_name }}/{{ instance.chapter_name }}">
+                <a class="a-target" href="{% url 'courses' %}{{ course_name }}/{{ instance.slug }}">
                   {{ instance.chapter_name }}
                 </a>
               {% endfor %}
@@ -30,9 +30,13 @@
               <div class="course-inner-content video">
                 <iframe width="640" height="360" src="{{ item.link }}" frameborder="0" allowfullscreen></iframe>
               </div>
-            {% else %}
+            {% elif item.lesson %}
               <div class="course-inner-content">
                 {{ item.lesson|safe }}
+              </div>
+            {% else %}
+              <div class="course-inner-content">
+                <a href='{{ item.file.url }}'>{{ item.file }}</a>
               </div>
             {% endif %}
           {% endfor %}
