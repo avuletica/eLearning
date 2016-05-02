@@ -24,17 +24,13 @@ def course(request, course_name=None):
     add_chapter_form = AddChapterForm(request.POST or None)
     queryset_chapter = Chapter.objects.filter(course__course_name=course_name)
 
-    path = request.path.split('/')[1]
-    redirect_path = path
-    path = path.title()
-
     context = {
         "title": course_name,
         "add_chapter_form": add_chapter_form,
         "queryset_chapter": queryset_chapter,
         "course_name": course_name,
-        "path": path,
-        "redirect_path": redirect_path,
+        "path": "Profile",
+        "redirect_path": "profile",
     }
 
     if add_chapter_form.is_valid():
@@ -58,10 +54,6 @@ def chapter(request, course_name=None, slug=None):
     queryset_yt_link = YTLink.objects.filter(yt_link_fk__id=place.id)
     queryset_files = FileUpload.objects.filter(file_fk__id=place.id)
 
-    path = request.path.split('/')[1]
-    redirect_path = path
-    path = path.title()
-
     context = {
         "title": place.chapter_name,
         "course_name": course_name,
@@ -71,8 +63,8 @@ def chapter(request, course_name=None, slug=None):
         "queryset_yt_link": queryset_yt_link,
         "queryset_txt_block": queryset_txt_block,
         "queryset_files": queryset_files,
-        "path": path,
-        "redirect_path": redirect_path,
+        "path": "Profile",
+        "redirect_path": "profile",
         "file_upload_form": file_upload_form,
     }
 
@@ -201,6 +193,8 @@ def update_yt_link(request, course_name=None, slug=None, yt_id=None):
         "yt_id": yt_id,
         "slug": slug,
         "form": update_link_form,
+        "path": "Profile",
+        "redirect_path": "profile",
     }
 
     if update_link_form.is_valid():
@@ -216,18 +210,14 @@ def update_text_block(request, course_name=None, slug=None, txt_id=None):
     instance = TextBlock.objects.get(id=txt_id)
     update_txt_form = EditTxtForm(request.POST or None, instance=instance)
 
-    path = request.path.split('/')[1]
-    redirect_path = path
-    path = path.title()
-
     context = {
         "title": "Edit",
         "course_name": course_name,
         "text_id": txt_id,
         "form": update_txt_form,
         "slug": slug,
-        "path": path,
-        "redirect_path": redirect_path,
+        "path": "Profile",
+        "redirect_path": "profile",
     }
 
     if update_txt_form.is_valid():

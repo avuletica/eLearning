@@ -14,7 +14,7 @@
         {% for instance in queryset %}
           <div class="col-md-4 course-box-model">
 
-            <a href="{% url 'courses' %}{{ instance.course_name }}  ">
+            <a href="{% url 'course_homepage' instance.course_name %} ">
               <div class="inner-wrap">
                 <div class="inner-top">
                   {{ instance.course_name }}

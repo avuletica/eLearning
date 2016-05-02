@@ -13,7 +13,7 @@
           <ul class="sidebar-nav">
             <li>
               {% for instance in chapter_list %}
-                <a class="a-target" href="{% url 'courses' %}{{ course_name }}/{{ instance.slug }}">
+                <a class="a-target" href="{% url 'student_course' course_name instance.slug %}">
                   {{ instance.chapter_name }}
                 </a>
               {% endfor %}
@@ -27,9 +27,15 @@
         {% if result_list %}
           {% for item in result_list %}
             {% if item.link %}
-              <div class="course-inner-content video">
-                <iframe width="640" height="360" src="{{ item.link }}" frameborder="0" allowfullscreen></iframe>
-              </div>
+              {% if 'youtube.com' in item.link %}
+                <div class="course-inner-content video">
+                  <iframe width="640" height="360" src="{{ item.link }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              {% else %}
+                <div class="course-inner-content">
+                {{ item.link|safe }}
+                </div>
+                {% endif %}
             {% elif item.lesson %}
               <div class="course-inner-content">
                 {{ item.lesson|safe }}

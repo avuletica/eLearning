@@ -1,12 +1,10 @@
 from __future__ import unicode_literals
 import os
-import uuid
 
 from django.db import models
 from users.models import UserProfile
 from django.core.urlresolvers import reverse
 from django.db.models.signals import pre_save
-
 from django.utils.text import slugify
 from django.dispatch import receiver
 
@@ -27,7 +25,7 @@ class Chapter(models.Model):
     chapter_name = models.CharField(max_length=20)
     chapter_created_date = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
-    slug = models.SlugField(unique=True, default='')
+    slug = models.SlugField(unique=True)
 
     def __unicode__(self):
         return self.chapter_name
@@ -36,8 +34,12 @@ class Chapter(models.Model):
         return reverse("chapter", kwargs={"course_name": self.course,
                                           "slug": self.slug})
 
+    def slug_default(self):
+        slug = create_slug(new_slug=self.chapter_name)
+        return slug
 
-def create_slug(instance, new_slug=None):
+
+def create_slug(instance=None, new_slug=None):
     slug = slugify(instance.chapter_name)
 
     if new_slug is not None:
